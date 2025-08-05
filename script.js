@@ -11,7 +11,7 @@ const map = new mapboxgl.Map({
 map.on('load', () => {
   map.addSource('glamis-points', {
     type: 'vector',
-    url: 'mapbox://aeveland.9f86lh98'
+    url: 'mapbox://aeveland.dhg6g95p'
   });
 
   map.loadImage('./pin.png', (error, image) => {
