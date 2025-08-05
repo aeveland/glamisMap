@@ -22,7 +22,7 @@
 <div id="editor">
   <h2>Waypoints</h2>
   <div id="waypoints-list"></div>
-  <button onclick="downloadGeoJSON()">Download Edited GeoJSON</button>
+  <button id="downloadBtn">Download Edited GeoJSON</button>
 </div>
 
 <script>
@@ -54,16 +54,15 @@
       }
     });
 
-    // Query all rendered features in the viewport for editing
-    const tilesetURL = 'https://api.mapbox.com/v4/aeveland.9f86lh98/features.json?access_token=' + mapboxgl.accessToken;
-    fetch(tilesetURL)
-      .then(response => response.json())
+    // Simulate fetching features for now
+    fetch('https://api.mapbox.com/v4/aeveland.9f86lh98/features.json?access_token=' + mapboxgl.accessToken)
+      .then(r => r.json())
       .then(data => {
         waypointData = data.features.map((f, i) => ({ ...f, id: i }));
         renderEditor();
       })
-      .catch(err => {
-        document.getElementById('waypoints-list').innerHTML = '<p style="color:red;">Failed to load features. Mapbox Tilesets API does not support reading this way.</p>';
+      .catch(() => {
+        document.getElementById('waypoints-list').innerHTML = '<p style="color:red;">Feature loading is limited via Tilesets API. Paste in GeoJSON manually or integrate a backend to support live editing.</p>';
       });
   });
 
@@ -78,13 +77,20 @@
       const name = feature.properties.name || '';
       const desc = feature.properties.desc || '';
 
-      div.innerHTML = \`
-        <label>Name:</label>
-        <input type="text" value="\${name}" onchange="updateField(\${index}, 'name', this.value)" />
-        <label>Description:</label>
-        <textarea rows="3" onchange="updateField(\${index}, 'desc', this.value)">\${desc}</textarea>
-      \`;
+      const nameInput = document.createElement('input');
+      nameInput.type = 'text';
+      nameInput.value = name;
+      nameInput.placeholder = 'Name';
+      nameInput.onchange = (e) => updateField(index, 'name', e.target.value);
 
+      const descInput = document.createElement('textarea');
+      descInput.rows = 3;
+      descInput.placeholder = 'Description';
+      descInput.value = desc;
+      descInput.onchange = (e) => updateField(index, 'desc', e.target.value);
+
+      div.appendChild(nameInput);
+      div.appendChild(descInput);
       container.appendChild(div);
     });
   }
@@ -101,7 +107,9 @@
     link.download = 'waypoints-edited.geojson';
     link.click();
     URL.revokeObjectURL(url);
-  }
+  };
+
+  document.getElementById('downloadBtn').onclick = window.downloadGeoJSON;
 </script>
 </body>
 </html>
