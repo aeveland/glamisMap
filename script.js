@@ -35,9 +35,9 @@ map.on('load', () => {
       const coords = e.features[0].geometry.coordinates.slice();
       const props = e.features[0].properties;
 
-      const imageTag = props.image_url ? <img src="${props.image_url}" alt="" style="width:100%;border-radius:8px;margin-bottom:8px;" /> : '';
+      const imageTag = props.image_url ? `<img src="${props.image_url}" alt="" style="width:100%;border-radius:8px;margin-bottom:8px;" />` : '';
 
-      const popupHTML = 
+      const popupHTML = `
         <sl-card style="width: 240px; padding: 0;">
           ${imageTag}
           <div style="padding: 12px;">
@@ -45,7 +45,7 @@ map.on('load', () => {
             <p style="margin: 0; font-size: 0.875rem;">${props.desc || 'No info available'}</p>
           </div>
         </sl-card>
-      ;
+      `;
 
       new mapboxgl.Popup({ offset: 15 })
         .setLngLat(coords)
