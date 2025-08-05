@@ -3,31 +3,45 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Waypoint Admin Editor</title>
+  <title>Editable Waypoints Map</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
   <style>
-    body { font-family: sans-serif; margin: 0; display: flex; flex-direction: column; height: 100vh; }
-    #map { height: 40vh; }
-    #editor { flex: 1; overflow-y: auto; padding: 10px; }
-    .waypoint { border: 1px solid #ccc; margin-bottom: 10px; padding: 10px; border-radius: 6px; }
-    input[type=text], textarea { width: 100%; box-sizing: border-box; margin-bottom: 5px; }
-    button { margin-top: 10px; }
+    body { margin: 0; display: flex; height: 100vh; font-family: sans-serif; }
+    #map { flex: 2; }
+    #sidebar {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      border-left: 1px solid #ccc;
+      background: #f9f9f9;
+    }
+    .waypoint {
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      background: white;
+    }
+    .waypoint h4 { margin: 0 0 5px 0; }
+    input, textarea {
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 5px;
+    }
   </style>
 </head>
 <body>
 
 <div id="map"></div>
-<div id="editor">
+<div id="sidebar">
   <h2>Waypoints</h2>
-  <div id="waypoints-list"></div>
-  <button id="downloadBtn">Download Edited GeoJSON</button>
+  <div id="editor"></div>
 </div>
 
 <script>
   mapboxgl.accessToken = 'pk.eyJ1IjoiYWV2ZWxhbmQiLCJhIjoiY2o4b3IzeGF5MDcyZzMzcnNqcTR5bXd4OCJ9.5FnPH3C-4gGgjSLaluFA8Q';
-
   const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v12',
@@ -35,81 +49,72 @@
     zoom: 10
   });
 
-  let waypointData = [];
+  let geojsonData = {
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        geometry: { type: "Point", coordinates: [-115.0, 33.0] },
+        properties: { name: "China Wall", desc: "Famous tall dune" }
+      },
+      {
+        type: "Feature",
+        geometry: { type: "Point", coordinates: [-115.1, 33.05] },
+        properties: { name: "Vendor Row", desc: "Main supply and food area" }
+      }
+    ]
+  };
 
   map.on('load', () => {
-    map.addSource('waypoints', {
-      type: 'vector',
-      url: 'mapbox://aeveland.9f86lh98'
+    map.addSource('editable', {
+      type: 'geojson',
+      data: geojsonData
     });
 
     map.addLayer({
-      id: 'waypoint-layer',
-      type: 'circle',
-      source: 'waypoints',
-      'source-layer': 'waypoints',
-      paint: {
-        'circle-radius': 5,
-        'circle-color': '#FF0000'
+      id: 'editable-pins',
+      type: 'symbol',
+      source: 'editable',
+      layout: {
+        'icon-image': 'marker-15',
+        'icon-size': 1.5,
+        'text-field': ['get', 'name'],
+        'text-offset': [0, 1.2],
+        'text-anchor': 'top'
       }
     });
 
-    // Simulate fetching features for now
-    fetch('https://api.mapbox.com/v4/aeveland.9f86lh98/features.json?access_token=' + mapboxgl.accessToken)
-      .then(r => r.json())
-      .then(data => {
-        waypointData = data.features.map((f, i) => ({ ...f, id: i }));
-        renderEditor();
-      })
-      .catch(() => {
-        document.getElementById('waypoints-list').innerHTML = '<p style="color:red;">Feature loading is limited via Tilesets API. Paste in GeoJSON manually or integrate a backend to support live editing.</p>';
-      });
+    renderEditor();
   });
 
   function renderEditor() {
-    const container = document.getElementById('waypoints-list');
+    const container = document.getElementById('editor');
     container.innerHTML = '';
 
-    waypointData.forEach((feature, index) => {
+    geojsonData.features.forEach((feature, index) => {
       const div = document.createElement('div');
       div.className = 'waypoint';
 
-      const name = feature.properties.name || '';
-      const desc = feature.properties.desc || '';
-
       const nameInput = document.createElement('input');
       nameInput.type = 'text';
-      nameInput.value = name;
-      nameInput.placeholder = 'Name';
-      nameInput.onchange = (e) => updateField(index, 'name', e.target.value);
+      nameInput.value = feature.properties.name;
+      nameInput.oninput = () => {
+        feature.properties.name = nameInput.value;
+        map.getSource('editable').setData(geojsonData);
+      };
 
       const descInput = document.createElement('textarea');
-      descInput.rows = 3;
-      descInput.placeholder = 'Description';
-      descInput.value = desc;
-      descInput.onchange = (e) => updateField(index, 'desc', e.target.value);
+      descInput.value = feature.properties.desc;
+      descInput.oninput = () => {
+        feature.properties.desc = descInput.value;
+      };
 
       div.appendChild(nameInput);
       div.appendChild(descInput);
       container.appendChild(div);
     });
   }
-
-  function updateField(index, field, value) {
-    waypointData[index].properties[field] = value;
-  }
-
-  window.downloadGeoJSON = function () {
-    const blob = new Blob([JSON.stringify({ type: 'FeatureCollection', features: waypointData }, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'waypoints-edited.geojson';
-    link.click();
-    URL.revokeObjectURL(url);
-  };
-
-  document.getElementById('downloadBtn').onclick = window.downloadGeoJSON;
 </script>
+
 </body>
 </html>
