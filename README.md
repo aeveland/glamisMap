@@ -33,6 +33,7 @@ glamisMap/
 - Add search and filtering
 - Upload edited GeoJSON back to server or cloud storage
 - Mobile touch optimizations
+- Image attachments for each landmark
 
 ## 🚀 Hosting
 This site is hosted via GitHub Pages. You can fork it and publish your own version easily.
