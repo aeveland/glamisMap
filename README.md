@@ -4,7 +4,7 @@ An interactive map of Glamis, California, featuring notable points of interest l
 
 ## 🌍 Live Map
 
-[Visit the map](https://aevleand.github.io/glamisMap/)
+[Visit the map](https://aeveland.github.io/glamisMap/)
 
 ## 🗺️ Features
 
