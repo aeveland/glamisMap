@@ -1,3 +1,4 @@
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWV2ZWxhbmQiLCJhIjoiY2o4b3IzeGF5MDcyZzMzcnNqcTR5bXd4OCJ9.5FnPH3C-4gGgjSLaluFA8Q';
 
 const map = new mapboxgl.Map({
@@ -19,12 +20,11 @@ map.on('load', () => {
       map.addImage('custom-pin', image);
     }
 
-    // Now safe to add the layer after image is ready
     map.addLayer({
       id: 'glamis-points-layer',
       type: 'symbol',
       source: 'glamis-points',
-      'source-layer': 'glamis_map',  // keep this as-is
+      'source-layer': 'waypoints',
       layout: {
         'icon-image': 'custom-pin',
         'icon-size': 0.5,
@@ -32,7 +32,6 @@ map.on('load', () => {
       }
     });
 
-    // Add popup logic here too
     map.on('click', 'glamis-points-layer', (e) => {
       const coords = e.features[0].geometry.coordinates.slice();
       const props = e.features[0].properties;
