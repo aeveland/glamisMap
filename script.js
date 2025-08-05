@@ -1,4 +1,3 @@
-
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWV2ZWxhbmQiLCJhIjoiY2o4b3IzeGF5MDcyZzMzcnNqcTR5bXd4OCJ9.5FnPH3C-4gGgjSLaluFA8Q';
 
 const map = new mapboxgl.Map({
@@ -20,38 +19,40 @@ map.on('load', () => {
       map.addImage('custom-pin', image);
     }
 
+    // Now safe to add the layer after image is ready
     map.addLayer({
       id: 'glamis-points-layer',
       type: 'symbol',
       source: 'glamis-points',
-      'source-layer': 'glamis_map',  // Replace with actual layer name if needed
+      'source-layer': 'glamis_map',  // keep this as-is
       layout: {
         'icon-image': 'custom-pin',
         'icon-size': 0.5,
         'icon-allow-overlap': true
       }
     });
-  });
 
-  map.on('click', 'glamis-points-layer', (e) => {
-    const coords = e.features[0].geometry.coordinates.slice();
-    const props = e.features[0].properties;
+    // Add popup logic here too
+    map.on('click', 'glamis-points-layer', (e) => {
+      const coords = e.features[0].geometry.coordinates.slice();
+      const props = e.features[0].properties;
 
-    const imageTag = props.image_url ? `<img src="${props.image_url}" alt="" style="width:100%;border-radius:8px;margin-bottom:8px;" />` : '';
+      const imageTag = props.image_url ? `<img src="${props.image_url}" alt="" style="width:100%;border-radius:8px;margin-bottom:8px;" />` : '';
 
-    const popupHTML = `
-      <sl-card style="width: 240px; padding: 0;">
-        ${imageTag}
-        <div style="padding: 12px;">
-          <h3 style="margin: 0 0 6px 0; font-size: 1rem;">${props.name || 'Unnamed'}</h3>
-          <p style="margin: 0; font-size: 0.875rem;">${props.desc || ''}</p>
-        </div>
-      </sl-card>
-    `;
+      const popupHTML = `
+        <sl-card style="width: 240px; padding: 0;">
+          ${imageTag}
+          <div style="padding: 12px;">
+            <h3 style="margin: 0 0 6px 0; font-size: 1rem;">${props.name || 'Unnamed'}</h3>
+            <p style="margin: 0; font-size: 0.875rem;">${props.desc || ''}</p>
+          </div>
+        </sl-card>
+      `;
 
-    new mapboxgl.Popup({ offset: 15 })
-      .setLngLat(coords)
-      .setHTML(popupHTML)
-      .addTo(map);
+      new mapboxgl.Popup({ offset: 15 })
+        .setLngLat(coords)
+        .setHTML(popupHTML)
+        .addTo(map);
+    });
   });
 });
