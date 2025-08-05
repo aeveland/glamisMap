@@ -22,7 +22,7 @@ glamisMap/
 
 ## 📦 Tools Used
 - Mapbox GL JS
-- [GeoJSON for spatial data](./glamis.geojson)
+- [GeoJSON for spatial data](.data/POI.gpx)
 - Vanilla JavaScript
 - Shoelace UI Library
 
