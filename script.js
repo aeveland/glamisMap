@@ -3,7 +3,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiYWV2ZWxhbmQiLCJhIjoiY2o4b3IzeGF5MDcyZzMzcnNqc
 
 const map = new mapboxgl.Map({
   container: 'map',
-  style: 'mapbox://styles/mapbox/outdoors-v12',
+  style: 'mapbox://styles/mapbox/satellite-streets-v12',
   center: [-115.0, 33.0],
   zoom: 11
 });
@@ -27,7 +27,7 @@ map.on('load', () => {
       'source-layer': 'waypoints',
       layout: {
         'icon-image': 'custom-pin',
-        'icon-size': 0.5,
+        'icon-size': 0.3,
         'icon-allow-overlap': true
       }
     });
@@ -43,7 +43,7 @@ map.on('load', () => {
           ${imageTag}
           <div style="padding: 12px;">
             <h3 style="margin: 0 0 6px 0; font-size: 1rem;">${props.name || 'Unnamed'}</h3>
-            <p style="margin: 0; font-size: 0.875rem;">${props.desc || ''}</p>
+            <p style="margin: 0; font-size: 0.875rem;">${props.desc || 'No info available'}</p>
           </div>
         </sl-card>
       `;
