@@ -30,9 +30,9 @@ glamisMap/
 - Add custom markers for individual locations
 - Hover and click to reveal names of landmarks
 - Optimized for web and mobile browsers
+- Map tools
 - Add search and filtering
 - Upload edited GeoJSON back to server or cloud storage
-- Mobile touch optimizations
 - Image attachments for each landmark
 
 ## 🚀 Hosting
