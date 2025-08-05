@@ -93,7 +93,7 @@
     waypointData[index].properties[field] = value;
   }
 
-  function downloadGeoJSON() {
+  window.downloadGeoJSON = function () {
     const blob = new Blob([JSON.stringify({ type: 'FeatureCollection', features: waypointData }, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
