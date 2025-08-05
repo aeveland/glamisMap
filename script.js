@@ -27,7 +27,7 @@ map.on('load', () => {
       'source-layer': 'waypoints',
       layout: {
         'icon-image': 'custom-pin',
-        'icon-size': 0.1,
+        'icon-size': 0.3,
         'icon-allow-overlap': true
       }
     });
