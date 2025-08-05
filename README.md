@@ -3,7 +3,7 @@
 An interactive map of Glamis, California, featuring notable points of interest like China Wall, Vendor Row, and more. Built with Mapbox and hosted on GitHub Pages.
 
 ## 🌍 Live Map
-Visit the map
+**[View Live Map](https://aeveland.github.io/glamisMap/)**
 
 ## 🗺️ Features
 - Interactive Mapbox map
