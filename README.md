@@ -12,12 +12,15 @@ An interactive map of Glamis, California, featuring notable points of interest l
 ## 📁 Project Structure
 ```
 glamisMap/
-├── index.html           # Main interactive map
-├── style.css            # Map styles and UI
-├── map.js               # Map initialization and marker logic
+├── index.html         # Main interactive map
+├── script.js          # Map initialization and interaction logic
+├── style.css          # Styles for the map and UI
+├── LICENSE            # Legal restrictions and ownership info
+├── README.md          # Project description and usage
 ├── data/
-│   └── glamis.geojson   # Waypoint data
-├── images/              # Marker icons, etc.
+│   └── POI.gpx        # Waypoint data in GPX format
+├── images/            # Marker icons and other assets
+│   └── pin.png        # Waypoint pin image
 ```
 
 ## 📦 Tools Used
