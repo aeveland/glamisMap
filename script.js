@@ -13,7 +13,7 @@ map.on('load', () => {
     url: 'mapbox://aeveland.dhg6g95p'
   });
 
-  map.loadImage('./pin.png', (error, image) => {
+  map.loadImage('./images/pin.png', (error, image) => {
     if (error) throw error;
     if (!map.hasImage('custom-pin')) {
       map.addImage('custom-pin', image);
