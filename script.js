@@ -60,17 +60,25 @@ map.on('load', () => {
 
       
 
-        const popupHTML = `
+        
+        const images = props.images ? props.images.split(',') : [];
+        const imageRow = images.map(url => \`<img src="\${url.trim()}" class="popup-image-thumb" />\`).join('');
+        const imageHTML = images.length > 0 ? \`<div class="popup-image-row">\${imageRow}</div>\` : '';
+
+        const popupHTML = \`
           <div class="glass-popup">
             <div class="glass-close-button" onclick="this.parentElement.parentElement.remove()">×</div>
-            <div class="glass-title">${props.name}</div>
+            <div class="glass-title">\${props.name}</div>
+            \${imageHTML}
             <div class="glass-subtitle">Elevation</div>
-            <div class="glass-body">${props.elevation || 'Unknown'} ft above sea level</div>
+            <div class="glass-body">\${props.elevation || 'Unknown'} ft above sea level</div>
             <div class="glass-subtitle">Description</div>
-            <div class="glass-body">${props.desc || 'No description available.'}</div>
+            <div class="glass-body">\${props.desc || 'No description available.'}</div>
           </div>
-        `;
+        \`;
+
         popup.setLngLat(coords).setHTML(popupHTML).addTo(map);
+
 
     });
   });
