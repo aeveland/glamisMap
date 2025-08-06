@@ -32,15 +32,19 @@ map.on('load', () => {
         type: 'symbol',
         source: 'glamis-points',
         'source-layer': 'waypoints',
-        layout: {
-          'icon-image': ['case',
-            ['==', ['get', 'selected'], true], 'pin-selected',
-            'pin-default'
-          ],
-          'icon-size': 0.7,
-          'icon-allow-overlap': true
-        }
-      });
+    layout: {
+  'icon-image': ['case',
+    ['==', ['feature-state', 'selected'], true], 'pin-selected',
+    'pin-default'
+  ],
+  'icon-size': 0.3,
+  'icon-allow-overlap': true,
+  'text-field': ['get', 'name'],
+  'text-size': 12,
+  'text-offset': [0, 1.5],
+  'text-anchor': 'top',
+  'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold']
+}
 
       let selectedId = null;
 
