@@ -9,6 +9,12 @@ An interactive map of Glamis, California, featuring notable points of interest l
 - Interactive Mapbox map
 - Satellite imagery by default
 
+## 🆕 What's New
+- **August 6, 2025** — Added map labels for each location
+- **August 4, 2025** — Replaced old GPX data with updated descriptions
+- **August 3, 2025** — Created custom popup cards using Shoelace UI
+
+
 ## 📁 Project Structure
 ```
 glamisMap/
