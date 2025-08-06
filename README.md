@@ -11,6 +11,11 @@ An interactive map of Glamis, California, featuring notable points of interest l
 
 ## 🆕 What's New
 - **August 6, 2025** — Added updated default location symbol
+- **August 6, 2025** — Added updated default location symbol
+- **August 6, 2025** — Styled popups to display titles and descriptions more cleanly
+- **August 6, 2025** — Confirmed GitHub-hosted images work for popup displays
+- **August 6, 2025** — Replaced dummy elevation data with actual elevation values for all GPX points
+- **August 6, 2025** — Added updated default location symbol
 - **August 6, 2025** — Added map labels for each location
 - **August 4, 2025** — Replaced old GPX data with updated descriptions
 - **August 3, 2025** — Created custom popup cards using Shoelace UI
@@ -28,6 +33,9 @@ glamisMap/
 │   └── POI.gpx        # Waypoint data in GPX format
 ├── images/            # Marker icons and other assets
 │   └── pin.png        # Waypoint pin image
+├── popupImages/       # Directory for popup images
+│   └── IMG_3058.jpeg  # Test image 1 China Wall
+│   └── IMG_3065.jpeg  # Test image 2 China Wall
 ```
 
 ## 📦 Tools Used
