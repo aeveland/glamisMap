@@ -10,8 +10,6 @@ An interactive map of Glamis, California, featuring notable points of interest l
 - Satellite imagery by default
 
 ## 🆕 What's New
-- **August 6, 2025** — Added updated default location symbol
-- **August 6, 2025** — Added updated default location symbol
 - **August 6, 2025** — Styled popups to display titles and descriptions more cleanly
 - **August 6, 2025** — Confirmed GitHub-hosted images work for popup displays
 - **August 6, 2025** — Replaced dummy elevation data with actual elevation values for all GPX points
