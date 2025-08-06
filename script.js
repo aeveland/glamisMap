@@ -18,7 +18,7 @@ const popup = new mapboxgl.Popup({
 map.on('load', () => {
   map.addSource('glamis-points', {
     type: 'vector',
-    url: 'mapbox://aeveland.4riwislh'
+    url: 'mapbox://aeveland.0agz43gz'
   });
 
   map.loadImage('./images/default.png', (error, image) => {
