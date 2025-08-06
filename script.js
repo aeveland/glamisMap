@@ -31,6 +31,26 @@ map.on('load', () => {
       }
     });
 
+    map.addLayer({
+  id: 'glamis-labels-layer',
+  type: 'symbol',
+  source: 'glamis-points',
+  'source-layer': 'waypoints',
+  layout: {
+    'text-field': ['get', 'name'],
+    'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+    'text-size': 12,
+    'text-offset': [0, 1.2],
+    'text-anchor': 'top',
+    'text-allow-overlap': false
+  },
+  paint: {
+    'text-color': '#fff',
+    'text-halo-color': '#000',
+    'text-halo-width': 1.2
+  }
+});
+
     map.on('click', 'glamis-points-layer', (e) => {
       const coords = e.features[0].geometry.coordinates.slice();
       const props = e.features[0].properties;
