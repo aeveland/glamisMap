@@ -7,7 +7,7 @@ const map = new mapboxgl.Map({
   zoom: 11
 });
 
-const popup = new mapboxgl.Popup({ offset: 15, closeButton: false, closeOnClick: false });
+const popup = new mapboxgl.Popup({ offset: 25, anchor: 'bottom', closeButton: false, closeOnClick: false });
 map.on('load', () => {
   map.addSource('glamis-points', {
     type: 'vector',
