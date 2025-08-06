@@ -186,3 +186,16 @@ body {
   line-height: 1.5;
   color: #111;
 }
+
+
+/* Replace pointer from bottom to top */
+.glass-popup::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 40px;
+  border-width: 0 10px 10px 10px;
+  border-style: solid;
+  border-color: transparent transparent rgba(245, 245, 245, 0.25) transparent;
+  filter: blur(1px);
+}
