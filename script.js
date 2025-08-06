@@ -1,3 +1,4 @@
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWV2ZWxhbmQiLCJhIjoiY2o4b3IzeGF5MDcyZzMzcnNqcTR5bXd4OCJ9.5FnPH3C-4gGgjSLaluFA8Q';
 
 const map = new mapboxgl.Map({
@@ -7,7 +8,13 @@ const map = new mapboxgl.Map({
   zoom: 11
 });
 
-const popup = new mapboxgl.Popup({ offset: 25, anchor: 'bottom', closeButton: false, closeOnClick: false });
+const popup = new mapboxgl.Popup({
+  offset: 25,
+  anchor: 'bottom',
+  closeButton: false,
+  closeOnClick: false
+});
+
 map.on('load', () => {
   map.addSource('glamis-points', {
     type: 'vector',
@@ -33,53 +40,46 @@ map.on('load', () => {
     });
 
     map.addLayer({
-  id: 'glamis-labels-layer',
-  type: 'symbol',
-  source: 'glamis-points',
-  'source-layer': 'waypoints',
-  layout: {
-    'text-field': ['get', 'name'],
-    'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
-    'text-size': 12,
-    'text-offset': [0, 1.2],
-    'text-anchor': 'top',
-    'text-allow-overlap': false
-  },
-  paint: {
-    'text-color': '#fff',
-    'text-halo-color': '#000',
-    'text-halo-width': 1.2
-  }
-});
+      id: 'glamis-labels-layer',
+      type: 'symbol',
+      source: 'glamis-points',
+      'source-layer': 'waypoints',
+      layout: {
+        'text-field': ['get', 'name'],
+        'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+        'text-size': 12,
+        'text-offset': [0, 1.2],
+        'text-anchor': 'top',
+        'text-allow-overlap': false
+      },
+      paint: {
+        'text-color': '#fff',
+        'text-halo-color': '#000',
+        'text-halo-width': 1.2
+      }
+    });
 
     map.on('click', 'glamis-points-layer', (e) => {
       const coords = e.features[0].geometry.coordinates.slice();
       const props = e.features[0].properties;
 
-      const imageTag = props.image_url ? `<img src="${props.image_url}" alt="" style="width:100%;border-radius:8px;margin-bottom:8px;" />` : '';
+      const images = props.images ? props.images.split(',') : [];
+      const imageRow = images.map(url => `<img src="${url.trim()}" class="popup-image-thumb" />`).join('');
+      const imageHTML = images.length > 0 ? `<div class="popup-image-row">${imageRow}</div>` : '';
 
-      
+      const popupHTML = `
+        <div class="glass-popup">
+          <div class="glass-close-button" onclick="this.parentElement.parentElement.remove()">×</div>
+          <div class="glass-title">${props.name}</div>
+          ${imageHTML}
+          <div class="glass-subtitle">Elevation</div>
+          <div class="glass-body">${props.elevation || 'Unknown'} ft above sea level</div>
+          <div class="glass-subtitle">Description</div>
+          <div class="glass-body">${props.desc || 'No description available.'}</div>
+        </div>
+      `;
 
-        
-        const images = props.images ? props.images.split(',') : [];
-        const imageRow = images.map(url => `<img src="${}url.trim()}" class="popup-image-thumb" />`).join('');
-        const imageHTML = images.length > 0 ? `<div class="popup-image-row">${}imageRow}</div>` : '';
-
-        const popupHTML = `
-          <div class="glass-popup">
-            <div class="glass-close-button" onclick="this.parentElement.parentElement.remove()">×</div>
-            <div class="glass-title">${}props.name}</div>
-            ${}imageHTML}
-            <div class="glass-subtitle">Elevation</div>
-            <div class="glass-body">${}props.elevation || 'Unknown'} ft above sea level</div>
-            <div class="glass-subtitle">Description</div>
-            <div class="glass-body">${}props.desc || 'No description available.'}</div>
-          </div>
-        `;
-
-        popup.setLngLat(coords).setHTML(popupHTML).addTo(map);
-
-
+      popup.setLngLat(coords).setHTML(popupHTML).addTo(map);
     });
   });
 });
