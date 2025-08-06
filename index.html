@@ -1,27 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Glamis Map - Mobile</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+<meta charset="utf-8" />
+<title>Glamis Map</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+
+<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/dist/shoelace.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/dist/themes/light.css" />
+
 </head>
 <body>
-  <div id="map"></div>
-  <div id="info-panel" class="glass-panel">
-    <div class="handle"></div>
-    <div class="content">
-      <h2>Location Name</h2>
-      <div class="images-row">
-        <img src="popupImages/sample1.jpg" />
-        <img src="popupImages/sample2.jpg" />
-      </div>
-      <p><strong>Elevation:</strong> 400 ft above sea level</p>
-      <p><strong>Description:</strong> This is a placeholder description of a landmark in Glamis.</p>
-    </div>
-  </div>
-  <script src="main.js"></script>
+<div id="map"></div>
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
+ 
