@@ -9,6 +9,13 @@ body {
  width: 100%;
 }
 
+.mapboxgl-popup-content {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
 
 .glass-popup {
   backdrop-filter: blur(14px) saturate(180%);
