@@ -15,10 +15,10 @@ map.on('load', () => {
     url: 'mapbox://aeveland.dhg6g95p'
   });
 
-  map.loadImage('./images/default.png', (error, defaultIcon) => {
+  map.loadImage('https://aeveland.github.io/glamisMap/images/default.png', (error, defaultIcon) => {
     if (error) throw error;
 
-    map.loadImage('./images/selected.png', (err, selectedIcon) => {
+    map.loadImage('https://aeveland.github.io/glamisMap/images/selected.png', (err, selectedIcon) => {
       if (err) throw err;
 
       if (!map.hasImage('default-icon')) map.addImage('default-icon', defaultIcon);
