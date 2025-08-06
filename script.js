@@ -1,4 +1,3 @@
-
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWV2ZWxhbmQiLCJhIjoiY2o4b3IzeGF5MDcyZzMzcnNqcTR5bXd4OCJ9.5FnPH3C-4gGgjSLaluFA8Q';
 
 const map = new mapboxgl.Map({
@@ -13,6 +12,14 @@ const popup = new mapboxgl.Popup({
   anchor: 'bottom',
   closeButton: false,
   closeOnClick: false
+});
+
+map.on('style.load', () => {
+  map.addSource('mapbox-dem', {
+    type: 'raster-dem',
+    url: 'mapbox://mapbox.terrain-rgb'
+  });
+  map.setTerrain({ source: 'mapbox-dem', exaggeration: 1 });
 });
 
 map.on('load', () => {
@@ -67,7 +74,10 @@ map.on('load', () => {
       const imageRow = images.map(url => `<img src="${url.trim()}" class="popup-image-thumb" />`).join('');
       const imageHTML = images.length > 0 ? `<div class="popup-image-row">${imageRow}</div>` : '';
 
-      const popupHTML = `
+      const elevation = map.queryTerrainElevation(coords, { exaggerated: false });
+    props.elevation = elevation !== null ? Math.round(elevation * 3.28084) : props.elevation;
+
+    const popupHTML = `
         <div class="glass-popup">
           <div class="glass-close-button" onclick="this.parentElement.parentElement.remove()">×</div>
           <div class="glass-title">${props.name}</div>
