@@ -37,7 +37,7 @@ map.on('load', () => {
             ['==', ['get', 'selected'], true], 'pin-selected',
             'pin-default'
           ],
-          'icon-size': 0.3,
+          'icon-size': 0.7,
           'icon-allow-overlap': true
         }
       });
