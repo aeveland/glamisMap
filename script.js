@@ -93,3 +93,57 @@ map.on('load', () => {
     });
   });
 });
+
+// Map tools logic
+const HOME_STATE = { center: map.getCenter(), zoom: map.getZoom(), bearing: map.getBearing(), pitch: map.getPitch() };
+
+document.getElementById('zoom-in').addEventListener('click', () => {
+  map.zoomIn();
+});
+document.getElementById('zoom-out').addEventListener('click', () => {
+  map.zoomOut();
+});
+document.getElementById('recenter').addEventListener('click', () => {
+  map.easeTo({ center: HOME_STATE.center, zoom: HOME_STATE.zoom, bearing: HOME_STATE.bearing, pitch: 0, duration: 800 });
+});
+
+let is3D = false;
+function ensureTerrain() {
+  if (!map.getSource('mapbox-dem')) {
+    map.addSource('mapbox-dem', {
+      type: 'raster-dem',
+      url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
+      tileSize: 512,
+      maxzoom: 14
+    });
+  }
+  // Add sky layer if missing
+  if (!map.getLayer('sky')) {
+    map.addLayer({
+      id: 'sky',
+      type: 'sky',
+      paint: {
+        'sky-type': 'atmosphere',
+        'sky-atmosphere-sun': [0.0, 0.0],
+        'sky-atmosphere-sun-intensity': 15
+      }
+    });
+  }
+}
+
+document.getElementById('toggle-3d').addEventListener('click', () => {
+  if (!is3D) {
+    ensureTerrain();
+    map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 });
+    map.easeTo({ pitch: 60, bearing: map.getBearing() + 20, duration: 1000 });
+    is3D = true;
+    document.getElementById('toggle-3d').textContent = '2D';
+  } else {
+    map.setTerrain(null);
+    // Remove sky if present
+    if (map.getLayer('sky')) map.removeLayer('sky');
+    map.easeTo({ pitch: 0, duration: 800 });
+    is3D = false;
+    document.getElementById('toggle-3d').textContent = '3D';
+  }
+});
