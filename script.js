@@ -2,7 +2,7 @@
 (function(){
   const box = document.getElementById('err');
   function show(msg){ if(!box) return; box.hidden = false; box.textContent += msg + '\n'; }
-  window.onerror = function(m, s, l, c, e){ show('[error] ' + m + ' @' + s + ':' + l); };
+  window.onerror = function(m, s, l){ show('[error] ' + m + ' @' + s + ':' + l); };
   window.onunhandledrejection = function(ev){ show('[promise] ' + (ev.reason && ev.reason.message ? ev.reason.message : String(ev.reason))); };
 })();
 
@@ -19,28 +19,48 @@ const HOME_STATE = { center: [-115.0, 33.0], zoom: 11, bearing: 0, pitch: 0 };
 
 map.on('load', async () => {
   try {
-    // GPX to GeoJSON
     const fc = await loadGpxAsGeoJSON('data/POI.gpx');
     map.addSource('glamis-poi', { type: 'geojson', data: fc });
 
-    // Fallback circles below
-    map.addLayer({ id: 'poi-circles', type: 'circle', source: 'glamis-poi',
-      paint: { 'circle-radius': ['case', ['boolean', ['feature-state', 'selected'], false], 7, 5],
-               'circle-color': ['case', ['boolean', ['feature-state', 'selected'], false], '#ff6a00', '#ffffff'],
-               'circle-stroke-color': '#222', 'circle-stroke-width': 1 } });
+    map.addLayer({
+      id: 'poi-circles',
+      type: 'circle',
+      source: 'glamis-poi',
+      paint: {
+        'circle-radius': ['case', ['boolean', ['feature-state', 'selected'], false], 7, 5],
+        'circle-color': ['case', ['boolean', ['feature-state', 'selected'], false], '#ff6a00', '#ffffff'],
+        'circle-stroke-color': '#222',
+        'circle-stroke-width': 1
+      }
+    });
 
-    // Pins and labels above
-    map.addLayer({ id: 'poi-pins', type: 'symbol', source: 'glamis-poi',
-      layout: { 'icon-image': 'pin-default', false], 'pin-selected', 'pin-default'],
-                'icon-allow-overlap': true, 'icon-anchor': 'bottom', 'icon-size': 0.9,
-                'text-field': ['coalesce', ['get', 'name'], ''], 'text-font': ['Open Sans Regular', 'Arial Unicode MS Regular'],
-                'text-offset': [0, 1.2], 'text-size': 12, 'text-anchor': 'top', 'text-optional': true },
-      paint: { 'text-halo-color': '#000', 'text-halo-width': 0.8, 'text-color': '#fff' } });
+    map.addLayer({
+      id: 'poi-pins',
+      type: 'symbol',
+      source: 'glamis-poi',
+      layout: {
+        'icon-image': 'pin-default',
+        'icon-allow-overlap': true,
+        'icon-anchor': 'bottom',
+        'icon-size': 0.9,
+        'text-field': ['coalesce', ['get', 'name'], ''],
+        'text-font': ['Open Sans Regular', 'Arial Unicode MS Regular'],
+        'text-offset': [0, 1.2],
+        'text-size': 12,
+        'text-anchor': 'top',
+        'text-optional': true
+      },
+      paint: {
+        'text-halo-color': '#000',
+        'text-halo-width': 0.8,
+        'text-color': '#fff'
+      }
+    });
 
-    // Order: circles before pins
-    if (map.getLayer('poi-circles') && map.getLayer('poi-pins')) { try { map.moveLayer('poi-circles', 'poi-pins'); } catch(e) {} }
+    if (map.getLayer('poi-circles') && map.getLayer('poi-pins')) {
+      try { map.moveLayer('poi-circles', 'poi-pins'); } catch(e) {}
+    }
 
-    // Handlers for both layers
     map.on('click', 'poi-pins', onPoiClick);
     map.on('click', 'poi-circles', onPoiClick);
     map.on('mouseenter', 'poi-pins', () => map.getCanvas().style.cursor = 'pointer');
@@ -48,7 +68,6 @@ map.on('load', async () => {
     map.on('mouseenter', 'poi-circles', () => map.getCanvas().style.cursor = 'pointer');
     map.on('mouseleave', 'poi-circles', () => map.getCanvas().style.cursor = '');
 
-    // Load icons after, non-blocking
     addIcon('pin-default', 'images/default.png');
     addIcon('pin-selected', 'images/selected.png');
   } catch (e) {
