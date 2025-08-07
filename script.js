@@ -31,14 +31,14 @@ map.on('load', async () => {
 
     // Pins and labels above
     map.addLayer({ id: 'poi-pins', type: 'symbol', source: 'glamis-poi',
-      layout: { 'icon-image': ['case', ['boolean', ['feature-state', 'selected'], false], 'pin-selected', 'pin-default'],
+      layout: { 'icon-image': 'pin-default', false], 'pin-selected', 'pin-default'],
                 'icon-allow-overlap': true, 'icon-anchor': 'bottom', 'icon-size': 0.9,
                 'text-field': ['coalesce', ['get', 'name'], ''], 'text-font': ['Open Sans Regular', 'Arial Unicode MS Regular'],
                 'text-offset': [0, 1.2], 'text-size': 12, 'text-anchor': 'top', 'text-optional': true },
       paint: { 'text-halo-color': '#000', 'text-halo-width': 0.8, 'text-color': '#fff' } });
 
     // Order: circles before pins
-    try { map.moveLayer('poi-circles', 'poi-pins'); } catch(e) {}
+    if (map.getLayer('poi-circles') && map.getLayer('poi-pins')) { try { map.moveLayer('poi-circles', 'poi-pins'); } catch(e) {} }
 
     // Handlers for both layers
     map.on('click', 'poi-pins', onPoiClick);
