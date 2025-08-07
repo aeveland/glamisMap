@@ -101,6 +101,8 @@ map.on('load', async () => {
 
   map.on('mouseenter', 'poi-pins', () => map.getCanvas().style.cursor = 'pointer');
   map.on('mouseleave', 'poi-pins', () => map.getCanvas().style.cursor = '');
+  map.on('mouseenter', 'poi-circles', () => map.getCanvas().style.cursor = 'pointer');
+  map.on('mouseleave', 'poi-circles', () => map.getCanvas().style.cursor = '');
 });
 
 function selectFeature(f) {
@@ -223,3 +225,39 @@ document.getElementById('reset-north').addEventListener('click', () => {
 map.on('idle', () => {
   if (!is3D) elViewPad.hidden = true;
 });
+
+
+// Shared click handler
+function onPoiClick(e) {
+  const f = e.features && e.features[0];
+  if (!f) return;
+  const coords = f.geometry.coordinates.slice();
+  selectFeature(f);
+
+  const props = f.properties || {};
+  const name = props.name || 'Unnamed';
+  const desc = props.desc || '';
+  const ele = props.ele ? `${props.ele} ft above sea level` : '';
+
+  const images = buildImageStrip(name);
+  const html = `
+    <div class="glass-popup">
+      <div class="glass-header">
+        <div class="glass-title">${escapeHtml(name)}</div>
+        <button class="glass-close-button" aria-label="Close" onclick="this.closest('.mapboxgl-popup').remove()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      ${images}
+      <div class="glass-body">
+        ${ele ? `<div>${escapeHtml(ele)}</div>` : ''}
+        ${desc ? `<div>${escapeHtml(desc)}</div>` : '<div>No description available.</div>'}
+      </div>
+    </div>
+  `;
+
+  new mapboxgl.Popup({ offset: 25, closeButton: false, closeOnClick: true })
+    .setLngLat(coords)
+    .setHTML(html)
+    .addTo(map);
+}
