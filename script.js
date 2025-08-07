@@ -37,7 +37,8 @@ map.on('load', async () => {
     'text-field': ['get', 'name'],
     'text-font': ['Open Sans Regular', 'Arial Unicode MS Regular'],
     'text-offset': [0, 1.2],
-    'text-anchor': 'top'
+    'text-anchor': 'top',
+    'text-optional': true
   };
 
   // Add a circle fallback layer first so at worst we still see points
@@ -101,6 +102,8 @@ map.on('load', async () => {
 
   map.on('mouseenter', 'poi-pins', () => map.getCanvas().style.cursor = 'pointer');
   map.on('mouseleave', 'poi-pins', () => map.getCanvas().style.cursor = '');
+  map.on('mouseenter', 'poi-circles', () => map.getCanvas().style.cursor = 'pointer');
+  map.on('mouseleave', 'poi-circles', () => map.getCanvas().style.cursor = '');
   map.on('mouseenter', 'poi-circles', () => map.getCanvas().style.cursor = 'pointer');
   map.on('mouseleave', 'poi-circles', () => map.getCanvas().style.cursor = '');
 });
