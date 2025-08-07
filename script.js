@@ -9,11 +9,52 @@ const map = new mapboxgl.Map({
 
 const HOME_STATE = { center: [-115.0, 33.0], zoom: 11, bearing: 0, pitch: 0 };
 
+
 map.on('load', async () => {
-  // Marker images
-  await new Promise((resolve, reject) => {
-    map.loadImage('images/default.png', (err, img) => {
-      if (err) return reject(err);
+  const fc = await loadGpxAsGeoJSON('data/POI.gpx');
+  map.addSource('glamis-poi', { type: 'geojson', data: fc });
+
+  if (!map.getLayer('poi-circles')) {
+    map.addLayer({ id: 'poi-circles', type: 'circle', source: 'glamis-poi',
+      paint: {
+        'circle-radius': ['case', ['boolean', ['feature-state', 'selected'], false], 7, 5],
+        'circle-color': ['case', ['boolean', ['feature-state', 'selected'], false], '#ff6a00', '#ffffff'],
+        'circle-stroke-color': '#222', 'circle-stroke-width': 1
+      } });
+  }
+
+  if (!map.getLayer('poi-pins')) {
+    map.addLayer({ id: 'poi-pins', type: 'symbol', source: 'glamis-poi',
+      layout: {
+        'icon-image': ['case', ['boolean', ['feature-state', 'selected'], false], 'pin-selected', 'pin-default'],
+        'icon-allow-overlap': true, 'icon-anchor': 'bottom', 'icon-size': 0.9,
+        'text-field': ['coalesce', ['get', 'name'], ''], 'text-font': ['Open Sans Regular', 'Arial Unicode MS Regular'],
+        'text-offset': [0, 1.2], 'text-size': 12, 'text-anchor': 'top', 'text-optional': true
+      },
+      paint: { 'text-halo-color': '#000', 'text-halo-width': 0.8, 'text-color': '#fff' } });
+  }
+
+  if (map.getLayer('poi-circles') && map.getLayer('poi-pins')) {
+    try { map.moveLayer('poi-circles', 'poi-pins'); } catch (e) {}
+  }
+
+  map.on('click', 'poi-pins', onPoiClick);
+  map.on('click', 'poi-circles', onPoiClick);
+  map.on('mouseenter', 'poi-pins', () => map.getCanvas().style.cursor = 'pointer');
+  map.on('mouseleave', 'poi-pins', () => map.getCanvas().style.cursor = '');
+  map.on('mouseenter', 'poi-circles', () => map.getCanvas().style.cursor = 'pointer');
+  map.on('mouseleave', 'poi-circles', () => map.getCanvas().style.cursor = '');
+
+  function addIcon(name, url) {
+    map.loadImage(url, (err, img) => {
+      if (err || !img) { console.warn('Icon load failed:', name, url, err); return; }
+      if (!map.hasImage(name)) map.addImage(name, img, { sdf: false });
+    });
+  }
+  addIcon('pin-default', 'images/default.png');
+  addIcon('pin-selected', 'images/selected.png');
+});
+
       if (!map.hasImage('pin-default')) map.addImage('pin-default', img, { sdf: false });
       map.loadImage('images/selected.png', (err2, img2) => {
         if (err2) return reject(err2);
