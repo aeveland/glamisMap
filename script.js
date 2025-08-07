@@ -25,30 +25,47 @@ map.on('load', async () => {
 
   // Load GPX and convert to GeoJSON
   const fc = await loadGpxAsGeoJSON('data/POI.gpx');
-  map.addSource('glamis-poi', { type: 'geojson', data: fc });
+  map.addSource('glamis-poi', { type: 'geojson', data: fc, generateId: true });
 
-  // Symbol layer for pins
+  
+  // Symbol layer for pins with circle fallback
+  const iconLayout = {
+    'icon-image': ['case', ['boolean', ['feature-state', 'selected'], false], 'pin-selected', 'pin-default'],
+    'icon-allow-overlap': true,
+    'icon-anchor': 'bottom',
+    'icon-size': 0.9,
+    'text-field': ['get', 'name'],
+    'text-font': ['Open Sans Regular', 'Arial Unicode MS Regular'],
+    'text-offset': [0, 1.2],
+    'text-anchor': 'top'
+  };
+
+  // Add a circle fallback layer first so at worst we still see points
+  map.addLayer({
+    id: 'poi-circles',
+    type: 'circle',
+    source: 'glamis-poi',
+    paint: {
+      'circle-radius': ['case', ['boolean', ['feature-state', 'selected'], false], 6, 4],
+      'circle-color': ['case', ['boolean', ['feature-state', 'selected'], false], '#ff6a00', '#ffffff'],
+      'circle-stroke-color': '#222',
+      'circle-stroke-width': 1
+    }
+  });
+
+  // Try adding symbol layer with icons; if images missing it will still render circles below
   map.addLayer({
     id: 'poi-pins',
     type: 'symbol',
     source: 'glamis-poi',
-    layout: {
-      'icon-image': ['case', ['boolean', ['feature-state', 'selected'], false], 'pin-selected', 'pin-default'],
-      'icon-allow-overlap': true,
-      'icon-anchor': 'bottom',
-      'text-field': ['get', 'name'],
-      'text-font': ['Open Sans Regular', 'Arial Unicode MS Regular'],
-      'text-offset': [0, 1.2],
-      'text-anchor': 'top'
-    },
+    layout: iconLayout,
     paint: {
       'text-halo-color': '#000',
       'text-halo-width': 0.5,
       'text-color': '#fff'
     }
   });
-
-  // Click handling for popup
+// Click handling for popup
   map.on('click', 'poi-pins', (e) => {
     const f = e.features[0];
     const coords = f.geometry.coordinates.slice();
@@ -169,14 +186,14 @@ elToggle3D.addEventListener('click', () => {
     map.easeTo({ pitch: 60, bearing: map.getBearing() + 20, duration: 800 });
     is3D = true;
     elToggle3D.querySelector('.material-symbols-outlined').textContent = 'crop_square'; // indicates 2D
-    elViewPad.hidden = false;
+    elViewPad.hidden = false; elViewPad.style.display = 'flex';
   } else {
     map.setTerrain(null);
     if (map.getLayer('sky')) map.removeLayer('sky');
     map.easeTo({ pitch: 0, duration: 600 });
     is3D = false;
     elToggle3D.querySelector('.material-symbols-outlined').textContent = '3d_rotation';
-    elViewPad.hidden = true;
+    elViewPad.hidden = true; elViewPad.style.display = 'none';
   }
 });
 
@@ -199,4 +216,10 @@ document.getElementById('tilt-down').addEventListener('click', () => {
 });
 document.getElementById('reset-north').addEventListener('click', () => {
   map.easeTo({ bearing: 0, duration: 300 });
+});
+
+
+// Ensure view pad is hidden on first paint when 2D
+map.on('idle', () => {
+  if (!is3D) elViewPad.hidden = true;
 });
