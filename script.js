@@ -15,6 +15,14 @@ const map = new mapboxgl.Map({
   zoom: 11
 });
 
+const POPUP_IMAGES = {
+  "china-wall": ["popupImages/IMG_3065.jpeg"]
+};
+
+function slugifyName(n){
+  return String(n || "").toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+}
+
 const HOME_STATE = { center: [-115.0, 33.0], zoom: 11, bearing: 0, pitch: 0 };
 
 map.on('load', async () => {
@@ -30,7 +38,9 @@ map.on('load', async () => {
         'circle-radius': ['case', ['boolean', ['feature-state', 'selected'], false], 7, 5],
         'circle-color': ['case', ['boolean', ['feature-state', 'selected'], false], '#ff6a00', '#ffffff'],
         'circle-stroke-color': '#222',
-        'circle-stroke-width': 1
+        'circle-stroke-width': 1,
+        'circle-opacity': 1,
+        'circle-stroke-opacity': 1
       }
     });
 
@@ -75,10 +85,16 @@ map.on('load', async () => {
   }
 });
 
+let iconsReady = 0;
 function addIcon(name, url) {
   map.loadImage(url, (err, img) => {
     if (err || !img) { const box = document.getElementById('err'); if (box) { box.hidden = false; box.textContent += '[icon] ' + name + ' ' + url + ' failed\n'; } return; }
     if (!map.hasImage(name)) map.addImage(name, img, { sdf: false });
+    iconsReady++;
+    if (iconsReady >= 2 && map.getLayer('poi-circles')) {
+      map.setPaintProperty('poi-circles', 'circle-opacity', 0);
+      map.setPaintProperty('poi-circles', 'circle-stroke-opacity', 0);
+    }
   });
 }
 
@@ -91,6 +107,11 @@ function onPoiClick(e) {
   const desc = props.desc || '';
   const ele = props.ele ? `${props.ele} ft above sea level` : '';
 
+  const imgs = (POPUP_IMAGES[slugifyName(name)] || []).map(src => `<img src="${src}" alt="">`).join('');
+  const imagesBlock = imgs ? `<div class="image-grid">${imgs}</div>` : '';
+  const elevBlock = ele ? `<div class="section-title">Elevation</div><div>${escapeHtml(ele)}</div>` : '';
+  const descBlock = desc ? `<div class="section-title">Description</div><div>${escapeHtml(desc)}</div>` : '';
+
   const html = `
     <div class="glass-popup">
       <div class="glass-header">
@@ -99,9 +120,10 @@ function onPoiClick(e) {
           <span class="material-symbols-outlined">close</span>
         </button>
       </div>
+      ${imagesBlock}
       <div class="glass-body">
-        ${ele ? `<div>${escapeHtml(ele)}</div>` : ''}
-        ${desc ? `<div>${escapeHtml(desc)}</div>` : '<div>No description available.</div>'}
+        ${elevBlock}
+        ${descBlock || '<div class="section-title">Description</div><div>No description available.</div>'}
       </div>
     </div>`;
 
