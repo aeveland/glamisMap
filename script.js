@@ -7,150 +7,129 @@ const map = new mapboxgl.Map({
   zoom: 11
 });
 
-const popup = new mapboxgl.Popup({
-  offset: 25,
-  anchor: 'bottom',
-  closeButton: false,
-  closeOnClick: false
-});
+const HOME_STATE = { center: [-115.0, 33.0], zoom: 11, bearing: 0, pitch: 0 };
 
-map.on('style.load', () => {
-  map.addSource('mapbox-dem', {
-    type: 'raster-dem',
-    url: 'mapbox://mapbox.terrain-rgb'
-  });
-  map.setTerrain({ source: 'mapbox-dem', exaggeration: 1 });
-});
-
-map.on('load', () => {
-  map.addSource('glamis-points', {
-    type: 'vector',
-    url: 'mapbox://aeveland.0agz43gz'
+map.on('load', async () => {
+  // Marker images
+  await new Promise((resolve, reject) => {
+    map.loadImage('images/default.png', (err, img) => {
+      if (err) return reject(err);
+      if (!map.hasImage('pin-default')) map.addImage('pin-default', img, { sdf: false });
+      map.loadImage('images/selected.png', (err2, img2) => {
+        if (err2) return reject(err2);
+        if (!map.hasImage('pin-selected')) map.addImage('pin-selected', img2, { sdf: false });
+        resolve();
+      });
+    });
   });
 
-  map.loadImage('./images/default.png', (error, image) => {
-    if (error) throw error;
-    if (!map.hasImage('custom-pin')) {
-      map.addImage('custom-pin', image);
+  // Load GPX and convert to GeoJSON
+  const fc = await loadGpxAsGeoJSON('data/POI.gpx');
+  map.addSource('glamis-poi', { type: 'geojson', data: fc });
+
+  // Symbol layer for pins
+  map.addLayer({
+    id: 'poi-pins',
+    type: 'symbol',
+    source: 'glamis-poi',
+    layout: {
+      'icon-image': ['case', ['boolean', ['feature-state', 'selected'], false], 'pin-selected', 'pin-default'],
+      'icon-allow-overlap': true,
+      'icon-anchor': 'bottom',
+      'text-field': ['get', 'name'],
+      'text-font': ['Open Sans Regular', 'Arial Unicode MS Regular'],
+      'text-offset': [0, 1.2],
+      'text-anchor': 'top'
+    },
+    paint: {
+      'text-halo-color': '#000',
+      'text-halo-width': 0.5,
+      'text-color': '#fff'
     }
-
-    map.addLayer({
-      id: 'glamis-points-layer',
-      type: 'symbol',
-      source: 'glamis-points',
-      'source-layer': 'waypoints',
-      layout: {
-        'icon-image': 'custom-pin',
-        'icon-size': 0.7,
-        'icon-allow-overlap': true
-      }
-    });
-
-    map.addLayer({
-      id: 'glamis-labels-layer',
-      type: 'symbol',
-      source: 'glamis-points',
-      'source-layer': 'waypoints',
-      layout: {
-        'text-field': ['get', 'name'],
-        'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
-        'text-size': 12,
-        'text-offset': [0, 1.2],
-        'text-anchor': 'top',
-        'text-allow-overlap': false
-      },
-      paint: {
-        'text-color': '#fff',
-        'text-halo-color': '#000',
-        'text-halo-width': 1.2
-      }
-    });
-
-    map.on('click', 'glamis-points-layer', (e) => {
-      const coords = e.features[0].geometry.coordinates.slice();
-      const props = e.features[0].properties;
-
-      const images = props.images ? props.images.split(',') : [];
-      const imageRow = images.map(url => `<img src="${url.trim()}" class="popup-image-thumb" />`).join('');
-      const imageHTML = images.length > 0 ? `<div class="popup-image-row">${imageRow}</div>` : '';
-
-      const elevation = map.queryTerrainElevation(coords, { exaggerated: false });
-    props.elevation = elevation !== null ? Math.round(elevation * 3.28084) : props.elevation;
-
-    const popupHTML = `
-        <div class="glass-popup">
-          <div class="glass-close-button" onclick="this.parentElement.parentElement.remove()"><span class="material-symbols-outlined">close</span></div>
-          <div class="glass-title">${props.name}</div>
-          ${imageHTML}
-          <div class="glass-subtitle">Elevation</div>
-          <div class="glass-body">${props.elevation || 'Unknown'} ft above sea level</div>
-          <div class="glass-subtitle">Description</div>
-          <div class="glass-body">${props.desc || 'No description available.'}</div>
-        </div>
-      `;
-
-      popup.setLngLat(coords).setHTML(popupHTML).addTo(map);
-    });
   });
+
+  // Click handling for popup
+  map.on('click', 'poi-pins', (e) => {
+    const f = e.features[0];
+    const coords = f.geometry.coordinates.slice();
+    selectFeature(f);
+
+    const props = f.properties || {};
+    const name = props.name || 'Unnamed';
+    const desc = props.desc || '';
+    const ele = props.ele ? `${props.ele} ft above sea level` : '';
+
+    const images = buildImageStrip(name);
+    const html = `
+      <div class="glass-popup">
+        <div class="glass-header">
+          <div class="glass-title">${escapeHtml(name)}</div>
+          <button class="glass-close-button" aria-label="Close" onclick="this.closest('.mapboxgl-popup').remove()">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        ${images}
+        <div class="glass-body">
+          ${ele ? `<div>${escapeHtml(ele)}</div>` : ''}
+          ${desc ? `<div>${escapeHtml(desc)}</div>` : '<div>No description available.</div>'}
+        </div>
+      </div>
+    `;
+
+    new mapboxgl.Popup({ offset: 25, closeButton: false, closeOnClick: true })
+      .setLngLat(coords)
+      .setHTML(html)
+      .addTo(map);
+  });
+
+  map.on('mouseenter', 'poi-pins', () => map.getCanvas().style.cursor = 'pointer');
+  map.on('mouseleave', 'poi-pins', () => map.getCanvas().style.cursor = '');
 });
 
-// Map tools logic
-const HOME_STATE = { center: map.getCenter(), zoom: map.getZoom(), bearing: map.getBearing(), pitch: map.getPitch() };
-
-document.getElementById('zoom-in').addEventListener('click', () => {
-  map.zoomIn();
-});
-document.getElementById('zoom-out').addEventListener('click', () => {
-  map.zoomOut();
-});
-document.getElementById('recenter').addEventListener('click', () => {
-  map.easeTo({ center: HOME_STATE.center, zoom: HOME_STATE.zoom, bearing: HOME_STATE.bearing, pitch: 0, duration: 800 });
-});
-
-let is3D = false;
-function ensureTerrain() {
-  if (!map.getSource('mapbox-dem')) {
-    map.addSource('mapbox-dem', {
-      type: 'raster-dem',
-      url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
-      tileSize: 512,
-      maxzoom: 14
-    });
+function selectFeature(f) {
+  const sourceId = 'glamis-poi';
+  // Reset previous selected state
+  const fc = map.getSource(sourceId)._data;
+  for (let i = 0; i < fc.features.length; i++) {
+    map.setFeatureState({ source: sourceId, id: fc.features[i].id }, { selected: false });
   }
-  // Add sky layer if missing
-  if (!map.getLayer('sky')) {
-    map.addLayer({
-      id: 'sky',
-      type: 'sky',
-      paint: {
-        'sky-type': 'atmosphere',
-        'sky-atmosphere-sun': [0.0, 0.0],
-        'sky-atmosphere-sun-intensity': 15
-      }
-    });
-  }
+  map.setFeatureState({ source: sourceId, id: f.id }, { selected: true });
 }
 
-document.getElementById('toggle-3d').addEventListener('click', () => {
-  if (!is3D) {
-    ensureTerrain();
-    map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 });
-    map.easeTo({ pitch: 60, bearing: map.getBearing() + 20, duration: 1000 });
-    is3D = true;
-    document.getElementById('toggle-3d').textContent = '2D';
-  } else {
-    map.setTerrain(null);
-    // Remove sky if present
-    if (map.getLayer('sky')) map.removeLayer('sky');
-    map.easeTo({ pitch: 0, duration: 800 });
-    is3D = false;
-    document.getElementById('toggle-3d').textContent = '3D';
-  }
-});
-\n
-// Map tools logic with Material icons and 3D view pad
-const HOME_STATE = { center: map.getCenter(), zoom: map.getZoom(), bearing: map.getBearing(), pitch: map.getPitch() };
+async function loadGpxAsGeoJSON(url) {
+  const text = await fetch(url).then(r => r.text());
+  const parser = new DOMParser();
+  const xml = parser.parseFromString(text, 'application/xml');
+  const wpts = Array.from(xml.getElementsByTagName('wpt'));
+  const features = wpts.map((wpt, i) => {
+    const lat = parseFloat(wpt.getAttribute('lat'));
+    const lon = parseFloat(wpt.getAttribute('lon'));
+    const name = (wpt.getElementsByTagName('name')[0] || {}).textContent || '';
+    const desc = (wpt.getElementsByTagName('desc')[0] || {}).textContent || '';
+    const ele = (wpt.getElementsByTagName('ele')[0] || {}).textContent || '';
+    return {
+      type: 'Feature',
+      id: i,
+      properties: { name, desc, ele },
+      geometry: { type: 'Point', coordinates: [lon, lat] }
+    };
+  });
+  return { type: 'FeatureCollection', features };
+}
 
+function buildImageStrip(name) {
+  // Optional: try to map names to images in popupImages by a simple convention.
+  // For now we will not auto-attach unknown images; this returns an empty strip.
+  return `<div class="glass-image-strip"></div>`;
+}
+
+function escapeHtml(str) {
+  return str.replace(/[&<>"']/g, s => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[s]));
+}
+
+// -------------- Tools logic --------------
 const elViewPad = document.getElementById('view-pad');
 const elToggle3D = document.getElementById('toggle-3d');
 
@@ -189,7 +168,7 @@ elToggle3D.addEventListener('click', () => {
     map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 });
     map.easeTo({ pitch: 60, bearing: map.getBearing() + 20, duration: 800 });
     is3D = true;
-    elToggle3D.querySelector('.material-symbols-outlined').textContent = 'crop_square'; // visually indicate 2D
+    elToggle3D.querySelector('.material-symbols-outlined').textContent = 'crop_square'; // indicates 2D
     elViewPad.hidden = false;
   } else {
     map.setTerrain(null);
@@ -201,24 +180,23 @@ elToggle3D.addEventListener('click', () => {
   }
 });
 
-// 3D view pad handlers
-const ROT_STEP = 10; // degrees
-const TILT_STEP = 8; // degrees
+// View pad
+const ROT_STEP = 10;
+const TILT_STEP = 8;
 document.getElementById('rotate-left').addEventListener('click', () => {
-  map.easeTo({ bearing: map.getBearing() - ROT_STEP, duration: 300 });
+  map.easeTo({ bearing: map.getBearing() - ROT_STEP, duration: 250 });
 });
 document.getElementById('rotate-right').addEventListener('click', () => {
-  map.easeTo({ bearing: map.getBearing() + ROT_STEP, duration: 300 });
+  map.easeTo({ bearing: map.getBearing() + ROT_STEP, duration: 250 });
 });
 document.getElementById('tilt-up').addEventListener('click', () => {
   let p = Math.min(85, map.getPitch() + TILT_STEP);
-  map.easeTo({ pitch: p, duration: 300 });
+  map.easeTo({ pitch: p, duration: 250 });
 });
 document.getElementById('tilt-down').addEventListener('click', () => {
   let p = Math.max(0, map.getPitch() - TILT_STEP);
-  map.easeTo({ pitch: p, duration: 300 });
+  map.easeTo({ pitch: p, duration: 250 });
 });
 document.getElementById('reset-north').addEventListener('click', () => {
-  map.easeTo({ bearing: 0, duration: 400 });
+  map.easeTo({ bearing: 0, duration: 300 });
 });
-\n
