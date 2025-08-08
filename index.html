@@ -1,36 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <title>Glamis Map</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<meta charset="utf-8" />
+<title>Glamis Map</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+
+<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/dist/shoelace.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/dist/themes/light.css" />
+
 </head>
 <body>
-  <div id="map"></div>
-
-  <div id="map-tools" class="map-tools glass">
-    <button id="zoom-in" class="tool-btn" aria-label="Zoom in"><span class="material-symbols-outlined">zoom_in</span></button>
-    <button id="zoom-out" class="tool-btn" aria-label="Zoom out"><span class="material-symbols-outlined">zoom_out</span></button>
-    <button id="recenter" class="tool-btn" aria-label="Recenter"><span class="material-symbols-outlined">my_location</span></button>
-    <button id="toggle-3d" class="tool-btn" aria-label="Toggle 3D"><span class="material-symbols-outlined">3d_rotation</span></button>
-  </div>
-
-  <div id="view-pad" class="view-pad glass" hidden>
-    <button id="tilt-up" class="tool-btn sm" aria-label="Tilt up"><span class="material-symbols-outlined">keyboard_arrow_up</span></button>
-    <div class="view-middle">
-      <button id="rotate-left" class="tool-btn sm" aria-label="Rotate left"><span class="material-symbols-outlined">rotate_left</span></button>
-      <button id="reset-north" class="tool-btn sm" aria-label="Reset north"><span class="material-symbols-outlined">north</span></button>
-      <button id="rotate-right" class="tool-btn sm" aria-label="Rotate right"><span class="material-symbols-outlined">rotate_right</span></button>
-    </div>
-    <button id="tilt-down" class="tool-btn sm" aria-label="Tilt down"><span class="material-symbols-outlined">keyboard_arrow_down</span></button>
-  </div>
-
-  <div id="err" class="err" hidden></div>
-
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-  <script src="script.js"></script>
+<div id="map"></div>
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
+ 
