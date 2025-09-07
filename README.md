@@ -10,14 +10,22 @@ An interactive map of Glamis, California, featuring notable points of interest l
 - Satellite imagery by default
 
 ## 🆕 What's New
-- **August 6, 2025** — Implemented Apple’s liquid glass effect for a modern, blurred background UI feel
-- **August 6, 2025** — Styled popups to display titles and descriptions more cleanly
-- **August 6, 2025** — Confirmed GitHub-hosted images work for popup displays
-- **August 6, 2025** — Replaced dummy elevation data with actual elevation values for all GPX points
-- **August 6, 2025** — Added updated default location symbol
-- **August 6, 2025** — Added map labels for each location
-- **August 4, 2025** — Replaced old GPX data with updated descriptions
-- **August 3, 2025** — Created custom popup cards using Shoelace UI
+September 7, 2025 — Implemented smooth popup animations with slide-up effects on mobile and fade transitions on desktop
+September 7, 2025 — Added comprehensive dark mode toggle with persistent localStorage preferences
+September 7, 2025 — Enhanced visual depth with improved shadows and glass-morphism styling throughout the interface
+September 7, 2025 — Integrated Material Design Icons for better visual hierarchy (place, terrain, info icons)
+September 7, 2025 — Added interactive copy-to-clipboard functionality for coordinates with visual feedback
+September 7, 2025 — Streamlined UI by removing search functionality and moving dark mode toggle to map controls
+September 7, 2025 — Fixed popup content styling consistency across all sections for uniform appearance
+September 7, 2025 — Enhanced mobile responsiveness with improved touch interactions and popup positioning
+August 6, 2025 — Implemented Apple's liquid glass effect for a modern, blurred background UI feel
+August 6, 2025 — Styled popups to display titles and descriptions more cleanly
+August 6, 2025 — Confirmed GitHub-hosted images work for popup displays
+August 6, 2025 — Replaced dummy elevation data with actual elevation values for all GPX points
+August 6, 2025 — Added updated default location symbol
+August 6, 2025 — Added map labels for each location
+August 4, 2025 — Replaced old GPX data with updated descriptions
+August 3, 2025 — Created custom popup cards using Shoelace UI
 
 
 ## 📁 Project Structure
