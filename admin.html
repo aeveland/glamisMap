@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glamis Map Admin - Tileset Editor</title>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Login Screen */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .login-title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #007AFF;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: #007AFF;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #0056b3;
+        }
+
+        .error-message {
+            color: #dc3545;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        /* Admin Interface */
+        .admin-container {
+            display: none;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .admin-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .admin-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: auto;
+        }
+
+        .admin-content {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 350px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            overflow-y: auto;
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .map-container {
+            flex: 1;
+            position: relative;
+        }
+
+        #admin-map {
+            width: 100%;
+            height: 100%;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .point-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+        }
+
+        .point-item {
+            padding: 12px;
+            border-bottom: 1px solid #e1e5e9;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .point-item:last-child {
+            border-bottom: none;
+        }
+
+        .point-item:hover {
+            background: #f8f9fa;
+        }
+
+        .point-item.selected {
+            background: #e3f2fd;
+            border-left: 4px solid #007AFF;
+        }
+
+        .point-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .point-coords {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .edit-form {
+            display: none;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .edit-form.show {
+            display: block;
+        }
+
+        .form-row {
+            margin-bottom: 15px;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: #007AFF;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .add-point-btn {
+            width: 100%;
+            padding: 12px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .coord-input-section {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .coord-inputs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .coord-input {
+            flex: 1;
+        }
+
+        .crosshair-mode {
+            cursor: crosshair !important;
+        }
+
+        .crosshair-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 1000;
+            color: #007AFF;
+            font-size: 24px;
+            text-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+        }
+
+        .status-message {
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @media (max-width: 768px) {
+            .admin-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: 50vh;
+                border-right: none;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-container" id="login-screen">
+        <div class="login-card">
+            <h1 class="login-title">
+                <span class="material-icons" style="vertical-align: middle; margin-right: 10px;">admin_panel_settings</span>
+                Admin Access
+            </h1>
+            <form id="login-form">
+                <div class="form-group">
+                    <label class="form-label" for="username">Username</label>
+                    <input type="text" id="username" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" class="form-input" required>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+                <div id="login-error" class="error-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Interface -->
+    <div class="admin-container" id="admin-interface">
+        <div class="admin-header">
+            <h1 class="admin-title">
+                <span class="material-icons" style="vertical-align: middle; margin-right: 10px;">map</span>
+                Glamis Map Admin
+            </h1>
+            <button class="logout-btn" onclick="logout()">
+                <span class="material-icons" style="vertical-align: middle; margin-right: 5px; font-size: 16px;">logout</span>
+                Logout
+            </button>
+        </div>
+        
+        <div class="admin-content">
+            <div class="sidebar">
+                <div id="status-message"></div>
+                
+                <div class="section">
+                    <h2 class="section-title">
+                        <span class="material-icons">add_location</span>
+                        Add Point
+                    </h2>
+                    <button class="add-point-btn" onclick="startAddingPoint()">
+                        <span class="material-icons" style="vertical-align: middle; margin-right: 8px;">my_location</span>
+                        Click Map to Add
+                    </button>
+                    
+                    <div class="coord-input-section">
+                        <div class="form-row">
+                            <label class="form-label">Or Enter Coordinates</label>
+                            <div class="coord-inputs">
+                                <input type="number" id="input-lat" class="form-input coord-input" placeholder="Latitude" step="any">
+                                <input type="number" id="input-lng" class="form-input coord-input" placeholder="Longitude" step="any">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="addPointFromCoords()" style="width: 100%; margin-top: 10px;">
+                            <span class="material-icons" style="vertical-align: middle; margin-right: 5px; font-size: 16px;">place</span>
+                            Add Point Here
+                        </button>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">
+                        <span class="material-icons">location_on</span>
+                        Map Points
+                    </h2>
+                    <div class="point-list" id="point-list">
+                        <!-- Points will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="edit-form" id="edit-form">
+                    <h3 style="margin-bottom: 15px;">Edit Point</h3>
+                    <div class="form-row">
+                        <label class="form-label">Name</label>
+                        <input type="text" id="edit-name" class="form-input">
+                    </div>
+                    <div class="form-row">
+                        <label class="form-label">Description</label>
+                        <textarea id="edit-description" class="form-textarea"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <label class="form-label">Images (comma-separated URLs)</label>
+                        <textarea id="edit-images" class="form-textarea" placeholder="https://example.com/image1.jpg, https://example.com/image2.jpg"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <label class="form-label">Elevation (ft)</label>
+                        <input type="number" id="edit-elevation" class="form-input">
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="savePoint()">Save Changes</button>
+                        <button class="btn btn-secondary" onclick="cancelEdit()">Cancel</button>
+                        <button class="btn btn-danger" onclick="deletePoint()">Delete Point</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="map-container">
+                <div id="admin-map"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
