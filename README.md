@@ -6,8 +6,11 @@ An interactive map of Glamis, California, featuring notable points of interest l
 **[View Live Map](https://aeveland.github.io/glamisMap/)**
 
 ## 🗺️ Features
-- Interactive Mapbox map
+- Interactive Mapbox map with custom points
 - Satellite imagery by default
+- Custom pin markers for locations
+- Full keyboard navigation support
+- Screen reader accessibility
 
 ## 🆕 What's New
 
@@ -68,6 +71,19 @@ glamisMap/
 - Add search and filtering
 - Upload edited GeoJSON back to server or cloud storage
 - Image attachments for each landmark
+
+## 🧪 Testing Checklist
+
+### Core Features
+- [ ] **Point Display**: All location pins appear correctly on the map
+- [ ] **Point Interaction**: Clicking on points shows detailed popup information
+- [ ] **Popup Content**: Popups display name, coordinates, elevation, and description
+- [ ] **Copy Coordinates**: Copy-to-clipboard functionality works for coordinates
+- [ ] **Image Display**: Location images (if available) display correctly in popups
+- [ ] **Map Controls**: Compass, basemap switcher, and other controls function properly
+- [ ] **Mobile Responsive**: Map and popups work well on mobile devices
+- [ ] **Keyboard Navigation**: All interactive elements accessible via keyboard
+- [ ] **Screen Reader**: Proper ARIA labels and announcements for accessibility
 
 ## 🚀 Hosting
 This site is hosted via GitHub Pages. You can fork it and publish your own version easily.
