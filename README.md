@@ -6,7 +6,9 @@ An interactive map of Glamis, California, featuring notable points of interest l
 **[View Live Map](https://aeveland.github.io/glamisMap/)**
 
 ## 🆕 What's New
-
+### September 12, 2025
+- Created custom symbols for each location.
+ 
 ### September 11, 2025
 - Interactive Mapbox map with custom points
 - Satellite imagery by default
