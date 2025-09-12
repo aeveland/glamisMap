@@ -56,25 +56,26 @@ The admin interface provides a comprehensive tool for editing map data:
 ## 📁 Project Structure
 ```
 glamisMap/
-├── index.html         # Main interactive map
-├── admin.html         # Admin interface for editing points
-├── script.js          # Map initialization and interaction logic
-├── admin.js           # Admin interface functionality
-├── style.css          # Styles for the map and UI
-├── LICENSE            # Legal restrictions and ownership info
-├── README.md          # Project description and usage
+├── index.html                  # Main interactive map
+├── admin.html                  # Admin interface for editing points
+├── script.js                   # Map initialization and interaction logic
+├── admin.js                    # Admin interface functionality
+├── style.css                   # Styles for the map and UI
+├── LICENSE                     # Legal restrictions and ownership info
+├── README.md                   # Project description and usage
 ├── data/
 │   └── glamis_tileset.geojson  # Point data in GeoJSON format
-├── images/            # Marker icons and other assets
-│   ├── default.png    # Default pin image
-│   ├── selected.png   # Selected pin image
-│   └── camping.png    # Camping symbol icon
-├── popupImages/       # Directory for popup images
-│   ├── IMG_3058.jpeg  # Test image 1 China Wall
-│   └── IMG_3065.jpeg  # Test image 2 China Wall
+├── images/                     # Marker icons and other assets
+│   ├── default.png             # Default pin image
+│   ├── selected.png            # Selected pin image
+│   └── store.png               # Camping symbol icon
+│   └── storeSelected.png       # Camping symbol icon selected
+├── popupImages/                # Directory for popup images
+│   ├── IMG_3058.jpeg           # Test image 1 China Wall
+│   └── IMG_3065.jpeg           # Test image 2 China Wall
 └── js/
-    ├── map.js         # Map functionality
-    └── ui.js          # UI components
+    ├── map.js                  # Map functionality
+    └── ui.js                   # UI components
 ```
 
 ## Admin Workflow
@@ -92,7 +93,8 @@ glamisMap/
 
 ## ✅ To Do
 - Add custom markers for individual locations
-- Add search and filtering
+- Fix Map zoom extent
+- Make the popup more opaque
 - Upload edited GeoJSON back to server or cloud storage
 
 ## 🧪 Testing Checklist
