@@ -17,7 +17,6 @@ An interactive map of Glamis, California, featuring notable points of interest l
 
 ## 🔧 Admin Interface
 **[Access Admin Panel](admin.html)**
-
 The admin interface provides a comprehensive tool for editing map data:
 - **Visual Editor**: Click-to-add points directly on the satellite map
 - **Form-Based Editing**: Edit point names, descriptions, and images
