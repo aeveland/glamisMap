@@ -5,14 +5,26 @@ An interactive map of Glamis, California, featuring notable points of interest l
 ## 🌍 Live Map
 **[View Live Map](https://aeveland.github.io/glamisMap/)**
 
-## 🗺️ Features
+## 🆕 What's New
+
+### September 11, 2025
 - Interactive Mapbox map with custom points
 - Satellite imagery by default
 - Custom pin markers for locations
 - Full keyboard navigation support
 - Screen reader accessibility
+- **Admin Interface**: Complete GeoJSON editor for managing map points
 
-## 🆕 What's New
+## 🔧 Admin Interface
+**[Access Admin Panel](admin.html)**
+
+The admin interface provides a comprehensive tool for editing map data:
+- **Visual Editor**: Click-to-add points directly on the satellite map
+- **Form-Based Editing**: Edit point names, descriptions, and images
+- **Local File Support**: Load and edit your GeoJSON files locally
+- **Mapbox Integration**: Direct workflow for updating tilesets
+- **No Authentication**: Streamlined for GitHub Pages hosting
+
 
 ### September 7, 2025
 - Implemented smooth popup animations with slide-up effects on mobile and fade transitions on desktop  
@@ -44,18 +56,32 @@ An interactive map of Glamis, California, featuring notable points of interest l
 ```
 glamisMap/
 ├── index.html         # Main interactive map
+├── admin.html         # Admin interface for editing points
 ├── script.js          # Map initialization and interaction logic
+├── admin.js           # Admin interface functionality
 ├── style.css          # Styles for the map and UI
 ├── LICENSE            # Legal restrictions and ownership info
 ├── README.md          # Project description and usage
 ├── data/
-│   └── POI.gpx        # Waypoint data in GPX format
+│   └── glamis_tileset.geojson  # Point data in GeoJSON format
 ├── images/            # Marker icons and other assets
-│   └── pin.png        # Waypoint pin image
+│   ├── default.png    # Default pin image
+│   ├── selected.png   # Selected pin image
+│   └── camping.png    # Camping symbol icon
 ├── popupImages/       # Directory for popup images
-│   └── IMG_3058.jpeg  # Test image 1 China Wall
+│   ├── IMG_3058.jpeg  # Test image 1 China Wall
 │   └── IMG_3065.jpeg  # Test image 2 China Wall
+└── js/
+    ├── map.js         # Map functionality
+    └── ui.js          # UI components
 ```
+
+## Admin Workflow
+1. Visit [admin.html](admin.html) 
+2. Load your local `glamis_tileset.geojson` file
+3. Edit points using the map and forms
+4. Download the updated GeoJSON
+5. Replace the POI-8oc448 on [console.mapbox.com/studio/tilesets](https://console.mapbox.com/studio/tilesets)
 
 ## 📦 Tools Used
 - Mapbox GL JS
@@ -65,12 +91,8 @@ glamisMap/
 
 ## ✅ To Do
 - Add custom markers for individual locations
-- Hover and click to reveal names of landmarks
-- Optimized for web and mobile browsers
-- Map tools
 - Add search and filtering
 - Upload edited GeoJSON back to server or cloud storage
-- Image attachments for each landmark
 
 ## 🧪 Testing Checklist
 
