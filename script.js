@@ -9,6 +9,7 @@ const map = new mapboxgl.Map({
   style: 'mapbox://styles/mapbox/satellite-streets-v12',
   center: [-115.08, 32.93],
   zoom: 11,
+  maxZoom: 17, // Limit zoom to keep locations tappable at ~300ft scale
   // Mobile-friendly map options
   touchZoomRotate: true,
   touchPitch: false, // Disable pitch on mobile for better UX
@@ -167,21 +168,94 @@ let selectedPinId = null;
 map.on('load', () => {
   console.log('🚀 Map loaded, initializing points...');
   
-  // Load both pin images
-  map.loadImage('./images/default.png', (error, defaultImage) => {
-    if (error) throw error;
-    if (!map.hasImage('custom-pin')) {
-      map.addImage('custom-pin', defaultImage);
-    }
-    
-    map.loadImage('./images/selected.png', (error, selectedImage) => {
-      if (error) throw error;
-      if (!map.hasImage('selected-pin')) {
-        map.addImage('selected-pin', selectedImage);
-      }
-      addPointsLayers();
+  // Get unique symbols from the tileset to load dynamically
+  fetch('./data/glamis_tileset.geojson')
+    .then(response => response.json())
+    .then(data => {
+      const symbols = new Set();
+      
+      // Extract unique symbol names from the features
+      data.features.forEach(feature => {
+        if (feature.properties.sym) {
+          symbols.add(feature.properties.sym);
+        }
+      });
+      
+      console.log('📍 Loading symbols:', Array.from(symbols));
+      
+      // Load all symbol images
+      const imagePromises = [];
+      
+      symbols.forEach(symbol => {
+        // Load default symbol
+        const defaultPromise = new Promise((resolve, reject) => {
+          map.loadImage(`./images/${symbol}.png`, (error, image) => {
+            if (error) {
+              console.warn(`Could not load ${symbol}.png, using fallback`);
+              // Load fallback default image
+              map.loadImage('./images/default.png', (fallbackError, fallbackImage) => {
+                if (!fallbackError && !map.hasImage(symbol)) {
+                  map.addImage(symbol, fallbackImage);
+                }
+                resolve();
+              });
+            } else {
+              if (!map.hasImage(symbol)) {
+                map.addImage(symbol, image);
+              }
+              resolve();
+            }
+          });
+        });
+        
+        // Load selected symbol
+        const selectedPromise = new Promise((resolve, reject) => {
+          map.loadImage(`./images/${symbol}Selected.png`, (error, image) => {
+            if (error) {
+              console.warn(`Could not load ${symbol}Selected.png, using fallback`);
+              // Load fallback selected image
+              map.loadImage('./images/selected.png', (fallbackError, fallbackImage) => {
+                if (!fallbackError && !map.hasImage(`${symbol}-selected`)) {
+                  map.addImage(`${symbol}-selected`, fallbackImage);
+                }
+                resolve();
+              });
+            } else {
+              if (!map.hasImage(`${symbol}-selected`)) {
+                map.addImage(`${symbol}-selected`, image);
+              }
+              resolve();
+            }
+          });
+        });
+        
+        imagePromises.push(defaultPromise, selectedPromise);
+      });
+      
+      // Wait for all images to load, then add layers
+      Promise.all(imagePromises).then(() => {
+        console.log('✅ All symbol images loaded');
+        addPointsLayers();
+      });
+    })
+    .catch(error => {
+      console.error('Error loading tileset data:', error);
+      // Fallback to default images
+      map.loadImage('./images/default.png', (error, defaultImage) => {
+        if (error) throw error;
+        if (!map.hasImage('default')) {
+          map.addImage('default', defaultImage);
+        }
+        
+        map.loadImage('./images/selected.png', (error, selectedImage) => {
+          if (error) throw error;
+          if (!map.hasImage('selected')) {
+            map.addImage('selected', selectedImage);
+          }
+          addPointsLayers();
+        });
+      });
     });
-  });
 });
 
 // Function to update pin appearance
@@ -192,18 +266,20 @@ function updatePinSelection(newSelectedId) {
   if (selectedPinId !== null) {
     map.setFilter('glamis-points-selected', ['==', ['get', 'name'], '']);
     map.setFilter('glamis-labels-selected', ['==', ['get', 'name'], '']);
-    map.setFilter('glamis-labels-default', ['!=', ['get', 'name'], selectedPinId]);
   }
   
   // Update selected pin and labels
   selectedPinId = newSelectedId;
   if (selectedPinId !== null) {
+    // Show selected pin and hide its default version
     map.setFilter('glamis-points-selected', ['==', ['get', 'name'], selectedPinId]);
+    map.setFilter('glamis-points-layer', ['!=', ['get', 'name'], selectedPinId]);
     map.setFilter('glamis-labels-selected', ['==', ['get', 'name'], selectedPinId]);
     map.setFilter('glamis-labels-default', ['!=', ['get', 'name'], selectedPinId]);
     console.log('Set filter for selected pin:', selectedPinId);
   } else {
-    // Show all default labels when no pin is selected
+    // Show all default pins and labels when no pin is selected
+    map.setFilter('glamis-points-layer', null);
     map.setFilter('glamis-labels-default', null);
   }
 }
@@ -238,10 +314,6 @@ function setupMapInteractions() {
       essential: true
     });
 
-    const images = props.images ? props.images.split(',') : [];
-    const imageRow = images.map(url => `<img src="${url.trim()}" class="popup-image-thumb" onclick="openImageModal('${url.trim()}')" />`).join('');
-    const imageHTML = images.length > 0 ? `<div class="popup-image-row">${imageRow}</div>` : '';
-
     const elevation = map.queryTerrainElevation(coords, { exaggerated: false });
     props.elevation = elevation !== null ? Math.round(elevation * 3.28084) : props.elevation;
 
@@ -252,31 +324,109 @@ function setupMapInteractions() {
     
     const popupHTML = `
       <div class="glass-popup">
-        <button class="popup-close-btn" onclick="closePopup()"></button>
-        <div class="glass-title">${props.name}</div>
-        ${imageHTML}
-        <div class="glass-subtitle">
-          <span class="material-icons subtitle-icon">place</span>
-          Latitude / Longitude
+        <div class="glass-header">
+          <div class="glass-title">
+            ${props.name}
+          </div>
+          <button class="popup-close-btn" onclick="closePopup()" aria-label="Close popup"></button>
         </div>
-        <div class="glass-body glass-coordinates">
-          <span class="coordinates-text" onclick="copyCoordinates('${coordsText}', event)">${coordsText}</span>
-          <span class="copy-chip">copy</span>
+        
+        <div class="glass-section">
+          <div class="glass-subtitle">
+            <span class="material-icons subtitle-icon">place</span>
+            Latitude / Longitude
+          </div>
+          <div class="glass-body">
+            <div class="coords-container">
+              <span class="coords-text">${coords[1].toFixed(6)}, ${coords[0].toFixed(6)}</span>
+              <button class="copy-chip" onclick="copyCoordinates('${coords[1].toFixed(6)}, ${coords[0].toFixed(6)}', event)">copy</button>
+            </div>
+          </div>
         </div>
-        <div class="glass-subtitle">
-          <span class="material-icons subtitle-icon">terrain</span>
-          Elevation
+        
+        <div class="glass-section">
+          <div class="glass-subtitle">
+            <span class="material-icons subtitle-icon">terrain</span>
+            Elevation
+          </div>
+          <div class="glass-body">${props.elevation || '322'} ft above sea level</div>
         </div>
-        <div class="glass-body">${props.elevation || 'Unknown'} ft above sea level</div>
-        <div class="glass-subtitle">
-          <span class="material-icons subtitle-icon">info</span>
-          Description
+        
+        ${props.images ? `
+          <div class="glass-section">
+            <div class="popup-image-row">
+              ${props.images.split(',').map(img => `
+                <img src="${img.trim()}" class="popup-image-thumb" onclick="openImageModal('${img.trim()}')" alt="${props.name}">
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
+        
+        <div class="glass-section">
+          <div class="glass-subtitle">
+            <span class="material-icons subtitle-icon">info</span>
+            Description
+          </div>
+          <div class="glass-body">${props.desc || 'No description available.'}</div>
         </div>
-        <div class="glass-body">${props.desc || 'No description available.'}</div>
+        
+        ${props.image ? `
+          <div class="glass-section">
+            <div class="glass-image-container">
+              <img src="${props.image}" alt="${props.name}" class="glass-image" onclick="openImageModal('${props.image}')">
+            </div>
+          </div>
+        ` : ''}
       </div>
     `;
 
     popup.setLngLat(coords).setHTML(popupHTML).addTo(map);
+    
+    // In 3D mode, pan map to ensure popup stays within viewport
+    if (map.getPitch() > 0) {
+      setTimeout(() => {
+        const popupElement = popup.getElement();
+        if (popupElement) {
+          const popupRect = popupElement.getBoundingClientRect();
+          const mapContainer = map.getContainer();
+          const mapRect = mapContainer.getBoundingClientRect();
+          
+          // Check if popup is outside viewport bounds
+          const isOutsideLeft = popupRect.left < mapRect.left + 20;
+          const isOutsideRight = popupRect.right > mapRect.right - 20;
+          const isOutsideTop = popupRect.top < mapRect.top + 20;
+          const isOutsideBottom = popupRect.bottom > mapRect.bottom - 20;
+          
+          if (isOutsideLeft || isOutsideRight || isOutsideTop || isOutsideBottom) {
+            // Calculate center point of viewport
+            const viewportCenterX = mapRect.width / 2;
+            const viewportCenterY = mapRect.height / 2;
+            
+            // Get current popup position relative to map
+            const popupCenterX = popupRect.left - mapRect.left + popupRect.width / 2;
+            const popupCenterY = popupRect.top - mapRect.top + popupRect.height / 2;
+            
+            // Calculate offset needed to center popup
+            const offsetX = viewportCenterX - popupCenterX;
+            const offsetY = viewportCenterY - popupCenterY;
+            
+            // Convert pixel offset to map coordinates
+            const currentCenter = map.getCenter();
+            const targetPoint = map.project(currentCenter);
+            targetPoint.x -= offsetX;
+            targetPoint.y -= offsetY;
+            const targetCenter = map.unproject(targetPoint);
+            
+            // Smoothly pan to new center
+            map.easeTo({
+              center: targetCenter,
+              duration: 500,
+              easing: (t) => t * (2 - t) // ease-out
+            });
+          }
+        }
+      }, 100); // Small delay to ensure popup is rendered
+    }
   });
   
   // Change the cursor to a pointer when the mouse is over the points layer.
@@ -377,6 +527,14 @@ const initMapControls = () => {
   
   toggle3D.addEventListener('click', () => {
     is3D = !is3D;
+    
+    // Set different zoom limits for 2D vs 3D mode
+    if (is3D) {
+      map.setMaxZoom(16); // ~500ft scale for 3D mode
+    } else {
+      map.setMaxZoom(17); // ~300ft scale for 2D mode
+    }
+    
     map.easeTo({
       pitch: is3D ? 60 : 0,
       duration: 1000
@@ -486,10 +644,28 @@ function addPointsLayers() {
     source: 'glamis-points',
     'source-layer': 'POI-8oc448',
     layout: {
-      'icon-image': 'custom-pin',
-      'icon-size': 0.7,
-      'icon-allow-overlap': true
-    }
+      'icon-image': ['get', 'sym'],
+      'icon-size': [
+        'interpolate',
+        ['linear'],
+        ['zoom'],
+        10, 0.35,
+        17, 0.6
+      ],
+      'icon-allow-overlap': true,
+      'icon-ignore-placement': true,
+      'icon-pitch-alignment': 'viewport'
+    },
+    paint: {
+      'icon-opacity': [
+        'interpolate',
+        ['linear'],
+        ['zoom'],
+        10, 0.8,
+        17, 1.0
+      ]
+    },
+    filter: ['!=', ['get', 'name'], selectedPinId] // Hide selected location's default symbol
   });
 
   // Add selected points layer (initially hidden)
@@ -499,9 +675,26 @@ function addPointsLayers() {
     source: 'glamis-points',
     'source-layer': 'POI-8oc448',
     layout: {
-      'icon-image': 'selected-pin',
-      'icon-size': 0.7,
-      'icon-allow-overlap': true
+      'icon-image': ['concat', ['get', 'sym'], '-selected'],
+      'icon-size': [
+        'interpolate',
+        ['linear'],
+        ['zoom'],
+        10, 0.47,
+        17, 0.81
+      ],
+      'icon-allow-overlap': true,
+      'icon-ignore-placement': true,
+      'icon-pitch-alignment': 'viewport'
+    },
+    paint: {
+      'icon-opacity': [
+        'interpolate',
+        ['linear'],
+        ['zoom'],
+        10, 0.8,
+        17, 1.0
+      ]
     },
     filter: ['==', ['get', 'name'], ''] // Initially show no pins
   });
@@ -535,7 +728,7 @@ function addPointsLayers() {
     layout: {
       'text-field': ['get', 'name'],
       'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-      'text-offset': [0, 1.8],
+      'text-offset': [0, 2.5],
       'text-anchor': 'top',
       'text-size': 12
     },
@@ -611,6 +804,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       if (features.length === 0) {
         popup.remove();
+        updatePinSelection(null);
       }
     }
   });
