@@ -1,0 +1,1685 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "america-canal-ohv-bridge",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.8694,
+          32.7499
+        ]
+      },
+      "properties": {
+        "name": "America Canal OHV Bridge",
+        "desc": "A key crossing point over the American Canal, this bridge connects riders to the southern end of the dunes. It’s a well-used access route for OHV traffic, making it an important link between staging areas and the open sand.",
+        "cmt": "Point of Interest",
+        "sym": "flyover",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "banshee-point",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.105667,
+          32.960667
+        ]
+      },
+      "properties": {
+        "name": "Banshee Point",
+        "desc": "A high ridge deep in the dunes, known for the sound of two-stroke engines echoing across the sand. Banshee Point got its name from the Yamaha Banshee crowd that used to gather here to race, hang out, or just take in the view. It’s got long lines, wide bowls, and one of the best vantage points for watching riders carve through the dunes below. On a calm day, you can hear machines screaming in the distance like ghosts in the sand.",
+        "cmt": "Point of Interest",
+        "sym": "campaign",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "boardmanville",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.034333,
+          32.985667
+        ]
+      },
+      "properties": {
+        "name": "Boardmanville",
+        "desc": "Boardmanville is a lively desert bar known for cold drinks, appetizers, and hearty food. It’s a popular stop for riders to take a break, grab a bite, and enjoy the atmosphere with fellow dune enthusiasts.",
+        "cmt": "Food and Drink",
+        "sym": "sports_bar",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "box-2",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.0765,
+          32.9265
+        ]
+      },
+      "properties": {
+        "name": "Box 2",
+        "desc": "One of several old World War II bombing ranges in the dunes. Box 2 carries a piece of history, once used for target practice, now just another landmark riders pass on their way through.",
+        "cmt": "Point of Interest",
+        "sym": "explosion",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "box-3",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.082517,
+          32.9285
+        ]
+      },
+      "properties": {
+        "name": "Box 3",
+        "desc": "Another former military training site, Box 3 marks a spot where pilots once dropped practice bombs during World War II. Today it’s a quiet reminder of that past, surrounded by open sand.",
+        "cmt": "Point of Interest",
+        "sym": "military_tech",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "box-4",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.08335,
+          32.930667
+        ]
+      },
+      "properties": {
+        "name": "Box 4",
+        "desc": "Part of the chain of WWII-era bombing sites, Box 4 still holds its name from those days. It blends into the dunes now, known more as a waypoint than its original purpose.",
+        "cmt": "Point of Interest",
+        "sym": "target",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "brawley-slide",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.080333,
+          32.944167
+        ]
+      },
+      "properties": {
+        "name": "Brawley Slide",
+        "desc": "A steep, fast drop that’s not for the faint of heart. Brawley Slide is a favorite for thrill-seekers who like a straight shot down a tall face. It's tucked deep in the dunes between Glamis and Ogilby, and not always easy to find unless you know the lines. The top gives you a moment to second-guess your decision before you commit. It's one of those iconic spots riders talk about long after the trip ends.",
+        "cmt": "Point of Interest",
+        "sym": "south",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "buttercup-competition-hill",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.882916,
+          32.731326
+        ]
+      },
+      "properties": {
+        "name": "Buttercup Competition Hill",
+        "desc": "A towering dune on the Buttercup side, this hill is where riders line up to see who can charge the steep face the fastest. It’s the heart of the action in Buttercup Valley, drawing crowds of machines and spectators for head-to-head climbs and high-energy runs.",
+        "cmt": "Point of Interest",
+        "sym": "local_florist",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "buttercup-ranger-station",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.890361,
+          32.737367
+        ]
+      },
+      "properties": {
+        "name": "Buttercup Ranger Station",
+        "desc": "Buttercup Ranger Station is the main stop for permits, passes, and visitor information before heading deeper into the dunes. Rangers here provide safety guidance, enforce regulations, and answer questions about the area. It’s a good place to check in, get updates on conditions, and make sure you’re set for a safe ride.",
+        "cmt": "Ranger Station",
+        "sym": "local_police",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "buttercup-valley",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.878614687,
+          32.738884482
+        ]
+      },
+      "properties": {
+        "name": "Buttercup Valley",
+        "desc": "Buttercup Valley is a wide stretch of open dunes near the southern edge of Glamis, popular with both casual riders and seasoned dune runners. Its rolling sand hills and open space make it a great spot for group rides, camping, and exploring. The valley is often less crowded than the central dunes, giving it a more laid-back feel.",
+        "cmt": "Point of Interest",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "cahuila-ranger-station",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.173174,
+          32.973721
+        ]
+      },
+      "properties": {
+        "name": "Cahuila Ranger Station",
+        "desc": "The main hub for rules, passes, and first aid in Glamis. Located off Highway 78, it’s where you go for permits, maps, and to check in with BLM staff. It’s also where lost items, emergencies, or serious incidents get reported. Might not be the flashiest stop, but it’s one of the most important. Respect the land, this is where it starts.",
+        "cmt": "Ranger Station",
+        "sym": "badge",
+        "type": "Restrooms",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "canal-crossover-to-patton-valley",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.96955,
+          32.7623
+        ]
+      },
+      "properties": {
+        "name": "Canal Crossover to Patton Valley",
+        "desc": "A key passage over the canal that opens access into Patton Valley. Riders use this crossover as a direct route from the water’s edge into one of the wider, more open stretches of dunes on the western side.",
+        "cmt": "Point of Interest",
+        "sym": "flyover",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "canal-crossover-to-roadrunner",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.1162,
+          32.8928
+        ]
+      },
+      "properties": {
+        "name": "Canal Crossover to Roadrunner",
+        "desc": "A small bridge point across the canal that connects directly into Roadrunner Campground. It’s a convenient link for riders moving between the camping area and the open dunes without needing to circle back to the main highway.",
+        "cmt": "Point of Interest",
+        "sym": "flyover",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "cement-flats",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.17808,
+          32.97343
+        ]
+      },
+      "properties": {
+        "name": "Cement Flats",
+        "desc": "A wide-open hardpack area, known for its flat, solid surface, perfect for staging, tuning, or letting it rip before hitting the dunes. It’s called “Cement Flats” for a reason: the ground here feels almost like pavement compared to the soft sand nearby. Great spot for RVs, day-trippers, or meeting up before a ride. Not flashy, but functional. If you need space to work on your rig or regroup, this is the place.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "cemetery",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.072183,
+          32.997367
+        ]
+      },
+      "properties": {
+        "name": "Cemetery",
+        "desc": "A small desert cemetery that carries quiet history in the middle of the dunes. Marked by simple headstones and crosses, it stands as a reminder of the people who lived, worked, and passed through this remote corner of Imperial Valley.",
+        "cmt": "Point of Interest",
+        "sym": "skull",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "china-wall",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.0365,
+          32.908
+        ]
+      },
+      "properties": {
+        "name": "China Wall",
+        "desc": "A massive, steep dune that looks like it was dropped into the desert with a straight edge. China Wall is one of Glamis’ most iconic features, towering, sharp, and unforgiving. Riders hit it to test power and guts, launching from the base or side-hilling along its edge. The climb is brutal and the view from the top is unmatched. It’s not just a landmark, it’s a rite of passage. If you’ve ridden Glamis, you know China Wall.",
+        "cmt": "Point of Interest",
+        "sym": "fort",
+        "type": "",
+        "images": "popupImages/IMG_3058.jpeg",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "coachella-canal-ohv-bridge",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.943117,
+          32.7128
+        ]
+      },
+      "properties": {
+        "name": "Coachella Canal OHV Bridge",
+        "desc": "A vital crossing over the Coachella Canal, this bridge gives riders direct access between the canal’s edge and the open dunes. It’s a functional waypoint for OHV traffic, keeping the flow of riders moving safely across the waterway.",
+        "cmt": "Point of Interest",
+        "sym": "flyover",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "competition-hill",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.127667,
+          32.984
+        ]
+      },
+      "properties": {
+        "name": "Competition Hill",
+        "desc": "Competition Hill was once the most popular gathering spot in Glamis, where riders lined up to race and crowds gathered to watch. The massive dune was the place to be “back in the day,” drawing big weekend crowds and plenty of action. Today it sees far less activity, remembered more for its history than its current scene.",
+        "cmt": "Point of Interest",
+        "sym": "trophy",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "disco-ball",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.06899,
+          32.87786
+        ]
+      },
+      "properties": {
+        "name": "Disco Ball",
+        "desc": "A weird and wonderful landmark deep in the dunes. Hanging from a lone metal post, the disco ball catches the sun during the day and reflects headlights at night, throwing off glints of light in every direction. Nobody really knows who put it there, but it’s become one of Glamis’ most random and beloved oddities. Riders stumble on it, laugh, take a photo, then keep going. Pure dune magic, strange, shiny, and totally unexpected.",
+        "cmt": "Point of Interest",
+        "sym": "light_mode",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "dune-buggy-flats",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.934983,
+          32.71765
+        ]
+      },
+      "properties": {
+        "name": "Dune Buggy Flats",
+        "desc": "A large, flat camping area at Glamis that has long been a favorite base camp for off-roaders. Its wide-open layout makes it easy for groups to spread out, stage rides, and gather for weekend trips. The spot carries a bit of history too, with roots going back to the early dune buggy culture that gave it its name.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "duners-diner",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.960741,
+          32.710351
+        ]
+      },
+      "properties": {
+        "name": "Duners Diner",
+        "desc": "Known as a landmark in Glamis, Dooner’s Diner is a go-to spot for breakfast and lunch before or after a ride. The open setting includes food, drinks, TVs, and even courts for volleyball and basketball, making it more than just a meal stop. Groups often ride out together for Bloody Marys, burgers, and the social atmosphere that keeps people coming back.",
+        "cmt": "Food and Drink",
+        "sym": "restaurant",
+        "type": "Restrooms",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "flagpole",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.080667,
+          32.923333
+        ]
+      },
+      "properties": {
+        "name": "Flagpole",
+        "desc": "A well-known rally point in the Glamis dunes. Flagpole sits on a tall, flat ridge with a clear view in all directions, making it easy to spot from a distance. Riders often use it as a meetup location before heading out on group runs. The area around it is wide and open, ideal for staging or taking a quick break. On busy weekends, it’s common to see dozens of rigs parked here, flags snapping in the wind.",
+        "cmt": "Point of Interest",
+        "sym": "flag",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "gecko-loop",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.14,
+          32.9415
+        ]
+      },
+      "properties": {
+        "name": "Gecko Loop",
+        "desc": "A developed camping area right off Gecko Road with vault toilets, hard-packed pads, and easy dune access. It’s a solid choice for RVs, trailers, or first-timers who want a bit more structure without losing the Glamis vibe. Spots fill fast on holiday weekends, and the views are unbeatable, open dunes to the east, endless stars at night. You’re close to the action but far enough to get some sleep. Simple, convenient, and classic Glamis.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "Restrooms",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "glamis-beach-store",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.072393,
+          32.99598
+        ]
+      },
+      "properties": {
+        "name": "Glamis Beach Store",
+        "desc": "The heart of Glamis when it comes to supplies, fuel, and a quick bite. Located off Highway 78, this spot is usually the first and last stop for dune-goers. You’ll find gas, firewood, ice, parts, merch, and maybe even some last-minute advice from a local. During peak weekends, it’s packed with rigs fueling up and people grabbing snacks before heading into the sand. It’s more than just a store, it’s the unofficial welcome sign to Glamis.",
+        "cmt": "Vendor",
+        "sym": "storefront",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "glamis-flats",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.0765,
+          32.9835
+        ]
+      },
+      "properties": {
+        "name": "Glamis Flats",
+        "desc": "A massive open area just off Highway 78, known for its wide-open parking, staging, and camping space. Glamis Flats is often the first stop for day riders, big groups, or anyone towing in who wants easy access without heading deep into the sand. The terrain is flat and firm, making it perfect for RVs, trailers, and tuning before you ride. It’s not as scenic as the ridges, but it’s central, convenient, and always busy on big weekends.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "Restrooms",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "gordons-well",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.937778469,
+          32.719435699
+        ]
+      },
+      "properties": {
+        "name": "Gordons Well",
+        "desc": "A well-known entry point on the southern edge of the dunes, Gordon’s Well serves as both a staging area and a meeting spot. With quick access into wide open sand, it’s a favorite starting place for rides that stretch deep into the Imperial Sand Dunes.",
+        "cmt": "Point of Interest",
+        "sym": "water_drop",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "grays-well",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.92469,
+          32.71033
+        ]
+      },
+      "properties": {
+        "name": "Grays Well",
+        "desc": "Gray’s Well sits near the southern entrance to the dunes and is one of the main staging areas for Buttercup. The wide flats make it a practical spot for camping and unloading, especially for groups coming in from the freeway. While it doesn’t have the same scene as the central dunes, it’s a convenient base with quick access to Buttercup Valley.",
+        "cmt": "Point of Interest",
+        "sym": "water_drop",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "highway-78-canal-ohv-bridge",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.184733,
+          32.9726
+        ]
+      },
+      "properties": {
+        "name": "Highway 78 Canal OHV Bridge",
+        "desc": "A well-traveled crossing where Highway 78 meets the canal, this bridge provides OHV riders a safe passage into the north side of the dunes. It’s one of the main gateways for traffic heading straight into the heart of Glamis.",
+        "cmt": "Point of Interest",
+        "sym": "flyover",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "honda-point",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.089833,
+          32.944167
+        ]
+      },
+      "properties": {
+        "name": "Honda Point",
+        "desc": "A legendary gathering spot for the Honda crew back in the heyday of three-wheelers and early quads. Honda Point sits along a ridge with smooth bowls and fast transitions, ideal terrain for lighter machines that could rip up and down all day. It’s less rowdy now, but still a nostalgic stop for longtime riders. Some still swing by just to say they did. A piece of Glamis history tucked into the sand.",
+        "cmt": "Point of Interest",
+        "sym": "two_wheeler",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "k-12",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.1275,
+          32.977667
+        ]
+      },
+      "properties": {
+        "name": "K-12",
+        "desc": "With a near-vertical face that makes even seasoned riders pause before sending it. It’s a go-to spot for testing your nerves and your suspension. The climb up can be brutal, but the view from the top is worth it, and the drop down is pure adrenaline. Locals know it’s not about speed here, it’s about control. K-12 separates the bold from the reckless.",
+        "cmt": "Point of Interest",
+        "sym": "school",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "k2",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.119233,
+          32.971883
+        ]
+      },
+      "properties": {
+        "name": "K2",
+        "desc": "Rising above the surrounding dunes, K2 is one of the tallest and most respected peaks in Glamis. Its steep climb and commanding view make it a proving ground for riders and a landmark that stands out in the vast desert landscape.",
+        "cmt": "Point of Interest",
+        "sym": "terrain",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "keyhole",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.116454,
+          32.915668
+        ]
+      },
+      "properties": {
+        "name": "Keyhole",
+        "desc": "A narrow cut between two steep dunes that forms a natural gateway, blink and you’ll miss it. Keyhole is one of those hidden gems in Glamis that locals love to hit. It’s tight, fast, and feels like threading a needle at speed. Come in at the right angle and it’s smooth sailing. Miss it, and you’re climbing out. It’s a fun challenge and a cool photo spot, especially when the light hits the sand just right.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lake-glamis",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.02221,
+          32.91589
+        ]
+      },
+      "properties": {
+        "name": "Lake Glamis",
+        "desc": "In the winter of 2023/24, heavy rains carved out a temporary lake in the middle of the dunes. It quickly turned into a spectacle, with people dragging in everything from dirt bikes to side-by-sides to test their luck in the water. Some cruised across it, others buried their machines or sent them nose-first into the shallows. It wasn’t exactly smart, but it became one of the silliest and most memorable scenes the dunes had seen in years.",
+        "cmt": "Point of Interest",
+        "sym": "water",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lizard-hill",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.067415,
+          32.928045
+        ]
+      },
+      "properties": {
+        "name": "Lizard Hill",
+        "desc": "A quiet rise in the dunes, often overlooked but easy to spot thanks to the small rock lizard sculpture that gave it its name. Lizard Hill isn’t the biggest or the fastest, but it’s a solid landmark for meeting up or catching your bearings. It’s got gentle slopes, making it a good stop for newer riders or anyone who wants to take a breather. You’ll find a few regulars who treat it like home base. Low-key, but memorable.",
+        "cmt": "Point of Interest",
+        "sym": "pets",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "midway",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.916389734,
+          32.716379617
+        ]
+      },
+      "properties": {
+        "name": "Midway",
+        "desc": "Midway sits between Glamis and Buttercup, making it a natural stop for riders traveling across the dunes. The area is mostly open sand with space to stage or regroup, and it’s often used as a meeting point during longer rides. While not as popular for camping, it’s well known for breaking up the long run through the southern dunes.",
+        "cmt": "Point of Interest",
+        "sym": "adjust",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ogilby",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.886979,
+          32.815282
+        ]
+      },
+      "properties": {
+        "name": "Ogilby",
+        "desc": "Ogilby is a quieter camping area on the southwest edge of the dunes, away from the busier Glamis and Gecko crowds. Riders like it for the open space, easier access, and more laid-back atmosphere. It’s a good choice for those who want to enjoy the dunes without the heavy traffic and noise of the main camping hubs.",
+        "cmt": "Point of Interest",
+        "sym": "train",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ogilby-microwave-tower",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.887503,
+          32.811857
+        ]
+      },
+      "properties": {
+        "name": "Ogilby Microwave Tower",
+        "desc": "A tall communications tower that rises above the desert near Ogilby. It’s a visible landmark from miles away, often used by riders as a navigation point when crossing the southern dunes.",
+        "cmt": "Point of Interest",
+        "sym": "microwave",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ogilby-rail-road-crossing",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.837833,
+          32.815767
+        ]
+      },
+      "properties": {
+        "name": "Ogilby Rail Road Crossing",
+        "desc": "A well-traveled crossing where Highway 78 meets the canal, this bridge provides OHV riders a safe passage into the north side of the dunes. It’s one of the main gateways for traffic heading straight into the heart of Glamis. A desert rail crossing that marks the western approach into the dunes. Once tied to the old mining and transport routes of Ogilby, today it serves as a recognizable waypoint for riders making their way toward Buttercup and the southern sand.",
+        "cmt": "Point of Interest",
+        "sym": "flyover",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "oldsmobile-hill",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.099333,
+          32.962833
+        ]
+      },
+      "properties": {
+        "name": "Oldsmobile Hill",
+        "desc": "The crown jewel of Glamis. Olds is where it all happens—racing, spectating, partying, and pure chaos on peak weekends. It’s steep, wide, and legendary. Riders line up at the bottom to take their shot at the climb while crowds gather to watch from rigs, lawn chairs, or the ridgeline. At night, it lights up with LEDs, music, and wheelies under the stars. If you’ve been to Glamis, you’ve been to Olds. It’s not just a hill—it’s a rite of passage.",
+        "cmt": "Point of Interest",
+        "sym": "local_fire_department",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "osborne-overlook",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.132667,
+          32.9835
+        ]
+      },
+      "properties": {
+        "name": "Osborne Overlook",
+        "desc": "One of the best viewpoints in Glamis, perched above a wide stretch of open dunes. Just off Highway 78, it’s an easy pull-in with paved access, making it a favorite for first-timers, photographers, or anyone looking to take in the full scale of the dunes without dropping in. Sunsets from Osborne are unreal—golden light washing over endless sand. It’s also a good place to regroup before heading into the wild or to just sit back and watch the madness from a distance.",
+        "cmt": "Point of Interest",
+        "sym": "camping",
+        "type": "Restrooms",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "pad-1",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.1705,
+          32.966167
+        ]
+      },
+      "properties": {
+        "name": "Pad 1",
+        "desc": "The first pad you hit coming in from Gecko Road. Pad 1 is low-key and usually less crowded than the others, making it a good choice for early arrivals or folks who want a quieter setup. It’s got easy access to the entrance road and a straight shot into the dunes. Not far from Vendor Row if you need supplies. Some locals treat it as a staging area before heading deeper into Glamis.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "pad-2",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.161333,
+          32.954
+        ]
+      },
+      "properties": {
+        "name": "Pad 2",
+        "desc": "A more laid-back camping spot compared to the higher pads. Pad 2 sits lower along Gecko Road, offering quick access to the dunes without all the foot traffic of the busier pads. It’s a favorite for groups who want space to spread out and a little more quiet at night. Close enough to reach Oldsmobile Hill in minutes but far enough to avoid the constant roar. Solid mix of regulars and newcomers roll through here.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "pad-3",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.136333,
+          32.932
+        ]
+      },
+      "properties": {
+        "name": "Pad 3",
+        "desc": "Right in the sweet spot along Gecko Road. Pad 3 strikes a balance between the party vibe of Pad 4 and the quieter setups of the lower pads. It’s elevated, with a clear view of the dunes and plenty of room for groups to spread out. Easy access to key routes makes it a favorite for riders who want convenience without the chaos. Expect a mix of families, regulars, and folks just out for a good time.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "pad-4",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.121333,
+          32.918833
+        ]
+      },
+      "properties": {
+        "name": "Pad 4",
+        "desc": "One of the most popular camping spots along Gecko Road. Pad 4 sits high on a ridge with a wide view of the dunes, making it a prime location for both day and night action. It’s known for its steady flow of traffic, side-by-sides rolling in and out, music playing, lights glowing after dark. You’ll find everything from families to party crews set up here. Easy access to Oldsmobile Hill and Vendor Row makes it one of the most convenient basecamps in Glamis.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "pad-5",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.135517,
+          32.932083
+        ]
+      },
+      "properties": {
+        "name": "Pad 5",
+        "desc": "A wide, flat staging area that makes setting up camp easy. Pad 5 is known for its open layout and convenient access into the surrounding dunes, making it a reliable base for groups that want space to spread out and ride straight from camp.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "patton-valley",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.942167,
+          32.775
+        ]
+      },
+      "properties": {
+        "name": "Patton Valley",
+        "desc": "A wide, smooth stretch of dunes with long lines and sweeping bowls. Patton Valley gets its name from the WWII training grounds nearby, and it still feels like open territory. It’s a favorite spot for carving big turns and picking up speed. The terrain here is more open than technical, making it great for all skill levels. Riders often pass through on their way to China Wall or Sunset Hill, but it’s worth stopping to take it all in, especially at sunrise or sunset.",
+        "cmt": "Point of Interest",
+        "sym": "military_tech",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "plank-road",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.923,
+          32.7105
+        ]
+      },
+      "properties": {
+        "name": "Plank Road",
+        "desc": "A preserved section of the original wooden road laid across the Imperial Sand Dunes in the early 1900s. Built from thick planks to carry vehicles through shifting sand, it stands today as a rare glimpse into the challenges of desert travel before modern highways.",
+        "cmt": "Point of Interest",
+        "sym": "alt_route",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "roadrunner-campground",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.116833,
+          32.911333
+        ]
+      },
+      "properties": {
+        "name": "Roadrunner Campground",
+        "desc": "A quieter, more tucked-away spot just south of the main Gecko pads. Roadrunner offers hard-packed sites, vault toilets, and a slower pace, perfect for families or groups looking to avoid the high-traffic zones. You’re still close to the action, but with a little more breathing room. It’s a solid home base with quick access to the dunes and fewer late-night rev-ups. Sunrise views here hit different, and the name fits, plenty of actual roadrunners dart through camp in the mornings.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "Restrooms",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sand-drags",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.166167,
+          32.965483
+        ]
+      },
+      "properties": {
+        "name": "Sand Drags",
+        "desc": "A long straight stretch along Gecko Road where riders line up to race side by side. The Sand Drags have been a staple of Glamis culture for years, drawing crowds to watch machines launch, roar, and throw rooster tails of sand down the strip.",
+        "cmt": "Point of Interest",
+        "sym": "bolt",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sweet-maries",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.172937,
+          32.975698
+        ]
+      },
+      "properties": {
+        "name": "Sweet Maries",
+        "desc": "A longtime gathering spot where small vendors set up to sell food, drinks, and supplies. Sweet Maries has the feel of an old roadside market, offering riders a place to refuel, grab a bite, and catch up with others before heading back into the dunes.",
+        "cmt": "Vendor",
+        "sym": "icecream",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "swingset",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.07181,
+          32.9057
+        ]
+      },
+      "properties": {
+        "name": "Swingset",
+        "desc": "A random surprise deep in the dunes, a handmade swing set standing alone in the sand. It’s been rebuilt a few times over the years by Glamis regulars, always in the same general area near Osborne Overlook. It’s the kind of oddball landmark that makes Glamis what it is. Riders stumble on it, hop off, take a swing, snap a photo, and keep going. Simple, weird, and somehow perfect.",
+        "cmt": "Point of Interest",
+        "sym": "sports_volleyball",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ted-kipf-78-crossover",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.067633,
+          32.999933
+        ]
+      },
+      "properties": {
+        "name": "Ted Kipf 78 Crossover",
+        "desc": "A designated OHV crossing along Highway 78 named after longtime dunes advocate Ted Kipp. This spot provides riders with a safe way to move between the north and south sides of the highway while honoring a figure who helped preserve access to Glamis.",
+        "cmt": "Point of Interest",
+        "sym": "flyover",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "test-hill",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -114.898567,
+          32.737533
+        ]
+      },
+      "properties": {
+        "name": "Test Hill",
+        "desc": "A steep climb where riders put their machines to the test, this hill has long been a proving ground in the dunes. Its sharp incline challenges both skill and horsepower, making it a popular spot for those looking to push limits and show what their rigs can do.",
+        "cmt": "Point of Interest",
+        "sym": "science",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "the-ceiling",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.021817,
+          32.866817
+        ]
+      },
+      "properties": {
+        "name": "The Ceiling",
+        "desc": "This stretch of dunes rises high and forms a ridge that feels like the roof of Glamis. From the top, the view stretches out in every direction, giving riders the sense of being right at the edge of the sky.",
+        "cmt": "Point of Interest",
+        "sym": "roofing",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "the-wall",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.025493,
+          32.889164
+        ]
+      },
+      "properties": {
+        "name": "The Wall",
+        "desc": "A massive dune face that rises like a wave in the middle of the sand. Known for its steep pitch and unforgiving climb, The Wall challenges even experienced riders. You either make it or you don’t—there’s not much in between. It's a proving ground for horsepower and throttle control. From the top, you get a killer view of the surrounding dunes. From the bottom, it looks almost vertical. Not a casual stop, but definitely one to remember.",
+        "cmt": "Point of Interest",
+        "sym": "landscape",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "vendors-row",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.073017,
+          32.994266
+        ]
+      },
+      "properties": {
+        "name": "Vendors Row",
+        "desc": "The main marketplace of Glamis, Vendor Row lines up trailers and pop-up shops offering parts, gear, food, and souvenirs. It’s the go-to stop for last-minute essentials or just to wander through the scene and soak up the energy of the crowd.",
+        "cmt": "Vendor",
+        "sym": "store",
+        "type": "Restrooms",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-1",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.068083,
+          32.995583
+        ]
+      },
+      "properties": {
+        "name": "Wash 1",
+        "desc": "Closest to the main entrance, Wash 1 is always buzzing with activity. It’s a favorite for groups that want quick access to the dunes and don’t mind the crowds.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-10",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.046173296,
+          32.980157634
+        ]
+      },
+      "properties": {
+        "name": "Wash 10",
+        "desc": "A longtime favorite for groups, Wash 10 is known for its wide pull-ins and plenty of room to spread out.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-11",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.042933,
+          32.977633
+        ]
+      },
+      "properties": {
+        "name": "Wash 11",
+        "desc": "More relaxed than the earlier washes, Wash 11 suits riders who want to be close but not right on top of the weekend crowd.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-12",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.040533,
+          32.975783
+        ]
+      },
+      "properties": {
+        "name": "Wash 12",
+        "desc": "A transitional wash, sitting between the busy core and quieter stretches further down. Camps here often strike a good balance.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-13",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.038033,
+          32.973833
+        ]
+      },
+      "properties": {
+        "name": "Wash 13",
+        "desc": "Steadily popular with medium-size groups, Wash 13 offers a quieter edge without losing easy access.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-14",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.03465,
+          32.9711
+        ]
+      },
+      "properties": {
+        "name": "Wash 14",
+        "desc": "Known for drawing repeat visitors who like routine. Wash 14 has a loyal set of riders who camp here every season.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-15",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.03125,
+          32.968483
+        ]
+      },
+      "properties": {
+        "name": "Wash 15",
+        "desc": "The halfway mark on Gecko Road, Wash 15 has a balanced reputation — not too busy, not too quiet.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-16",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.027766,
+          32.965683
+        ]
+      },
+      "properties": {
+        "name": "Wash 16",
+        "desc": "A favorite for riders looking for smoother staging space, Wash 16 is known for its easy in-and-out flow.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-17",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.02375,
+          32.9625
+        ]
+      },
+      "properties": {
+        "name": "Wash 17",
+        "desc": "This wash leans quiet compared to the first half. Smaller groups often pick it for a calmer base.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-18",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.0211,
+          32.960467
+        ]
+      },
+      "properties": {
+        "name": "Wash 18",
+        "desc": "With a little more distance from the crowd, Wash 18 appeals to families and riders looking for extra room to spread out.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-19",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.0173,
+          32.957483
+        ]
+      },
+      "properties": {
+        "name": "Wash 19",
+        "desc": "A flexible staging wash that shifts between social and quiet depending on the weekend.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-2",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.065633,
+          32.993983
+        ]
+      },
+      "properties": {
+        "name": "Wash 2",
+        "desc": "Just down the road, Wash 2 keeps the energy high but with a little more space to spread out. Riders who like being near the action without being in the thick of it often stage here.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-20",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.0141,
+          32.9549
+        ]
+      },
+      "properties": {
+        "name": "Wash 20",
+        "desc": "Wash 20 is noticeably calmer, often picked by riders who want the dunes without the constant flow of traffic.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-21",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.011517,
+          32.952917
+        ]
+      },
+      "properties": {
+        "name": "Wash 21",
+        "desc": "This wash is wide open, great for larger set-ups and groups that like extra space.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-22",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.0086,
+          32.9506
+        ]
+      },
+      "properties": {
+        "name": "Wash 22",
+        "desc": "A quieter stop along Gecko, Wash 22 is good for campers who want easier nights and less dust from passing rigs.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-23",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.00455,
+          32.947417
+        ]
+      },
+      "properties": {
+        "name": "Wash 23",
+        "desc": "This wash is laid-back but still well positioned for quick dune runs.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-24",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.0015,
+          32.945
+        ]
+      },
+      "properties": {
+        "name": "Wash 24",
+        "desc": "Wash 24 has a steady local following and a reputation as a dependable staging spot.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-3",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.0638,
+          32.992783
+        ]
+      },
+      "properties": {
+        "name": "Wash 3",
+        "desc": "A balanced spot with easy dune access and steady traffic. Wash 3 draws a mix of families and riding crews who want convenience without chaos.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-4",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.0621,
+          32.991717
+        ]
+      },
+      "properties": {
+        "name": "Wash 4",
+        "desc": "Known for being social but not overwhelming, Wash 4 has enough room for larger camps while still keeping close to Gecko Road’s main flow.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-5",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.059683,
+          32.990167
+        ]
+      },
+      "properties": {
+        "name": "Wash 5",
+        "desc": "This one is a sweet middle ground. Close enough to reach the action fast, but laid-back enough to give camps a little breathing room.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-6",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.05745,
+          32.988667
+        ]
+      },
+      "properties": {
+        "name": "Wash 6",
+        "desc": "Wash 6 is a flexible choice, popular with groups that like staging quick rides and meeting up with friends moving between washes.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-7",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.053,
+          32.98555
+        ]
+      },
+      "properties": {
+        "name": "Wash 7",
+        "desc": "Far enough to ease off the crowd, Wash 7 is still lively with a steady stream of riders passing through.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-8",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.051117,
+          32.984067
+        ]
+      },
+      "properties": {
+        "name": "Wash 8",
+        "desc": "This wash has an even mix of campers and day-riders. People often use it as a meet-up spot before heading deeper into the dunes.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wash-9",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.04885,
+          32.982333
+        ]
+      },
+      "properties": {
+        "name": "Wash 9",
+        "desc": "Wash 9 offers more open staging areas, giving larger rigs and trailers extra space to set up.",
+        "cmt": "Camping",
+        "sym": "camping",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-09-10T00:00:00Z"
+      }
+    }
+  ]
+}
