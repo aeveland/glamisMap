@@ -117,4 +117,24 @@
     <name>Osborne Overlook</name>
     <desc>One of the best viewpoints in Glamis, perched above a wide stretch of open dunes. Just off Highway 78, it’s an easy pull-in with paved access, making it a favorite for first-timers, photographers, or anyone looking to take in the full scale of the dunes without dropping in. Sunsets from Osborne are unreal—golden light washing over endless sand. It’s also a good place to regroup before heading into the wild or to just sit back and watch the madness from a distance.</desc>
   </wpt>
+   <wpt lat="32.901370" lon="-115.01615">
+    <name>Trough</name>
+    <desc>It's just a metal trough out in the dunes. Riders gave it a nickname, but its really nothing more than a random piece of old metal that people point out when they pass by.</desc>
+  </wpt>
+    <wpt lat="32.926730" lon="-115.04116">
+    <name>Satellite Bar</name>
+    <desc>A small hard-to-miss metal post with an old satellite dish attached. It sits out in the dunes and riders use it as a quirky waypoint on longer loops. It's not official. It's just one of those random Glamis landmarks that stuck because everyone recognizes it.</desc>
+  </wpt>
+      <wpt lat="32.928000" lon="-115.06733">
+    <name>Windmill</name>
+    <desc>A small metal windmill frame tucked out in the open dunes. Riders use it as a landmark on longer runs since it sits well away from the big hills and camping areas. It's nothing official, just an old structure that stuck around long enough for people to start pointing it out.</desc>
+  </wpt>
+    <wpt lat="32.901370" lon="-115.01615">
+    <name>Carla's Bench</name>
+    <desc>Carla's Bench is frequently mentioned in dune-riding circles as a point of interest or informal spot in Glamis Sand Dunes</desc>
+  </wpt>
+    <wpt lat="32.944360" lon="-115.07953">
+    <name>Fireman's Box</name>
+    <desc>The memorial is meant to honor the 19 hotshots who died in the 2013 Yarnell fire in Prescott, AZ — a memorial was placed there around 2014.</desc>
+  </wpt>
 </gpx>

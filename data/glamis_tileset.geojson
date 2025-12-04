@@ -395,7 +395,7 @@
         "cmt": "Point of Interest",
         "sym": "light_mode",
         "type": "",
-        "images": "",
+        "images": "popupImages/IMG_6499.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z"
       }
@@ -815,7 +815,7 @@
         "cmt": "Point of Interest",
         "sym": "local_fire_department",
         "type": "",
-        "images": "",
+        "images": "popupImages/IMG_1124.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z"
       }
@@ -1067,7 +1067,7 @@
         "cmt": "Point of Interest",
         "sym": "sports_volleyball",
         "type": "",
-        "images": "",
+        "images": "popupImages/IMG_1121.jpeg, popupImages/IMG_6094.jpeg, popupImages/IMG_6110.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z"
       }
@@ -1172,7 +1172,7 @@
         "cmt": "Vendor",
         "sym": "store",
         "type": "Restrooms",
-        "images": "",
+        "images": "popupImages/IMG_1122.jpeg, popupImages/IMG_6444.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z"
       }
@@ -1679,6 +1679,111 @@
         "images": "",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "Firemans Box",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.07953,
+          32.944360
+        ]
+      },
+      "properties": {
+        "name": "Fireman's Box",
+        "desc": "The memorial is meant to honor the 19 hotshots who died in the 2013 Yarnell fire in Prescott, AZ — a memorial was placed there around 2014.",
+        "cmt": "Point of Interest",
+        "sym": "terrain",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-12-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "Trough",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.05827,
+          32.918420
+        ]
+      },
+      "properties": {
+        "name": "Trough",
+        "desc": "It's just a metal trough out in the dunes. Riders gave it a nickname, but its really nothing more than a random piece of old metal that people point out when they pass by.",
+        "cmt": "Point of Interest",
+        "sym": "terrain",
+        "type": "",
+        "images": "images/IMG_6593.jpeg",
+        "link1_href": "",
+        "time": "2025-12-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "Carla's Bench",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.01615,
+          32.901370
+        ]
+      },
+      "properties": {
+        "name": "Carla's Bench",
+        "desc": "Carla's Bench is frequently mentioned in dune-riding circles as a point of interest or informal spot in Glamis Sand Dunes",
+        "cmt": "Point of Interest",
+        "sym": "terrain",
+        "type": "",
+        "images": "popupImages/IMG_6576.jpeg",
+        "link1_href": "",
+        "time": "2025-12-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "The Windmill",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.06733,
+          32.928000
+        ]
+      },
+      "properties": {
+        "name": "The Windmill",
+        "desc": "A small metal windmill frame tucked out in the open dunes. Riders use it as a landmark on longer runs since it sits well away from the big hills and camping areas. It's nothing official, just an old structure that stuck around long enough for people to start pointing it out.",
+        "cmt": "Point of Interest",
+        "sym": "terrain",
+        "type": "",
+        "images": "",
+        "link1_href": "",
+        "time": "2025-12-10T00:00:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "Satellite Bar",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.04116,
+          32.926730
+        ]
+      },
+      "properties": {
+        "name": "Satellite Bar",
+        "desc": "A small hard-to-miss metal post with an old satellite dish attached. It sits out in the dunes and riders use it as a quirky waypoint on longer loops. It's not official. It's just one of those random Glamis landmarks that stuck because everyone recognizes it.",
+        "cmt": "Point of Interest",
+        "sym": "terrain",
+        "type": "",
+        "images": "popupImages/IMG_6589.jpeg",
+        "link1_href": "",
+        "time": "2025-12-10T00:00:00Z"
       }
     }
   ]
