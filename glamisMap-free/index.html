@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Glamis Map</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+
+<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/dist/shoelace.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/dist/themes/light.css" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+<div id="map"></div>
+
+<!-- Custom Map Controls -->
+<div class="map-controls">
+  <!-- Zoom Controls -->
+  <div class="control-group">
+    <button class="control-btn" id="zoom-in" title="Zoom In">+</button>
+    <button class="control-btn" id="zoom-out" title="Zoom Out">−</button>
+  </div>
+  
+  <!-- 3D Toggle -->
+  <div class="control-group">
+    <button class="control-btn" id="toggle-3d" title="Toggle 3D View">3D</button>
+  </div>
+  
+  <!-- Dark Mode Toggle -->
+  <div class="control-group">
+    <button class="control-btn dark-mode-toggle" id="dark-mode-toggle" title="Toggle Dark Mode">
+      <span class="material-icons">dark_mode</span>
+    </button>
+  </div>
+  
+  <!-- Basemap Selector -->
+  <div class="control-group">
+    <button class="control-btn basemap-toggle" id="basemap-toggle" title="Select Basemap">
+      <span class="material-icons">layers</span>
+    </button>
+    <div class="basemap-dropdown" id="basemap-dropdown">
+      <div class="basemap-option" data-value="0" title="Satellite">
+        <span class="material-icons">satellite</span>
+      </div>
+      <div class="basemap-option" data-value="1" title="Streets">
+        <span class="material-icons">map</span>
+      </div>
+      <div class="basemap-option" data-value="2" title="Outdoors">
+        <span class="material-icons">terrain</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Compass Widget -->
+<div class="compass-widget" id="compass-widget">
+  <div class="compass-circle">
+    <div class="compass-inner" id="compass-inner">
+      <div class="compass-arrow"></div>
+      <div class="compass-n">N</div>
+    </div>
+  </div>
+</div>
+
+<!-- Image Modal -->
+<div id="image-modal" class="image-modal">
+  <div class="modal-image-container">
+    <img id="modal-image" class="modal-image" src="" alt="">
+    <div class="modal-close-button" onclick="closeImageModal()">×</div>
+  </div>
+</div>
+
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+<script src="script.js?v=49"></script>
+</body>
+</html>
+ 
