@@ -157,8 +157,10 @@ check(!/'source-layer':\s*'POI-8oc448'/.test(scriptSrc), 'vector tile source-lay
 // ---------------------------------------------------------------------------
 section('8. Geolocation / blue dot');
 check(/new mapboxgl\.GeolocateControl/.test(scriptSrc), 'uses Mapbox GeolocateControl for the blue dot');
-check(/trackUserLocation:\s*true/.test(scriptSrc) && /showUserHeading:\s*true/.test(scriptSrc),
-  'tracking + heading beam enabled');
+check(/trackUserLocation:\s*true/.test(scriptSrc) && /showUserHeading:\s*false/.test(scriptSrc),
+  'tracking enabled; control heading off (we manage heading ourselves for iOS Safari)');
+check(/navigator\.geolocation\.getCurrentPosition\([\s\S]*?geolocate\.trigger\(\)/.test(scriptSrc),
+  'locate requests position directly in the tap gesture (iOS Safari)');
 check(/enableHighAccuracy:\s*true/.test(scriptSrc), 'high-accuracy positioning requested');
 check(indexHtml.includes('id="locate-btn"'), 'custom locate button present in index.html');
 check(/function initLocate\(/.test(scriptSrc) && /initLocate\(\)/.test(scriptSrc), 'initLocate defined and called');
@@ -195,19 +197,18 @@ check(/rel="manifest"/.test(indexHtml) && /apple-touch-icon/.test(indexHtml),
   'index.html links the manifest + apple-touch-icon');
 
 const swSrc = readFileSync(join(root, 'sw.js'), 'utf8');
-// The SW precache entry for script.js MUST match the <script> tag's ?v= query.
-const tagVer = (indexHtml.match(/script\.js\?v=(\d+)/) || [])[1];
-const swVer = (swSrc.match(/script\.js\?v=(\d+)/) || [])[1];
-check(tagVer && swVer && tagVer === swVer, `script.js ?v= matches in index.html and sw.js (v=${tagVer})`);
-check(/addEventListener\('install'/.test(swSrc) && /addEventListener\('activate'/.test(swSrc) &&
-  /addEventListener\('fetch'/.test(swSrc), 'sw.js has install/activate/fetch handlers');
-check(/api\.mapbox\.com/.test(swSrc), 'sw.js runtime-caches Mapbox requests');
-// Every same-origin ./images/*.png in the SW precache list must exist on disk.
-const swImgs = [...swSrc.matchAll(/'\.\/images\/([^']+\.png)'/g)].map((m) => m[1]);
-const onDisk = new Set(readdirSync(join(root, 'images')));
-const missingPrecache = swImgs.filter((f) => !onDisk.has(f));
-check(missingPrecache.length === 0, `all ${swImgs.length} precached symbol icons exist (${missingPrecache.length} missing)`);
-check(/navigator\.serviceWorker\.register\('sw\.js'\)/.test(scriptSrc), 'service worker registered (relative path)');
+// Offline is DISABLED: sw.js is now a self-unregistering kill switch (no
+// caching/fetch handler), so existing installs clean themselves up.
+check(/self\.registration\.unregister\(\)/.test(swSrc) && /caches\.delete/.test(swSrc),
+  'sw.js is a kill switch (clears caches + unregisters itself)');
+check(!/addEventListener\('fetch'/.test(swSrc),
+  'sw.js no longer intercepts fetches (no offline caching)');
+// The page side: the service worker is unregistered (not registered) and the
+// offline UI init is commented out.
+check(/getRegistrations\(\)[\s\S]*?unregister\(\)/.test(scriptSrc),
+  'service worker disabled — existing registrations are unregistered');
+check(/^\s*\/\/\s*initOffline\(\);/m.test(scriptSrc),
+  'offline UI disabled (initOffline not called)');
 check(indexHtml.includes('id="offline-btn"') && indexHtml.includes('id="offline-dialog"'),
   'offline button + dialog present in index.html');
 check(indexHtml.includes('id="offline-status"') && /function updateOfflineStatus\(/.test(scriptSrc) &&

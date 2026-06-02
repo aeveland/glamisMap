@@ -2117,3 +2117,14 @@ body.dark-mode .offline-step .material-icons {
 body.dark-mode .desktop-search {
   background: #000;
 }
+
+
+/* Offline capabilities hidden (download button + indicator).
+   To re-enable: remove this block, restore the service-worker registration,
+   and un-comment initOffline(). */
+.control-group:has(#offline-btn) {
+  display: none !important;
+}
+.offline-pill {
+  display: none !important;
+}

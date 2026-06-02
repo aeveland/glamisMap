@@ -140,9 +140,12 @@ map.addControl(new mapboxgl.ScaleControl({
 // (live position dot, accuracy circle, heading beam). We drive it from our own
 // glass control button (see initLocate), so its default button is hidden in CSS.
 const geolocate = new mapboxgl.GeolocateControl({
-  positionOptions: { enableHighAccuracy: true },
+  positionOptions: { enableHighAccuracy: true, timeout: 15000, maximumAge: 30000 },
   trackUserLocation: true,
-  showUserHeading: true,
+  // We manage device heading ourselves (see startHeadingTracking). Letting the
+  // control also manage it triggers an iOS motion-permission prompt that can
+  // break the location flow in Safari, so keep it off here.
+  showUserHeading: false,
   showAccuracyCircle: true
 });
 map.addControl(geolocate);
@@ -878,7 +881,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileSheet();
   initLocate();
   initServiceWorker();
-  initOffline();
+  // initOffline();  // Offline capabilities hidden — see initServiceWorker()
   initNavigation();
   initSearch();
   initDesktopSearch();
@@ -1404,8 +1407,27 @@ function initLocate() {
 
   locateBtn.addEventListener('click', async () => {
     if (locateState === 'off') {
-      // Center + follow + show the blue dot. State flips on the event above.
-      geolocate.trigger();
+      // iOS Safari only grants geolocation when the request comes directly from
+      // the tap (not routed through the control). Request a position here in the
+      // gesture; once granted, let the control take over the dot + follow.
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            userLocation = [pos.coords.longitude, pos.coords.latitude];
+            onUserLocationUpdate();
+            geolocate.trigger();
+          },
+          (err) => {
+            const denied = err && err.code === 1;
+            showMapToast(denied
+              ? 'Location denied. In Safari: tap “aA” in the address bar → Website Settings → Location → Allow, and check Settings ▸ Privacy ▸ Location Services ▸ Safari.'
+              : 'Couldn’t get your location — make sure the site is opened over https, then try again.');
+          },
+          { enableHighAccuracy: true, timeout: 15000, maximumAge: 30000 }
+        );
+      } else {
+        geolocate.trigger();
+      }
     } else if (locateState === 'active') {
       const started = await startHeadingTracking();
       if (started) setState('heading');
@@ -1433,10 +1455,25 @@ let offlineCancel = false;
 // Register the service worker (relative path → scope = app directory, which
 // works both locally and under a GitHub Pages project subpath).
 function initServiceWorker() {
-  if (!('serviceWorker' in navigator)) return;
-  navigator.serviceWorker.register('sw.js').catch((err) => {
-    console.warn('Service worker registration failed:', err);
-  });
+  // ---------------------------------------------------------------------------
+  // Offline capabilities are currently DISABLED.
+  // Instead of registering the service worker, we actively remove any that was
+  // previously installed (and its caches) so visitors are no longer served
+  // stale, cached content.
+  //
+  // To RE-ENABLE offline: replace the body below with
+  //     navigator.serviceWorker.register('sw.js');
+  // and also un-comment `initOffline();` in DOMContentLoaded and the offline
+  // control button (see style.css ".control-group:has(#offline-btn)").
+  // ---------------------------------------------------------------------------
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations()
+      .then((regs) => regs.forEach((r) => r.unregister()))
+      .catch(() => {});
+  }
+  if ('caches' in window) {
+    caches.keys().then((keys) => keys.forEach((k) => caches.delete(k))).catch(() => {});
+  }
 }
 
 function sendToServiceWorker(message) {
