@@ -56,6 +56,25 @@ check(badGeom === 0, `all features are valid Points (${badGeom} bad)`);
 check(badName === 0, `all features have a name (${badName} missing)`);
 check(badRange === 0, `all coordinates are within the Glamis region (${badRange} out of range)`);
 
+// Every local photo referenced by the data must exist on disk EXACTLY (paths
+// are case-sensitive on GitHub Pages / githack, though not on macOS).
+const brokenPhotos = [];
+for (const f of geo.features) {
+  for (const key of ['images', 'image']) {
+    const v = (f.properties?.[key] || '').trim();
+    if (!v) continue;
+    for (const part of v.split(',')) {
+      const ref = part.trim();
+      if (!ref || /^https?:\/\//i.test(ref)) continue;
+      if (!existsSync(join(root, ref.replace(/^\.\//, '')))) {
+        brokenPhotos.push(`${f.properties.name}: ${ref}`);
+      }
+    }
+  }
+}
+check(brokenPhotos.length === 0,
+  `all referenced photos exist on disk (${brokenPhotos.length} broken${brokenPhotos.length ? ': ' + brokenPhotos.join(', ') : ''})`);
+
 // ---------------------------------------------------------------------------
 section('3. Symbol icons exist for every sym');
 const images = new Set(readdirSync(join(root, 'images')));

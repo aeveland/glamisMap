@@ -385,6 +385,9 @@ function openDesktopPopup(props, coords) {
     if (popupEl) {
       popupEl.querySelectorAll('.popup-image-thumb, .glass-image').forEach((img) => {
         img.addEventListener('click', () => openImageModal(img.src));
+        // Hide broken photos instead of showing a broken-image icon.
+        img.addEventListener('error', () => img.remove());
+        if (img.complete && img.naturalWidth === 0) img.remove();
       });
     }
     
@@ -1094,10 +1097,11 @@ function populateSheet(props, coords) {
   }
   urls.forEach((url) => {
     const img = document.createElement('img');
-    img.src = url;
     img.alt = props.name || '';
-    img.loading = 'lazy';
+    // Hide (don't show a broken-image icon) if a photo fails to load.
+    img.addEventListener('error', () => img.remove());
     img.addEventListener('click', () => openImageModal(img.src));
+    img.src = url; // set last so the error handler is already attached
     imagesEl.appendChild(img);
   });
 
