@@ -2019,12 +2019,65 @@ function setNavUserMarker(coords) {
   }
 }
 
+// --- device heading (so the banner arrow points the way to go) -------------
+// During navigation we keep the device's compass heading so the banner arrow
+// shows the bearing to the destination relative to the direction you're facing
+// (like Apple Maps), not just relative to north.
+let navHeading = null;
+let navOrientationHandler = null;
+
+async function startNavHeading() {
+  try {
+    if (typeof DeviceOrientationEvent !== 'undefined' &&
+        typeof DeviceOrientationEvent.requestPermission === 'function') {
+      const res = await DeviceOrientationEvent.requestPermission(); // iOS 13+
+      if (res !== 'granted') return;
+    }
+  } catch (_) {
+    return; // not in a gesture / unsupported — arrow falls back to north-up
+  }
+  navOrientationHandler = (event) => {
+    let heading = null;
+    if (typeof event.webkitCompassHeading === 'number') {
+      heading = event.webkitCompassHeading;     // iOS: degrees CW from north
+    } else if (typeof event.alpha === 'number') {
+      heading = 360 - event.alpha;              // most other browsers
+    }
+    if (heading == null || isNaN(heading)) return;
+    navHeading = heading;
+    updateNavArrow();
+  };
+  if ('ondeviceorientationabsolute' in window) {
+    window.addEventListener('deviceorientationabsolute', navOrientationHandler);
+  } else {
+    window.addEventListener('deviceorientation', navOrientationHandler);
+  }
+}
+
+function stopNavHeading() {
+  if (navOrientationHandler) {
+    window.removeEventListener('deviceorientationabsolute', navOrientationHandler);
+    window.removeEventListener('deviceorientation', navOrientationHandler);
+    navOrientationHandler = null;
+  }
+  navHeading = null;
+}
+
+// Rotate the banner arrow toward the destination, relative to the device
+// heading when available (falls back to the map bearing otherwise).
+function updateNavArrow() {
+  const arrowEl = document.getElementById('nav-arrow');
+  if (!arrowEl || !navState.active || !userLocation || !navState.target) return;
+  const brg = bearingDeg(userLocation, navState.target.coords);
+  const ref = navHeading != null ? navHeading : map.getBearing();
+  arrowEl.style.transform = `rotate(${brg - ref}deg)`;
+}
+
 // --- live stats / banner ---------------------------------------------------
 function updateNavStats() {
   if (!navState.active || !userLocation || !navState.target) return;
   const distEl = document.getElementById('nav-distance');
   const cardEl = document.getElementById('nav-cardinal');
-  const arrowEl = document.getElementById('nav-arrow');
 
   const d = haversineMiles(userLocation, navState.target.coords);
   const brg = bearingDeg(userLocation, navState.target.coords);
@@ -2040,8 +2093,7 @@ function updateNavStats() {
     distEl.textContent = formatMiles(d);
   }
   cardEl.textContent = cardinal(brg);
-  // Rotate the arrow to point at the target on screen (account for map bearing).
-  if (arrowEl) arrowEl.style.transform = `rotate(${brg - map.getBearing()}deg)`;
+  updateNavArrow();
 }
 
 // --- camera ----------------------------------------------------------------
@@ -2086,6 +2138,8 @@ function startNavigation(target) {
   navState.target = target;
   navState.follow = true;
   navState.arrived = false;
+
+  startNavHeading(); // device compass → heading-aware banner arrow
 
   hideSheetForNav();
   document.body.classList.add('navigating');
@@ -2137,6 +2191,7 @@ function endNavigation() {
   navState.active = false;
   navState.target = null;
   navState.arrived = false;
+  stopNavHeading();
   if (navState.watchId != null) {
     navigator.geolocation.clearWatch(navState.watchId);
     navState.watchId = null;

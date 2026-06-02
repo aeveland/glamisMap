@@ -246,6 +246,8 @@ check(/navState\.follow/.test(scriptSrc) && /fitBounds/.test(scriptSrc),
   'frame-then-follow camera behavior');
 check(/function initNavigation\(/.test(scriptSrc) && /initNavigation\(\)/.test(scriptSrc),
   'initNavigation defined and called');
+check(/function updateNavArrow\(/.test(scriptSrc) && /navHeading != null \? navHeading/.test(scriptSrc) &&
+  /startNavHeading\(\)/.test(scriptSrc), 'banner arrow reflects device heading');
 
 // ---------------------------------------------------------------------------
 section('12. Collapsible map tools');
