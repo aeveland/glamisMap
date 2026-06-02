@@ -228,8 +228,8 @@ check(/getRegistrations\(\)[\s\S]*?unregister\(\)/.test(scriptSrc),
   'service worker disabled — existing registrations are unregistered');
 check(/^\s*\/\/\s*initOffline\(\);/m.test(scriptSrc),
   'offline UI disabled (initOffline not called)');
-check(indexHtml.includes('id="offline-btn"') && indexHtml.includes('id="offline-dialog"'),
-  'offline button + dialog present in index.html');
+check(!indexHtml.includes('id="offline-btn"'),
+  'offline download button removed (offline disabled)');
 check(indexHtml.includes('id="offline-status"') && /function updateOfflineStatus\(/.test(scriptSrc) &&
   /Last downloaded /.test(scriptSrc), 'offline modal shows a last-downloaded status');
 check(/setLastDownloadNow\(\)/.test(scriptSrc) && /clearLastDownload\(\)/.test(scriptSrc),
@@ -271,7 +271,7 @@ check(/function updateNavArrow\(/.test(scriptSrc) && /navHeading != null \? navH
 // ---------------------------------------------------------------------------
 section('12. Collapsible map tools');
 check(indexHtml.includes('id="tools-toggle"'), 'tools toggle button present');
-check(/<div class="tools-collapsible" id="tools-collapsible">[^]*id="offline-btn"[^]*<\/div>/.test(indexHtml),
+check(/<div class="tools-collapsible" id="tools-collapsible">[^]*id="basemap-toggle"[^]*<\/div>/.test(indexHtml),
   'tool groups are wrapped in the collapsible container');
 check(/function initToolsToggle\(/.test(scriptSrc) && /initToolsToggle\(\)/.test(scriptSrc),
   'initToolsToggle defined and called');
