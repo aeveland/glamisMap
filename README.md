@@ -22,26 +22,19 @@ A large round of new features, reliability fixes, and an automated test suite.
 
 #### 🧭 Navigation & location
 - **"Blue dot"** live location (Mapbox GeolocateControl) driven by a custom glass button: tap to center & follow, tap again for device-heading/compass mode.
-- **Directions** to any point: a dashed straight-line route (works offline and reaches off-road dune points), an Apple-style banner with live distance + heading, a frame-then-follow camera with a Recenter button, and arrival detection.
+- **Directions** to any point: a dashed straight-line route (no routing service required — reaches off-road dune points), an Apple-style banner with live distance + heading, a frame-then-follow camera with a Recenter button, and arrival detection.
 
 #### 🗺️ Map
 - **Clustering** of nearby points — tap a cluster to zoom in and expand it.
 - **Collapsible map tools** — one button collapses the whole control stack to save screen space.
 - Basemap selector now opens to the side so it no longer overlaps the other controls.
 
-#### 📥 Offline & installable (PWA)
-- The app is now an **installable PWA** (web manifest + app icons, standalone display).
-- A **service worker** precaches the app shell, point data, and symbols, and runtime-caches the map tiles/photos you view so previously-seen areas work offline.
-- A **"Download for offline"** button warms map imagery for the Glamis area at the current basemap (opt-in for ~37 MB of location photos), with a storage estimate, a **"Last downloaded {date}"** status, and a Clear option.
-- An **Install app** entry in the download modal: one-tap install on Android/Chromium, or Add-to-Home-Screen instructions on iOS (hidden once installed).
-- An offline indicator and a "you've left the downloaded area" notice.
-
 #### 🛠️ Reliability & fixes
 - Fixed custom pin symbols disappearing after switching basemaps (icons are reloaded on every style change).
 - Removed duplicate map event handlers that accumulated on each basemap switch.
 - Escaped all point text rendered in popups/cards (prevents broken layout and injection).
 - Defined the missing `--text-primary` color variable, added a clipboard fallback for non-secure contexts, and added `lang` + a meta description.
-- Added an automated static **test suite** (`tests/validate.mjs`, run with `node tests/validate.mjs`) covering data/asset integrity, HTML escaping, and the wiring for every feature above (123 checks).
+- Added an automated static **test suite** (`tests/validate.mjs`, run with `node tests/validate.mjs`) covering data/asset integrity, HTML escaping, and the wiring for every feature above.
 
 ### September 12, 2025
 - Created custom symbols for each location.
@@ -95,11 +88,9 @@ The admin interface provides a comprehensive tool for editing map data:
 glamisMap/
 ├── index.html                  # Main interactive map
 ├── admin.html                  # Admin interface for editing points
-├── script.js                   # Map, search, navigation, offline & UI logic
+├── script.js                   # Map, search, navigation & UI logic
 ├── admin.js                    # Admin interface functionality
 ├── style.css                   # Styles for the map and UI
-├── sw.js                       # Service worker (offline caching)
-├── manifest.webmanifest        # PWA manifest (installable app)
 ├── LICENSE                     # Legal restrictions and ownership info
 ├── README.md                   # Project description and usage
 ├── data/
@@ -108,7 +99,6 @@ glamisMap/
 │   ├── default.png             # Default pin image
 │   ├── selected.png            # Selected pin image
 │   └── <sym>.png / <sym>Selected.png  # Per-symbol marker icons
-├── icons/                      # PWA app icons (192/512/maskable + apple-touch)
 ├── popupImages/                # Photos shown in location popups/cards
 ├── tests/
 │   └── validate.mjs            # Static test suite (run: node tests/validate.mjs)
@@ -128,14 +118,12 @@ glamisMap/
 - Mapbox GL JS (incl. GeolocateControl for live location)
 - [POI.gpx GPX file](data/POI.gpx)
 - Vanilla JavaScript
-- Progressive Web App: service worker + web manifest (offline + installable)
 - Node.js for the static test suite (`node tests/validate.mjs`)
 - Material Icons
 
 ## ✅ To Do
 - Upload edited GeoJSON back to server or cloud storage
-- (Optional) Self-hosted public-domain (NAIP) satellite tiles for fully-sanctioned offline imagery
-- (Optional) Switch the service worker to network-first for HTML/JS/CSS so updates appear without a hard reload
+- Keep the local GeoJSON photos in sync with the Mapbox tileset
 
 ## 🧪 Testing
 
@@ -165,8 +153,6 @@ node tests/validate.mjs
 - [ ] **Location**: Blue dot centers/follows; second tap enables compass heading
 - [ ] **Directions**: Route line + live distance/heading; Recenter; arrival
 - [ ] **Clustering survives basemap switch**: Pins/clusters reappear after changing basemaps
-- [ ] **Offline**: Download for offline, "Last downloaded" status, offline indicator, app loads offline
-- [ ] **Install**: Android one-tap install / iOS Add-to-Home-Screen; entry hidden once installed
 
 ## 🚀 Hosting
 This site is hosted via GitHub Pages. You can fork it and publish your own version easily.
