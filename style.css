@@ -1,3 +1,14 @@
+:root {
+ /* Primary text color used throughout the glass popup. Previously this
+    variable was referenced but never defined, so popup text relied on
+    accidental inheritance. */
+ --text-primary: #1a1a1a;
+}
+
+body.dark-mode {
+ --text-primary: #f5f5f5;
+}
+
 body {
  margin: 0;
  padding: 0;
@@ -386,30 +397,39 @@ body {
   background: rgba(0, 0, 0, 0.2);
 }
 
-/* Basemap Dropdown */
+/* Anchor the basemap flyout to its own button group */
+.control-group:has(.basemap-toggle) {
+  position: relative;
+}
+
+/* Basemap Dropdown — flies out to the LEFT of the button so it never
+   collides with the stacked controls below it (e.g. the download button). */
 .basemap-dropdown {
   position: absolute;
-  top: 100%;
-  left: 0;
-  width: 44px;
+  top: 0;
+  right: calc(100% + 8px);
+  left: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  width: auto;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  margin-top: 4px;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-10px);
+  transform: translateX(10px);
   transition: all 0.2s ease;
-  z-index: 1001;
+  z-index: 1002;
   padding: 2px;
 }
 
 .basemap-dropdown.show {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
+  transform: translateX(0);
 }
 
 .basemap-option {
@@ -621,7 +641,7 @@ body.dark-mode .mapboxgl-ctrl-scale {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 1300; /* above the mobile bottom sheet (1200) */
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
@@ -738,4 +758,1373 @@ sl-tooltip {
     line-height: 28px;
     font-size: 18px;
   }
+}
+
+
+/* ===========================================================================
+   Mobile bottom sheet — Apple Maps-style place card
+   Only rendered on small screens; desktop keeps the floating glass popup.
+   =========================================================================== */
+.mobile-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 92vh;
+  max-height: 92vh;
+  background: #f2f2f7; /* iOS systemGroupedBackground */
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -2px 28px rgba(0, 0, 0, 0.18);
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(100%);
+  will-change: transform;
+  visibility: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+}
+
+.mobile-sheet.is-visible {
+  visibility: visible;
+}
+
+/* iOS-like ease — applied only while snapping, removed during a drag */
+.mobile-sheet.is-animating {
+  transition: transform 0.42s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.sheet-grabber-zone {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0 4px;
+  cursor: grab;
+  touch-action: none;
+}
+
+.sheet-grabber {
+  width: 36px;
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(60, 60, 67, 0.3);
+}
+
+.sheet-header {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 16px 14px;
+  cursor: grab;
+  touch-action: none;
+}
+
+.sheet-icon {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sheet-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* Match the slight lift the markers have on the map */
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.sheet-title {
+  flex: 1;
+  min-width: 0;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #000;
+}
+
+.sheet-close {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(120, 120, 128, 0.16); /* iOS fill quaternary */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sheet-close .material-icons {
+  font-size: 20px;
+  color: rgba(60, 60, 67, 0.6);
+}
+
+.sheet-scroll {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  padding: 0 16px calc(24px + env(safe-area-inset-bottom));
+}
+
+/* Horizontal image carousel */
+.sheet-images {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  margin: 2px -16px 16px;
+  padding: 0 16px;
+}
+
+.sheet-images:empty {
+  display: none;
+}
+
+.sheet-images img {
+  flex: 0 0 auto;
+  height: 190px;
+  width: auto;
+  max-width: 86%;
+  border-radius: 12px;
+  object-fit: cover;
+  scroll-snap-align: start;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* Collapsible section header (DETAILS) */
+.sheet-section-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 4px 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sheet-section-toggle > span:first-child {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(60, 60, 67, 0.6);
+}
+
+.sheet-chevron {
+  font-size: 22px;
+  color: rgba(60, 60, 67, 0.45);
+  transition: transform 0.25s ease;
+}
+
+.sheet-section-toggle[aria-expanded="false"] .sheet-chevron {
+  transform: rotate(-90deg);
+}
+
+/* iOS inset-grouped list */
+.ios-group {
+  background: #fff; /* secondarySystemGroupedBackground */
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.ios-group.is-collapsed {
+  display: none;
+}
+
+.ios-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px;
+}
+
+/* Hairline separators, inset to align with the text */
+.ios-row + .ios-row::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 16px;
+  right: 0;
+  height: 1px;
+  background: rgba(60, 60, 67, 0.2);
+  transform: scaleY(0.5);
+  transform-origin: top;
+}
+
+.ios-row-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.ios-caption {
+  font-size: 12px;
+  color: rgba(60, 60, 67, 0.6);
+  margin-bottom: 1px;
+}
+
+.ios-value {
+  font-size: 17px;
+  line-height: 1.3;
+  color: #000;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.ios-copy {
+  flex: 0 0 auto;
+  padding: 6px 4px;
+  border: none;
+  background: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: #007aff; /* iOS systemBlue */
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ios-copy.copied {
+  color: #34c759; /* iOS systemGreen */
+}
+
+/* Dark mode (iOS dark grouped colors) */
+body.dark-mode .mobile-sheet {
+  background: #000;
+}
+
+body.dark-mode .sheet-title {
+  color: #fff;
+}
+
+body.dark-mode .sheet-grabber {
+  background: rgba(235, 235, 245, 0.3);
+}
+
+body.dark-mode .sheet-close {
+  background: rgba(120, 120, 128, 0.32);
+}
+
+body.dark-mode .sheet-close .material-icons,
+body.dark-mode .sheet-chevron {
+  color: rgba(235, 235, 245, 0.6);
+}
+
+body.dark-mode .ios-group {
+  background: #1c1c1e;
+}
+
+body.dark-mode .ios-value {
+  color: #fff;
+}
+
+body.dark-mode .ios-caption,
+body.dark-mode .sheet-section-toggle > span:first-child {
+  color: rgba(235, 235, 245, 0.6);
+}
+
+body.dark-mode .ios-row + .ios-row::before {
+  background: rgba(84, 84, 88, 0.65);
+}
+
+/* The sheet is a phone-only affordance */
+@media screen and (min-width: 769px) {
+  .mobile-sheet {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-sheet.is-animating {
+    transition: none;
+  }
+}
+
+
+/* ===========================================================================
+   Locate me / heading control
+   =========================================================================== */
+/* Hide Mapbox's built-in geolocate button — we drive the control from our own
+   glass button. The blue dot / accuracy circle / heading beam are unaffected. */
+.mapboxgl-ctrl-group:has(button.mapboxgl-ctrl-geolocate) {
+  display: none !important;
+}
+button.mapboxgl-ctrl-geolocate {
+  display: none !important;
+}
+
+/* Active (tracking / heading) state for the custom locate button */
+.control-btn.locating {
+  background: rgba(0, 122, 255, 0.2);
+  color: #007aff;
+}
+
+body.dark-mode .control-btn.locating {
+  background: rgba(10, 132, 255, 0.28);
+  color: #0a84ff;
+}
+
+/* Transient toast (e.g. permission errors) */
+.map-toast {
+  position: fixed;
+  bottom: calc(28px + env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  max-width: 80%;
+  padding: 11px 18px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.82);
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.3;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+  z-index: 1400;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+  pointer-events: none;
+}
+
+.map-toast.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+
+/* Share button at the bottom of the mobile sheet */
+.sheet-share {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 18px;
+  padding: 13px;
+  border: none;
+  border-radius: 12px;
+  background: #007aff; /* iOS systemBlue */
+  color: #fff;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.sheet-share:active {
+  background: #0067d6;
+  transform: scale(0.99);
+}
+
+.sheet-share .material-icons {
+  font-size: 20px;
+}
+
+body.dark-mode .sheet-share {
+  background: #0a84ff;
+}
+
+
+/* ===========================================================================
+   Offline / download UI
+   =========================================================================== */
+.control-btn.offline-btn.downloading {
+  background: rgba(0, 122, 255, 0.2);
+  color: #007aff;
+}
+
+/* Download dialog */
+.offline-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 1500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+.offline-dialog.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.offline-card {
+  width: 100%;
+  max-width: 380px;
+  background: #f2f2f7;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+  color: #1a1a1a;
+}
+
+.offline-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.offline-head-icon {
+  color: #007aff;
+  font-size: 26px;
+}
+
+.offline-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.offline-desc {
+  margin: 0 0 14px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #3c3c43;
+}
+
+.offline-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #fff;
+  border-radius: 12px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-bottom: 14px;
+}
+
+.offline-check input {
+  width: 20px;
+  height: 20px;
+  accent-color: #007aff;
+}
+
+.offline-progress {
+  margin-bottom: 12px;
+}
+
+.offline-progress-bar {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(120, 120, 128, 0.2);
+  overflow: hidden;
+}
+
+.offline-progress-fill {
+  height: 100%;
+  width: 0;
+  background: #007aff;
+  border-radius: 4px;
+  transition: width 0.25s ease;
+}
+
+.offline-progress-label {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #3c3c43;
+  text-align: center;
+}
+
+.offline-storage {
+  font-size: 13px;
+  color: #3c3c43;
+  margin-bottom: 10px;
+  min-height: 16px;
+}
+
+.offline-note {
+  margin: 0 0 16px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: rgba(60, 60, 67, 0.6);
+}
+
+.offline-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.offline-btn-primary,
+.offline-btn-secondary {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.offline-btn-primary {
+  background: #007aff;
+  color: #fff;
+}
+
+.offline-btn-primary:disabled {
+  opacity: 1; /* used as a Cancel button while downloading */
+}
+
+.offline-btn-secondary {
+  background: rgba(120, 120, 128, 0.16);
+  color: #007aff;
+}
+
+.offline-close {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: none;
+  color: #007aff;
+  font-family: inherit;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Persistent offline indicator pill */
+.offline-pill {
+  position: fixed;
+  top: calc(12px + env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%) translateY(-12px);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.82);
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  z-index: 1450;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+  pointer-events: none;
+}
+
+.offline-pill.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.offline-pill .material-icons {
+  font-size: 16px;
+}
+
+/* Dark mode */
+body.dark-mode .offline-card {
+  background: #1c1c1e;
+  color: #f5f5f5;
+}
+
+body.dark-mode .offline-desc,
+body.dark-mode .offline-progress-label,
+body.dark-mode .offline-storage {
+  color: rgba(235, 235, 245, 0.6);
+}
+
+body.dark-mode .offline-check {
+  background: #2c2c2e;
+  color: #f5f5f5;
+}
+
+body.dark-mode .offline-btn-secondary {
+  background: rgba(120, 120, 128, 0.32);
+  color: #0a84ff;
+}
+
+
+/* ===========================================================================
+   Navigation UI (directions button, route, banner)
+   =========================================================================== */
+
+/* Directions = primary action; Share becomes secondary for hierarchy */
+.sheet-directions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 18px;
+  padding: 13px;
+  border: none;
+  border-radius: 12px;
+  background: #007aff;
+  color: #fff;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.sheet-directions:active {
+  background: #0067d6;
+  transform: scale(0.99);
+}
+
+.sheet-directions .material-icons {
+  font-size: 20px;
+}
+
+/* Share, now secondary */
+.sheet-share {
+  margin-top: 10px;
+  background: rgba(120, 120, 128, 0.16);
+  color: #007aff;
+}
+
+.sheet-share:active {
+  background: rgba(120, 120, 128, 0.28);
+}
+
+body.dark-mode .sheet-directions {
+  background: #0a84ff;
+}
+
+body.dark-mode .sheet-share {
+  background: rgba(120, 120, 128, 0.32);
+  color: #0a84ff;
+}
+
+/* Live user position dot during navigation */
+.nav-user-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #007aff;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.25), 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Navigation banner (bottom, Apple-style) */
+.nav-banner {
+  position: fixed;
+  left: 50%;
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  transform: translate(-50%, 140%);
+  width: calc(100vw - 32px);
+  max-width: 460px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  z-index: 1250;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.32, 0.72, 0, 1), visibility 0.3s;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+}
+
+.nav-banner.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+.nav-arrow {
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #007aff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.nav-arrow .material-icons {
+  color: #fff;
+  font-size: 26px;
+}
+
+.nav-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.nav-distance {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #000;
+  line-height: 1.1;
+}
+
+.nav-meta {
+  font-size: 14px;
+  color: rgba(60, 60, 67, 0.6);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav-end {
+  flex: 0 0 auto;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 22px;
+  background: #ff3b30;
+  color: #fff;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-end:active {
+  background: #d70015;
+}
+
+/* Recenter pill (shown when follow is suspended) */
+.nav-recenter {
+  position: fixed;
+  left: 50%;
+  bottom: calc(92px + env(safe-area-inset-bottom));
+  transform: translate(-50%, 10px);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.96);
+  color: #007aff;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  z-index: 1260;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+}
+
+.nav-recenter.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+.nav-recenter .material-icons {
+  font-size: 18px;
+}
+
+/* Reduce chrome while navigating */
+body.navigating .compass-widget {
+  display: none;
+}
+
+/* Dark mode banner */
+body.dark-mode .nav-banner {
+  background: rgba(28, 28, 30, 0.96);
+}
+
+body.dark-mode .nav-distance {
+  color: #fff;
+}
+
+body.dark-mode .nav-meta {
+  color: rgba(235, 235, 245, 0.6);
+}
+
+body.dark-mode .nav-recenter {
+  background: rgba(28, 28, 30, 0.96);
+  color: #0a84ff;
+}
+
+
+/* Action row: Directions + Share side by side, directly under the title */
+.sheet-actions {
+  display: flex;
+  gap: 10px;
+  margin: 2px 0 16px;
+}
+
+.sheet-actions .sheet-directions,
+.sheet-actions .sheet-share {
+  flex: 1;
+  width: auto;
+  margin-top: 0;
+  padding: 11px 12px;
+  font-size: 16px;
+}
+
+/* Distance label sits next to the icon; hide the gap when empty */
+#sheet-directions-label:empty {
+  display: none;
+}
+
+
+/* ===========================================================================
+   Collapsible map tools
+   =========================================================================== */
+.tools-collapsible {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transform-origin: top center;
+  /* visible by default; overflow stays visible so the basemap dropdown isn't clipped */
+  max-height: 800px;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  transition:
+    max-height 0.32s cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 0.24s ease,
+    transform 0.32s cubic-bezier(0.32, 0.72, 0, 1),
+    margin-top 0.32s cubic-bezier(0.32, 0.72, 0, 1),
+    visibility 0s;
+}
+
+.map-controls.tools-collapsed .tools-collapsible {
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-8px) scale(0.95);
+  margin-top: -12px;            /* cancel the parent stack gap when hidden */
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    max-height 0.32s cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 0.24s ease,
+    transform 0.32s cubic-bezier(0.32, 0.72, 0, 1),
+    margin-top 0.32s cubic-bezier(0.32, 0.72, 0, 1),
+    visibility 0s linear 0.32s;
+}
+
+/* Toggle icon rotates between states for a subtle cue */
+.tools-toggle .material-icons {
+  transition: transform 0.32s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.map-controls.tools-collapsed .tools-toggle .material-icons {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tools-collapsible,
+  .map-controls.tools-collapsed .tools-collapsible,
+  .tools-toggle .material-icons {
+    transition: none;
+  }
+}
+
+
+/* ===========================================================================
+   Search panel (results list with icon, name, distance)
+   =========================================================================== */
+.search-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 88vh;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  background: #f2f2f7;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -2px 28px rgba(0, 0, 0, 0.22);
+  z-index: 1350;
+  transform: translateY(100%);
+  visibility: hidden;
+  transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1), visibility 0s linear 0.4s;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+}
+
+.search-sheet.open {
+  transform: translateY(0);
+  visibility: visible;
+  transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1), visibility 0s;
+}
+
+.search-grabber {
+  width: 36px;
+  height: 5px;
+  margin: 8px auto 4px;
+  border-radius: 3px;
+  background: rgba(60, 60, 67, 0.3);
+  flex: 0 0 auto;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 16px 12px;
+  flex: 0 0 auto;
+}
+
+.search-field {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: rgba(120, 120, 128, 0.12);
+  min-width: 0;
+}
+
+.search-field .material-icons {
+  font-size: 20px;
+  color: rgba(60, 60, 67, 0.6);
+  flex: 0 0 auto;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 17px;
+  color: #000;
+}
+
+.search-input::placeholder {
+  color: rgba(60, 60, 67, 0.5);
+}
+
+.search-cancel {
+  flex: 0 0 auto;
+  border: none;
+  background: none;
+  color: #007aff;
+  font-family: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.search-results {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 16px calc(24px + env(safe-area-inset-bottom));
+}
+
+.search-result {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 11px 4px;
+  border: none;
+  border-bottom: 1px solid rgba(60, 60, 67, 0.14);
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.search-result:active {
+  background: rgba(120, 120, 128, 0.12);
+}
+
+.search-result-icon {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
+}
+
+.search-result-text {
+  flex: 1;
+  min-width: 0;
+  font-size: 17px;
+  color: #000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-result-dist {
+  flex: 0 0 auto;
+  font-size: 15px;
+  color: rgba(60, 60, 67, 0.6);
+}
+
+.search-empty {
+  padding: 28px 8px;
+  text-align: center;
+  color: rgba(60, 60, 67, 0.6);
+  font-size: 15px;
+}
+
+/* Desktop: dock as a panel rather than a full-width bottom sheet */
+@media screen and (min-width: 769px) {
+  .search-sheet {
+    left: 20px;
+    right: auto;
+    bottom: 20px;
+    width: 380px;
+    height: 70vh;
+    max-height: 640px;
+    border-radius: 16px;
+    transform: translateY(calc(100% + 24px));
+  }
+  .search-sheet.open {
+    transform: translateY(0);
+  }
+}
+
+/* Dark mode */
+body.dark-mode .search-sheet {
+  background: #000;
+}
+
+body.dark-mode .search-field {
+  background: rgba(120, 120, 128, 0.24);
+}
+
+body.dark-mode .search-input,
+body.dark-mode .search-result-text {
+  color: #fff;
+}
+
+body.dark-mode .search-input::placeholder,
+body.dark-mode .search-field .material-icons,
+body.dark-mode .search-result-dist,
+body.dark-mode .search-empty {
+  color: rgba(235, 235, 245, 0.6);
+}
+
+body.dark-mode .search-grabber {
+  background: rgba(235, 235, 245, 0.3);
+}
+
+body.dark-mode .search-result {
+  border-bottom-color: rgba(84, 84, 88, 0.5);
+}
+
+body.dark-mode .search-cancel {
+  color: #0a84ff;
+}
+
+
+/* ===========================================================================
+   Persistent panel: search bar pinned at top + detail head
+   =========================================================================== */
+.sheet-searchbar {
+  flex: 0 0 auto;
+  padding: 2px 16px 12px;
+}
+
+/* Clear (x) button inside the search field */
+.search-clear {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(120, 120, 128, 0.4);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.search-clear .material-icons {
+  font-size: 15px;
+  color: #fff;
+}
+
+/* Location card header (now inside the scroll, in detail mode) */
+.sheet-detail-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 2px 0 14px;
+}
+
+/* Search field shouldn't trigger the panel drag */
+.search-field {
+  touch-action: auto;
+}
+
+body.dark-mode .search-clear {
+  background: rgba(120, 120, 128, 0.6);
+}
+
+/* Keep bottom-anchored map chrome above the persistent peek panel on phones */
+@media screen and (max-width: 768px) {
+  .compass-widget {
+    bottom: calc(124px + env(safe-area-inset-bottom));
+  }
+  .mapboxgl-ctrl-bottom-left {
+    margin-bottom: calc(104px + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+
+/* Detail-mode header is now a fixed top header (outside the scroll area) */
+.sheet-detail-head {
+  flex: 0 0 auto;
+  padding: 2px 16px 12px;
+}
+
+/* Remove the native search clear button — we use our own .search-clear, which
+   only appears when the field has text (avoids two clear buttons). */
+.search-input::-webkit-search-cancel-button,
+.search-input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+
+/* The [hidden] attribute must win over the display rules above, otherwise the
+   detail header leaks into the search panel and the clear button shows when
+   the field is empty. */
+.sheet-detail-head[hidden],
+.sheet-searchbar[hidden],
+.search-clear[hidden] {
+  display: none !important;
+}
+
+
+/* Offline "last downloaded" status line */
+.offline-status {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(60, 60, 67, 0.6);
+  margin-bottom: 6px;
+}
+
+.offline-status.is-downloaded {
+  color: #34c759; /* iOS green — clearly indicates a saved copy exists */
+}
+
+.offline-status.is-downloaded::before {
+  content: 'check_circle';
+  font-family: 'Material Icons';
+  font-size: 15px;
+  vertical-align: -3px;
+  margin-right: 5px;
+}
+
+body.dark-mode .offline-status {
+  color: rgba(235, 235, 245, 0.6);
+}
+
+body.dark-mode .offline-status.is-downloaded {
+  color: #30d158;
+}
+
+
+/* Install app / Add to Home Screen (progressive disclosure in the modal) */
+.offline-install {
+  border-top: 1px solid rgba(60, 60, 67, 0.18);
+  margin-bottom: 10px;
+}
+
+.offline-install-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 2px;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  color: #007aff;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.offline-install-toggle .offline-install-label {
+  flex: 1;
+  text-align: left;
+}
+
+.offline-install-toggle .material-icons {
+  font-size: 20px;
+}
+
+.offline-install-chevron {
+  color: rgba(60, 60, 67, 0.4);
+  transition: transform 0.25s ease;
+}
+
+.offline-install-toggle.expanded .offline-install-chevron {
+  transform: rotate(180deg);
+}
+
+.offline-install-choices {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.offline-plat-btn {
+  flex: 1;
+  padding: 11px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(120, 120, 128, 0.16);
+  color: #007aff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.offline-plat-btn:active {
+  background: rgba(120, 120, 128, 0.28);
+}
+
+.offline-install-steps {
+  padding: 4px 2px 2px;
+}
+
+.offline-step {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #3c3c43;
+}
+
+.offline-step .material-icons {
+  font-size: 17px;
+  color: #007aff;
+  vertical-align: -3px;
+}
+
+/* Dark mode */
+body.dark-mode .offline-install {
+  border-top-color: rgba(84, 84, 88, 0.5);
+}
+
+body.dark-mode .offline-install-toggle,
+body.dark-mode .offline-plat-btn {
+  color: #0a84ff;
+}
+
+body.dark-mode .offline-plat-btn {
+  background: rgba(120, 120, 128, 0.32);
+}
+
+body.dark-mode .offline-step {
+  color: rgba(235, 235, 245, 0.7);
+}
+
+body.dark-mode .offline-step .material-icons {
+  color: #0a84ff;
+}
+
+
+/* ===========================================================================
+   Desktop: persistent left search panel (no close, no resize)
+   =========================================================================== */
+.desktop-search {
+  display: none; /* shown only on desktop (see media query) */
+}
+
+@media screen and (min-width: 769px) {
+  .desktop-search {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 360px;
+    z-index: 1100;
+    background: #f2f2f7;
+    box-shadow: 2px 0 18px rgba(0, 0, 0, 0.14);
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+  }
+
+  .desktop-search-bar {
+    flex: 0 0 auto;
+    padding: 16px;
+  }
+
+  .desktop-search .search-results {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 0 16px 16px;
+  }
+
+  /* Keep the bottom-left scale control clear of the panel */
+  .mapboxgl-ctrl-bottom-left {
+    margin-left: 372px !important;
+  }
+}
+
+body.dark-mode .desktop-search {
+  background: #000;
+}
+
+
+/* Offline capabilities hidden (download button + indicator).
+   To re-enable: remove this block, restore the service-worker registration,
+   and un-comment initOffline(). */
+.control-group:has(#offline-btn) {
+  display: none !important;
+}
+.offline-pill {
+  display: none !important;
 }
