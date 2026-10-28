@@ -12,7 +12,10 @@ const map = new mapboxgl.Map({
   maxZoom: 17, // Limit zoom to keep locations tappable at ~300ft scale
   // Mobile-friendly map options
   touchZoomRotate: true,
-  touchPitch: false, // Disable pitch on mobile for better UX
+  // Map is always flat (top-down): no tilt from any gesture or code.
+  maxPitch: 0,
+  touchPitch: false,
+  pitchWithRotate: false, // right-click / Ctrl-drag rotates only
   dragRotate: true, // Enable rotation for compass functionality
   keyboard: false // Disable keyboard navigation on mobile
 });
