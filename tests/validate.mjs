@@ -134,8 +134,8 @@ const indexHtml = readFileSync(join(root, 'index.html'), 'utf8');
 const sheetIds = [
   'mobile-sheet', 'sheet-grabber-zone', 'sheet-searchbar', 'sheet-browse',
   'sheet-detail', 'sheet-detail-head', 'sheet-icon', 'sheet-title', 'sheet-close',
-  'sheet-scroll', 'sheet-images', 'sheet-details-toggle', 'sheet-details', 'sheet-coords',
-  'sheet-elevation', 'sheet-desc', 'sheet-copy'
+  'sheet-scroll', 'sheet-images', 'sheet-details-toggle', 'sheet-details',
+  'sheet-elevation', 'sheet-desc'
 ];
 let missingIds = 0;
 for (const id of sheetIds) {
@@ -271,7 +271,7 @@ check(/function updateNavArrow\(/.test(scriptSrc) && /navHeading != null \? navH
 // ---------------------------------------------------------------------------
 section('12. Collapsible map tools');
 check(indexHtml.includes('id="tools-toggle"'), 'tools toggle button present');
-check(/<div class="tools-collapsible" id="tools-collapsible">[^]*id="basemap-toggle"[^]*<\/div>/.test(indexHtml),
+check(/<div class="tools-collapsible" id="tools-collapsible">[^]*id="locate-btn"[^]*<\/div>/.test(indexHtml),
   'tool groups are wrapped in the collapsible container');
 check(/function initToolsToggle\(/.test(scriptSrc) && /initToolsToggle\(\)/.test(scriptSrc),
   'initToolsToggle defined and called');
@@ -300,9 +300,9 @@ check(/\.sheet-detail-head\[hidden\][^]*?display:\s*none/.test(cssSrc) &&
   '[hidden] overrides display (no leaked header / empty-field clear button)');
 check(indexHtml.includes('id="sheet-close"'), 'location card has a close button');
 check(/'search-result-icon'/.test(scriptSrc) && /'search-result-text'/.test(scriptSrc) &&
-  /'search-result-dist'/.test(scriptSrc), 'each result renders icon + name + distance');
-check(/haversineMiles\(userLocation, f\.geometry\.coordinates\)/.test(scriptSrc),
-  'result distance computed from current location');
+  !/'search-result-dist'/.test(scriptSrc), 'each result renders icon + name (no distance)');
+check(/items\.sort\(\(a, b\) => a\.name\.localeCompare\(b\.name\)\)/.test(scriptSrc),
+  'results sorted alphabetically');
 check(/function selectSearchResult\(/.test(scriptSrc) && /openMobileSheet\(props, coords\)/.test(scriptSrc),
   'selecting a result opens its location card');
 // Desktop left search panel
@@ -315,7 +315,12 @@ check(/function initDesktopSearch\(/.test(scriptSrc) && /initDesktopSearch\(\)/.
   'desktop search initialized');
 check(/@media screen and \(min-width: 769px\)[^]*\.desktop-search\s*\{[^]*position: fixed/.test(cssSrc) ||
   /\.desktop-search\s*\{[^]*position: fixed/.test(cssSrc),
-  'desktop panel is fixed (not closeable/resizable)');
+  'desktop panel is fixed to the left edge');
+check(indexHtml.includes('id="desktop-search-toggle"') && /function initDesktopPanelToggle\(/.test(scriptSrc) &&
+  /\.desktop-search\.is-collapsed/.test(cssSrc), 'desktop panel has a show/hide toggle');
+// Removed features stay removed.
+check(!/id="(toggle-3d|dark-mode-toggle|basemap-toggle)"/.test(indexHtml), 'no 3D / dark mode / layers controls');
+check(!/Latitude \/ Longitude/.test(indexHtml + scriptSrc), 'location cards omit lat/long');
 // Guard against calling an undefined function from the search path.
 check(!/showFeature\(/.test(scriptSrc), 'no reference to the removed showFeature()');
 

@@ -311,13 +311,7 @@ function openDesktopPopup(props, coords) {
       essential: true
     });
 
-    const lat = coords[1].toFixed(6);
-    const lng = coords[0].toFixed(6);
-
-    const coordsText = `${lat}, ${lng}`;
-    
     const safeName = escapeHTML(props.name);
-    const safeCoords = `${coords[1].toFixed(6)}, ${coords[0].toFixed(6)}`;
 
     const popupHTML = `
       <div class="glass-popup">
@@ -326,19 +320,6 @@ function openDesktopPopup(props, coords) {
             ${safeName}
           </div>
           <button class="popup-close-btn" onclick="closePopup()" aria-label="Close popup"></button>
-        </div>
-
-        <div class="glass-section">
-          <div class="glass-subtitle">
-            <span class="material-icons subtitle-icon">place</span>
-            Latitude / Longitude
-          </div>
-          <div class="glass-body">
-            <div class="coords-container">
-              <span class="coords-text">${safeCoords}</span>
-              <button class="copy-chip" onclick="copyCoordinates('${safeCoords}', event)">copy</button>
-            </div>
-          </div>
         </div>
 
         <div class="glass-section">
@@ -389,52 +370,6 @@ function openDesktopPopup(props, coords) {
         img.addEventListener('error', () => img.remove());
         if (img.complete && img.naturalWidth === 0) img.remove();
       });
-    }
-    
-    // In 3D mode, pan map to ensure popup stays within viewport
-    if (map.getPitch() > 0) {
-      setTimeout(() => {
-        const popupElement = popup.getElement();
-        if (popupElement) {
-          const popupRect = popupElement.getBoundingClientRect();
-          const mapContainer = map.getContainer();
-          const mapRect = mapContainer.getBoundingClientRect();
-          
-          // Check if popup is outside viewport bounds
-          const isOutsideLeft = popupRect.left < mapRect.left + 20;
-          const isOutsideRight = popupRect.right > mapRect.right - 20;
-          const isOutsideTop = popupRect.top < mapRect.top + 20;
-          const isOutsideBottom = popupRect.bottom > mapRect.bottom - 20;
-          
-          if (isOutsideLeft || isOutsideRight || isOutsideTop || isOutsideBottom) {
-            // Calculate center point of viewport
-            const viewportCenterX = mapRect.width / 2;
-            const viewportCenterY = mapRect.height / 2;
-            
-            // Get current popup position relative to map
-            const popupCenterX = popupRect.left - mapRect.left + popupRect.width / 2;
-            const popupCenterY = popupRect.top - mapRect.top + popupRect.height / 2;
-            
-            // Calculate offset needed to center popup
-            const offsetX = viewportCenterX - popupCenterX;
-            const offsetY = viewportCenterY - popupCenterY;
-            
-            // Convert pixel offset to map coordinates
-            const currentCenter = map.getCenter();
-            const targetPoint = map.project(currentCenter);
-            targetPoint.x -= offsetX;
-            targetPoint.y -= offsetY;
-            const targetCenter = map.unproject(targetPoint);
-            
-            // Smoothly pan to new center
-            map.easeTo({
-              center: targetCenter,
-              duration: 500,
-              easing: (t) => t * (2 - t) // ease-out
-            });
-          }
-        }
-      }, 100); // Small delay to ensure popup is rendered
     }
 }
 
@@ -543,25 +478,6 @@ async function copyTextToClipboard(text) {
   document.body.removeChild(textarea);
 }
 
-// Desktop popup copy chip
-async function copyCoordinates(coordsText, event) {
-  event.stopPropagation();
-  const chip = event.target.parentElement.querySelector('.copy-chip');
-  try {
-    await copyTextToClipboard(coordsText);
-    if (chip) {
-      chip.textContent = 'copied!';
-      chip.classList.add('copied');
-      setTimeout(() => {
-        chip.textContent = 'copy';
-        chip.classList.remove('copied');
-      }, 2000);
-    }
-  } catch (err) {
-    console.error('Failed to copy coordinates: ', err);
-  }
-}
-
 // Image modal functions
 function openImageModal(imageUrl) {
   const modal = document.getElementById('image-modal');
@@ -581,27 +497,6 @@ function closeImageModal() {
   document.body.style.overflow = '';
 }
 
-// Basemap configurations
-const basemaps = [
-  {
-    name: 'Satellite',
-    style: 'mapbox://styles/mapbox/satellite-streets-v12',
-    icon: 'satellite'
-  },
-  {
-    name: 'Streets',
-    style: 'mapbox://styles/mapbox/streets-v12',
-    icon: 'map'
-  },
-  {
-    name: 'Outdoors',
-    style: 'mapbox://styles/mapbox/outdoors-v12',
-    icon: 'terrain'
-  }
-];
-
-let currentBasemapIndex = 0;
-
 // Initialize map controls
 const initMapControls = () => {
   // Zoom controls
@@ -612,93 +507,6 @@ const initMapControls = () => {
   document.getElementById('zoom-out').addEventListener('click', () => {
     map.zoomOut();
   });
-  
-  // 3D toggle
-  const toggle3D = document.getElementById('toggle-3d');
-  let is3D = false;
-  
-  toggle3D.addEventListener('click', () => {
-    is3D = !is3D;
-    
-    // Set different zoom limits for 2D vs 3D mode
-    if (is3D) {
-      map.setMaxZoom(16); // ~500ft scale for 3D mode
-    } else {
-      map.setMaxZoom(17); // ~300ft scale for 2D mode
-    }
-    
-    map.easeTo({
-      pitch: is3D ? 60 : 0,
-      duration: 1000
-    });
-    toggle3D.textContent = is3D ? '2D' : '3D';
-  });
-  
-  // Basemap selector
-  const basemapToggle = document.getElementById('basemap-toggle');
-  const basemapDropdown = document.getElementById('basemap-dropdown');
-  const basemapOptions = document.querySelectorAll('.basemap-option');
-  
-  // Toggle dropdown
-  basemapToggle.addEventListener('click', (e) => {
-    e.stopPropagation();
-    basemapDropdown.classList.toggle('show');
-  });
-  
-  // Close dropdown when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!basemapToggle.contains(e.target) && !basemapDropdown.contains(e.target)) {
-      basemapDropdown.classList.remove('show');
-    }
-  });
-  
-  // Handle basemap selection
-  basemapOptions.forEach(option => {
-    option.addEventListener('click', (e) => {
-      const value = parseInt(e.currentTarget.getAttribute('data-value'));
-      currentBasemapIndex = value;
-      const newBasemap = basemaps[currentBasemapIndex];
-      
-      // Update active state
-      basemapOptions.forEach(opt => opt.classList.remove('active'));
-      e.currentTarget.classList.add('active');
-      
-      // Update button icon
-      const buttonIcon = basemapToggle.querySelector('.material-icons');
-      buttonIcon.textContent = newBasemap.icon;
-      
-      // Close dropdown
-      basemapDropdown.classList.remove('show');
-      
-      // Change map style
-      map.setStyle(newBasemap.style);
-      
-      // Re-add custom layers after style change. setStyle() wipes all sources,
-      // layers, and images, so the per-symbol icons must be reloaded here too —
-      // otherwise the pins render blank after switching basemaps.
-      map.once('style.load', () => {
-        // Re-add terrain
-        if (!map.getSource('mapbox-dem')) {
-          map.addSource('mapbox-dem', {
-            type: 'raster-dem',
-            url: 'mapbox://mapbox.terrain-rgb'
-          });
-        }
-        map.setTerrain({ source: 'mapbox-dem', exaggeration: 1 });
-
-        // Reload all symbol images, then re-add the points layers.
-        loadSymbolImages()
-          .then(addPointsLayers)
-          .catch((error) => {
-            console.error('Error reloading symbols after basemap change:', error);
-            addPointsLayers();
-          });
-      });
-    });
-  });
-  
-  // Set initial active state
-  basemapOptions[currentBasemapIndex].classList.add('active');
 };
 
 // Only render an individual feature when it is NOT part of a cluster.
@@ -848,38 +656,11 @@ function addPointsLayers() {
   setupMapInteractions();
 }
 
-// Dark mode functionality
-const initDarkMode = () => {
-  const darkModeToggle = document.getElementById('dark-mode-toggle');
-  const body = document.body;
-  
-  // Check for saved dark mode preference
-  const isDarkMode = localStorage.getItem('darkMode') === 'true';
-  if (isDarkMode) {
-    body.classList.add('dark-mode');
-    darkModeToggle.querySelector('.material-icons').textContent = 'light_mode';
-  }
-  
-  darkModeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    const isNowDark = body.classList.contains('dark-mode');
-    
-    // Update icon
-    darkModeToggle.querySelector('.material-icons').textContent = 
-      isNowDark ? 'light_mode' : 'dark_mode';
-    
-    // Save preference
-    localStorage.setItem('darkMode', isNowDark);
-  });
-};
-
-
 // Mobile-specific optimizations
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize all components
   initMapControls();
   initToolsToggle();
-  initDarkMode();
   initCompass();
   initMobileSheet();
   initLocate();
@@ -1074,8 +855,6 @@ function populateSheet(props, coords) {
 
   // textContent is inherently injection-safe.
   document.getElementById('sheet-title').textContent = props.name || 'Location';
-  const coordText = `${coords[1].toFixed(6)}, ${coords[0].toFixed(6)}`;
-  document.getElementById('sheet-coords').textContent = coordText;
   document.getElementById('sheet-elevation').textContent =
     `${props.elevation || '322'} ft above sea level`;
   document.getElementById('sheet-desc').textContent =
@@ -1104,22 +883,6 @@ function populateSheet(props, coords) {
     img.src = url; // set last so the error handler is already attached
     imagesEl.appendChild(img);
   });
-
-  // Copy button bound to this point's coordinates
-  const copyBtn = document.getElementById('sheet-copy');
-  copyBtn.onclick = async () => {
-    try {
-      await copyTextToClipboard(coordText);
-      copyBtn.textContent = 'Copied';
-      copyBtn.classList.add('copied');
-      setTimeout(() => {
-        copyBtn.textContent = 'Copy';
-        copyBtn.classList.remove('copied');
-      }, 2000);
-    } catch (err) {
-      console.error('Failed to copy coordinates: ', err);
-    }
-  };
 
   // Share button bound to this point
   const shareBtn = document.getElementById('sheet-share');
@@ -2260,18 +2023,13 @@ function initToolsToggle() {
     toggle.setAttribute('aria-expanded', String(!collapsed));
     toggle.setAttribute('aria-label', collapsed ? 'Show map tools' : 'Hide map tools');
     toggle.title = collapsed ? 'Show tools' : 'Hide tools';
-    // Tidy up any open basemap dropdown when collapsing.
-    if (collapsed) {
-      const dropdown = document.getElementById('basemap-dropdown');
-      if (dropdown) dropdown.classList.remove('show');
-    }
   });
 }
 
 
 // ===========================================================================
 // Search — filter the points by name; results render in the persistent panel
-// with each location's icon, name, and live distance from the current location.
+// with each location's icon and name, sorted alphabetically.
 // ===========================================================================
 function getSearchQuery() {
   const input = document.getElementById('search-input');
@@ -2288,16 +2046,14 @@ function buildSearchItems(query) {
       name: f.properties.name || 'Unnamed location',
       sym: f.properties.sym || 'default',
       coords: f.geometry.coordinates,
-      props: f.properties,
-      dist: userLocation ? haversineMiles(userLocation, f.geometry.coordinates) : null
+      props: f.properties
     }))
     .filter((i) => !q || i.name.toLowerCase().includes(q));
-  // Nearest first when we know the user's location, otherwise alphabetical.
-  items.sort((a, b) => (userLocation ? a.dist - b.dist : a.name.localeCompare(b.name)));
+  items.sort((a, b) => a.name.localeCompare(b.name));
   return items;
 }
 
-// A single result row: icon + name + distance.
+// A single result row: icon + name.
 function makeResultRow(item, onSelect) {
   const row = document.createElement('button');
   row.className = 'search-result';
@@ -2316,11 +2072,7 @@ function makeResultRow(item, onSelect) {
   name.className = 'search-result-text';
   name.textContent = item.name;
 
-  const dist = document.createElement('div');
-  dist.className = 'search-result-dist';
-  dist.textContent = item.dist != null ? formatMiles(item.dist) : '—';
-
-  row.append(img, name, dist);
+  row.append(img, name);
   row.addEventListener('click', () => onSelect(item));
   return row;
 }
@@ -2375,7 +2127,6 @@ function initDesktopSearch() {
   const updateClear = () => {
     if (clear) clear.style.display = input.value ? 'flex' : 'none';
   };
-  input.addEventListener('focus', () => primeUserLocation());
   input.addEventListener('input', () => {
     updateClear();
     renderDesktopResults(input.value.trim());
@@ -2396,6 +2147,30 @@ function initDesktopSearch() {
     });
   }
   renderDesktopResults('');
+  initDesktopPanelToggle();
+}
+
+// Desktop: show/hide the left panel via the edge tab; remembers the choice.
+function initDesktopPanelToggle() {
+  const panel = document.getElementById('desktop-search');
+  const toggle = document.getElementById('desktop-search-toggle');
+  if (!panel || !toggle) return;
+
+  const apply = (collapsed) => {
+    panel.classList.toggle('is-collapsed', collapsed);
+    document.body.classList.toggle('panel-collapsed', collapsed);
+    toggle.setAttribute('aria-expanded', String(!collapsed));
+    toggle.setAttribute('aria-label', collapsed ? 'Show locations panel' : 'Hide locations panel');
+    toggle.title = collapsed ? 'Show panel' : 'Hide panel';
+    toggle.querySelector('.material-icons').textContent = collapsed ? 'chevron_right' : 'chevron_left';
+  };
+
+  apply(localStorage.getItem('desktopPanelCollapsed') === 'true');
+  toggle.addEventListener('click', () => {
+    const collapsed = !panel.classList.contains('is-collapsed');
+    apply(collapsed);
+    localStorage.setItem('desktopPanelCollapsed', String(collapsed));
+  });
 }
 
 function selectSearchResult(item) {
@@ -2438,7 +2213,6 @@ function initSearch() {
 
   // Focusing the field reveals results and expands the panel to full height.
   input.addEventListener('focus', () => {
-    primeUserLocation();
     showSheetBrowse('full');
     updateSearchClear();
     renderSearchResults(getSearchQuery());

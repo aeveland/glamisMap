@@ -69,72 +69,6 @@
     },
     {
       "type": "Feature",
-      "id": "box-2",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -115.0765,
-          32.9265
-        ]
-      },
-      "properties": {
-        "name": "Box 2",
-        "desc": "One of several old World War II bombing ranges in the dunes. Box 2 carries a piece of history, once used for target practice, now just another landmark riders pass on their way through.",
-        "cmt": "Point of Interest",
-        "sym": "explosion",
-        "type": "",
-        "images": "",
-        "link1_href": "",
-        "time": "2025-09-10T00:00:00Z",
-        "image": ""
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "box-3",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -115.082517,
-          32.9285
-        ]
-      },
-      "properties": {
-        "name": "Box 3",
-        "desc": "Another former military training site, Box 3 marks a spot where pilots once dropped practice bombs during World War II. Today it\u2019s a quiet reminder of that past, surrounded by open sand.",
-        "cmt": "Point of Interest",
-        "sym": "military_tech",
-        "type": "",
-        "images": "",
-        "link1_href": "",
-        "time": "2025-09-10T00:00:00Z",
-        "image": ""
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "box-4",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -115.08335,
-          32.930667
-        ]
-      },
-      "properties": {
-        "name": "Box 4",
-        "desc": "Part of the chain of WWII-era bombing sites, Box 4 still holds its name from those days. It blends into the dunes now, known more as a waypoint than its original purpose.",
-        "cmt": "Point of Interest",
-        "sym": "target",
-        "type": "",
-        "images": "",
-        "link1_href": "",
-        "time": "2025-09-10T00:00:00Z",
-        "image": ""
-      }
-    },
-    {
-      "type": "Feature",
       "id": "brawley-slide",
       "geometry": {
         "type": "Point",
@@ -399,28 +333,6 @@
     },
     {
       "type": "Feature",
-      "id": "disco-ball",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -115.06899,
-          32.87786
-        ]
-      },
-      "properties": {
-        "name": "Disco Ball",
-        "desc": "A weird and wonderful landmark deep in the dunes. Hanging from a lone metal post, the disco ball catches the sun during the day and reflects headlights at night, throwing off glints of light in every direction. Nobody really knows who put it there, but it\u2019s become one of Glamis\u2019 most random and beloved oddities. Riders stumble on it, laugh, take a photo, then keep going. Pure dune magic, strange, shiny, and totally unexpected.",
-        "cmt": "Point of Interest",
-        "sym": "light_mode",
-        "type": "",
-        "images": "popupImages/IMG_6499.jpeg",
-        "link1_href": "",
-        "time": "2025-09-10T00:00:00Z",
-        "image": ""
-      }
-    },
-    {
-      "type": "Feature",
       "id": "dune-buggy-flats",
       "geometry": {
         "type": "Point",
@@ -641,28 +553,6 @@
     },
     {
       "type": "Feature",
-      "id": "k-12",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -115.1275,
-          32.977667
-        ]
-      },
-      "properties": {
-        "name": "K-12",
-        "desc": "With a near-vertical face that makes even seasoned riders pause before sending it. It\u2019s a go-to spot for testing your nerves and your suspension. The climb up can be brutal, but the view from the top is worth it, and the drop down is pure adrenaline. Locals know it\u2019s not about speed here, it\u2019s about control. K-12 separates the bold from the reckless.",
-        "cmt": "Point of Interest",
-        "sym": "school",
-        "type": "",
-        "images": "",
-        "link1_href": "",
-        "time": "2025-09-10T00:00:00Z",
-        "image": ""
-      }
-    },
-    {
-      "type": "Feature",
       "id": "k2",
       "geometry": {
         "type": "Point",
@@ -700,28 +590,6 @@
         "sym": "camping",
         "type": "",
         "images": "popupImages/keyhole001.jpeg",
-        "link1_href": "",
-        "time": "2025-09-10T00:00:00Z",
-        "image": ""
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "lake-glamis",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -115.02221,
-          32.91589
-        ]
-      },
-      "properties": {
-        "name": "Lake Glamis",
-        "desc": "In the winter of 2023/24, heavy rains carved out a temporary lake in the middle of the dunes. It quickly turned into a spectacle, with people dragging in everything from dirt bikes to side-by-sides to test their luck in the water. Some cruised across it, others buried their machines or sent them nose-first into the shallows. It wasn\u2019t exactly smart, but it became one of the silliest and most memorable scenes the dunes had seen in years.",
-        "cmt": "Point of Interest",
-        "sym": "water",
-        "type": "",
-        "images": "popupImages/IMG_1212.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""

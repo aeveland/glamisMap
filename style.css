@@ -5,9 +5,6 @@
  --text-primary: #1a1a1a;
 }
 
-body.dark-mode {
- --text-primary: #f5f5f5;
-}
 
 body {
  margin: 0;
@@ -154,41 +151,6 @@ body {
   margin-right: 8px;
 }
 
-.coords-container {
-  position: relative;
-  display: inline-block;
-}
-
-.coords-container:hover .copy-chip {
-  opacity: 1;
-  visibility: visible;
-}
-
-.copy-chip {
-  background: rgba(0, 123, 255, 0.1);
-  border: 1px solid rgba(0, 123, 255, 0.3);
-  border-radius: 12px;
-  padding: 4px 8px;
-  font-size: 12px;
-  color: #007bff;
-  cursor: pointer;
-  margin-left: 8px;
-  transition: all 0.2s ease;
-  opacity: 0;
-  visibility: hidden;
-  display: inline-block;
-}
-
-.copy-chip:hover {
-  background: rgba(0, 123, 255, 0.2);
-  border-color: rgba(0, 123, 255, 0.5);
-}
-
-.copy-chip.copied {
-  background: rgba(40, 167, 69, 0.1);
-  border-color: rgba(40, 167, 69, 0.3);
-  color: #28a745;
-}
 
 .coordinates-icon {
   font-size: 14px;
@@ -217,13 +179,6 @@ body {
   opacity: 1;
 }
 
-.dark-mode .glass-coordinates .copy-icon {
-  color: #ccc;
-}
-
-.dark-mode .copy-icon:hover {
-  color: #007AFF;
-}
 
 /* Scrollable image row */
 .popup-image-row {
@@ -397,66 +352,6 @@ body {
   background: rgba(0, 0, 0, 0.2);
 }
 
-/* Anchor the basemap flyout to its own button group */
-.control-group:has(.basemap-toggle) {
-  position: relative;
-}
-
-/* Basemap Dropdown — flies out to the LEFT of the button so it never
-   collides with the stacked controls below it (e.g. the download button). */
-.basemap-dropdown {
-  position: absolute;
-  top: 0;
-  right: calc(100% + 8px);
-  left: auto;
-  display: flex;
-  flex-direction: row;
-  gap: 2px;
-  width: auto;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateX(10px);
-  transition: all 0.2s ease;
-  z-index: 1002;
-  padding: 2px;
-}
-
-.basemap-dropdown.show {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(0);
-}
-
-.basemap-option {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  cursor: pointer;
-  transition: background 0.2s ease;
-  border-radius: 6px;
-  margin: 2px;
-  width: 40px;
-  height: 40px;
-}
-
-.basemap-option:hover {
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.basemap-option.active {
-  background: rgba(0, 122, 255, 0.2);
-  color: #007AFF;
-}
-
-.basemap-option .material-icons {
-  font-size: 16px;
-}
 
 /* 3D Toggle Button */
 #toggle-3d {
@@ -507,10 +402,6 @@ body {
   }
 }
 
-/* Dark mode toggle in controls */
-.dark-mode-toggle .material-icons {
-  font-size: 16px;
-}
 
 /* Compass Widget */
 .compass-widget {
@@ -573,60 +464,6 @@ body {
   bottom: 8px;
   left: 50%;
   transform: translateX(-50%);
-}
-
-
-/* Dark mode styles */
-body.dark-mode {
-  background: #1a1a1a;
-}
-
-body.dark-mode #map {
-  filter: brightness(0.8) contrast(1.1);
-}
-
-body.dark-mode .glass-popup {
-  background-color: rgba(40, 40, 40, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #fff;
-}
-
-body.dark-mode .glass-title {
-  color: #fff;
-}
-
-body.dark-mode .glass-subtitle {
-  color: #ccc;
-  border-top-color: rgba(255, 255, 255, 0.1);
-}
-
-body.dark-mode .glass-coordinates .material-icons,
-body.dark-mode .coords-text {
-  color: #fff;
-}
-
-body.dark-mode .coordinates-icon,
-body.dark-mode .subtitle-icon {
-  color: #fff;
-}
-
-body.dark-mode .dark-mode-toggle .material-icons {
-  color: #fff;
-}
-
-body.dark-mode .control-group {
-  background: rgba(40, 40, 40, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-body.dark-mode .control-btn {
-  color: #fff;
-}
-
-body.dark-mode .mapboxgl-ctrl-scale {
-  background: rgba(40, 40, 40, 0.9) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  color: #fff !important;
 }
 
 
@@ -702,7 +539,6 @@ body.dark-mode .mapboxgl-ctrl-scale {
   color: #333 !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
-
 
 
 /* Pin transition animations */
@@ -1004,44 +840,6 @@ sl-tooltip {
   color: #34c759; /* iOS systemGreen */
 }
 
-/* Dark mode (iOS dark grouped colors) */
-body.dark-mode .mobile-sheet {
-  background: #000;
-}
-
-body.dark-mode .sheet-title {
-  color: #fff;
-}
-
-body.dark-mode .sheet-grabber {
-  background: rgba(235, 235, 245, 0.3);
-}
-
-body.dark-mode .sheet-close {
-  background: rgba(120, 120, 128, 0.32);
-}
-
-body.dark-mode .sheet-close .material-icons,
-body.dark-mode .sheet-chevron {
-  color: rgba(235, 235, 245, 0.6);
-}
-
-body.dark-mode .ios-group {
-  background: #1c1c1e;
-}
-
-body.dark-mode .ios-value {
-  color: #fff;
-}
-
-body.dark-mode .ios-caption,
-body.dark-mode .sheet-section-toggle > span:first-child {
-  color: rgba(235, 235, 245, 0.6);
-}
-
-body.dark-mode .ios-row + .ios-row::before {
-  background: rgba(84, 84, 88, 0.65);
-}
 
 /* The sheet is a phone-only affordance */
 @media screen and (min-width: 769px) {
@@ -1075,10 +873,6 @@ button.mapboxgl-ctrl-geolocate {
   color: #007aff;
 }
 
-body.dark-mode .control-btn.locating {
-  background: rgba(10, 132, 255, 0.28);
-  color: #0a84ff;
-}
 
 /* Transient toast (e.g. permission errors) */
 .map-toast {
@@ -1139,10 +933,6 @@ body.dark-mode .control-btn.locating {
 
 .sheet-share .material-icons {
   font-size: 20px;
-}
-
-body.dark-mode .sheet-share {
-  background: #0a84ff;
 }
 
 
@@ -1352,28 +1142,6 @@ body.dark-mode .sheet-share {
   font-size: 16px;
 }
 
-/* Dark mode */
-body.dark-mode .offline-card {
-  background: #1c1c1e;
-  color: #f5f5f5;
-}
-
-body.dark-mode .offline-desc,
-body.dark-mode .offline-progress-label,
-body.dark-mode .offline-storage {
-  color: rgba(235, 235, 245, 0.6);
-}
-
-body.dark-mode .offline-check {
-  background: #2c2c2e;
-  color: #f5f5f5;
-}
-
-body.dark-mode .offline-btn-secondary {
-  background: rgba(120, 120, 128, 0.32);
-  color: #0a84ff;
-}
-
 
 /* ===========================================================================
    Navigation UI (directions button, route, banner)
@@ -1420,14 +1188,6 @@ body.dark-mode .offline-btn-secondary {
   background: rgba(120, 120, 128, 0.28);
 }
 
-body.dark-mode .sheet-directions {
-  background: #0a84ff;
-}
-
-body.dark-mode .sheet-share {
-  background: rgba(120, 120, 128, 0.32);
-  color: #0a84ff;
-}
 
 /* Live user position dot during navigation */
 .nav-user-dot {
@@ -1565,24 +1325,6 @@ body.dark-mode .sheet-share {
 /* Reduce chrome while navigating */
 body.navigating .compass-widget {
   display: none;
-}
-
-/* Dark mode banner */
-body.dark-mode .nav-banner {
-  background: rgba(28, 28, 30, 0.96);
-}
-
-body.dark-mode .nav-distance {
-  color: #fff;
-}
-
-body.dark-mode .nav-meta {
-  color: rgba(235, 235, 245, 0.6);
-}
-
-body.dark-mode .nav-recenter {
-  background: rgba(28, 28, 30, 0.96);
-  color: #0a84ff;
 }
 
 
@@ -1793,11 +1535,6 @@ body.dark-mode .nav-recenter {
   text-overflow: ellipsis;
 }
 
-.search-result-dist {
-  flex: 0 0 auto;
-  font-size: 15px;
-  color: rgba(60, 60, 67, 0.6);
-}
 
 .search-empty {
   padding: 28px 8px;
@@ -1821,39 +1558,6 @@ body.dark-mode .nav-recenter {
   .search-sheet.open {
     transform: translateY(0);
   }
-}
-
-/* Dark mode */
-body.dark-mode .search-sheet {
-  background: #000;
-}
-
-body.dark-mode .search-field {
-  background: rgba(120, 120, 128, 0.24);
-}
-
-body.dark-mode .search-input,
-body.dark-mode .search-result-text {
-  color: #fff;
-}
-
-body.dark-mode .search-input::placeholder,
-body.dark-mode .search-field .material-icons,
-body.dark-mode .search-result-dist,
-body.dark-mode .search-empty {
-  color: rgba(235, 235, 245, 0.6);
-}
-
-body.dark-mode .search-grabber {
-  background: rgba(235, 235, 245, 0.3);
-}
-
-body.dark-mode .search-result {
-  border-bottom-color: rgba(84, 84, 88, 0.5);
-}
-
-body.dark-mode .search-cancel {
-  color: #0a84ff;
 }
 
 
@@ -1899,9 +1603,6 @@ body.dark-mode .search-cancel {
   touch-action: auto;
 }
 
-body.dark-mode .search-clear {
-  background: rgba(120, 120, 128, 0.6);
-}
 
 /* Keep bottom-anchored map chrome above the persistent peek panel on phones */
 @media screen and (max-width: 768px) {
@@ -1958,14 +1659,6 @@ body.dark-mode .search-clear {
   font-size: 15px;
   vertical-align: -3px;
   margin-right: 5px;
-}
-
-body.dark-mode .offline-status {
-  color: rgba(235, 235, 245, 0.6);
-}
-
-body.dark-mode .offline-status.is-downloaded {
-  color: #30d158;
 }
 
 
@@ -2052,33 +1745,12 @@ body.dark-mode .offline-status.is-downloaded {
   vertical-align: -3px;
 }
 
-/* Dark mode */
-body.dark-mode .offline-install {
-  border-top-color: rgba(84, 84, 88, 0.5);
-}
-
-body.dark-mode .offline-install-toggle,
-body.dark-mode .offline-plat-btn {
-  color: #0a84ff;
-}
-
-body.dark-mode .offline-plat-btn {
-  background: rgba(120, 120, 128, 0.32);
-}
-
-body.dark-mode .offline-step {
-  color: rgba(235, 235, 245, 0.7);
-}
-
-body.dark-mode .offline-step .material-icons {
-  color: #0a84ff;
-}
-
 
 /* ===========================================================================
-   Desktop: persistent left search panel (no close, no resize)
+   Desktop: left search panel, shown/hidden with an edge tab (no resize)
    =========================================================================== */
-.desktop-search {
+.desktop-search,
+.desktop-search-toggle {
   display: none; /* shown only on desktop (see media query) */
 }
 
@@ -2095,6 +1767,46 @@ body.dark-mode .offline-step .material-icons {
     background: #f2f2f7;
     box-shadow: 2px 0 18px rgba(0, 0, 0, 0.14);
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+    transition: transform 0.25s ease;
+  }
+
+  .desktop-search.is-collapsed {
+    transform: translateX(-100%);
+    box-shadow: none;
+  }
+
+  /* Edge tab that hides/shows the panel; rides along the panel's right edge */
+  .desktop-search-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 20px;
+    left: 360px;
+    z-index: 1101;
+    width: 28px;
+    height: 48px;
+    padding: 0;
+    border: none;
+    border-radius: 0 10px 10px 0;
+    background: #f2f2f7;
+    color: rgba(60, 60, 67, 0.8);
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    transition: left 0.25s ease;
+  }
+
+  .desktop-search-toggle:hover {
+    color: #000;
+  }
+
+  .desktop-search-toggle:focus-visible {
+    outline: 2px solid #007aff;
+    outline-offset: 2px;
+  }
+
+  body.panel-collapsed .desktop-search-toggle {
+    left: 0;
   }
 
   .desktop-search-bar {
@@ -2112,10 +1824,17 @@ body.dark-mode .offline-step .material-icons {
   .mapboxgl-ctrl-bottom-left {
     margin-left: 372px !important;
   }
+
+  body.panel-collapsed .mapboxgl-ctrl-bottom-left {
+    margin-left: 40px !important;
+  }
 }
 
-body.dark-mode .desktop-search {
-  background: #000;
+@media (prefers-reduced-motion: reduce) {
+  .desktop-search,
+  .desktop-search-toggle {
+    transition: none;
+  }
 }
 
 
