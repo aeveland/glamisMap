@@ -59,6 +59,8 @@ check(badRange === 0, `all coordinates are within the Glamis region (${badRange}
 // Every local photo referenced by the data must exist on disk EXACTLY (paths
 // are case-sensitive on GitHub Pages / githack, though not on macOS).
 const brokenPhotos = [];
+const misnamedPhotos = [];
+const usedPhotos = new Set();
 for (const f of geo.features) {
   for (const key of ['images', 'image']) {
     const v = (f.properties?.[key] || '').trim();
@@ -66,18 +68,32 @@ for (const f of geo.features) {
     for (const part of v.split(',')) {
       const ref = part.trim();
       if (!ref || /^https?:\/\//i.test(ref)) continue;
-      if (!existsSync(join(root, ref.replace(/^\.\//, '')))) {
+      const rel = ref.replace(/^\.\//, '');
+      usedPhotos.add(rel);
+      if (!existsSync(join(root, rel))) {
         brokenPhotos.push(`${f.properties.name}: ${ref}`);
       }
+      // Photos are named after their location: photos/<id>-<n>.jpeg
+      const m = rel.match(/^photos\/(.+)-\d+\.jpeg$/);
+      if (!m || m[1] !== f.id) misnamedPhotos.push(`${f.properties.name}: ${ref}`);
     }
   }
 }
 check(brokenPhotos.length === 0,
   `all referenced photos exist on disk (${brokenPhotos.length} broken${brokenPhotos.length ? ': ' + brokenPhotos.join(', ') : ''})`);
+check(misnamedPhotos.length === 0,
+  `photos follow photos/<location-id>-<n>.jpeg (${misnamedPhotos.length} off${misnamedPhotos.length ? ': ' + misnamedPhotos.join(', ') : ''})`);
+const unusedPhotos = readdirSync(join(root, 'photos'))
+  .filter((n) => !n.startsWith('.') && !usedPhotos.has(`photos/${n}`));
+check(unusedPhotos.length === 0,
+  `every file in photos/ is used by a location (${unusedPhotos.length} unused${unusedPhotos.length ? ': ' + unusedPhotos.join(', ') : ''})`);
+const badIds = geo.features.filter((f) => !/^[a-z0-9-]+$/.test(String(f.id)));
+check(badIds.length === 0, `location ids are lowercase-with-dashes (${badIds.length} not)`);
+check(new Set(geo.features.map((f) => f.id)).size === geo.features.length, 'location ids are unique');
 
 // ---------------------------------------------------------------------------
 section('3. Symbol icons exist for every sym');
-const images = new Set(readdirSync(join(root, 'images')));
+const images = new Set(readdirSync(join(root, 'markers')));
 const syms = new Set(geo.features.map((f) => f.properties?.sym).filter(Boolean));
 let missing = 0;
 for (const sym of syms) {
@@ -86,6 +102,11 @@ for (const sym of syms) {
 }
 check(missing === 0, `all ${syms.size} symbols have default + selected icons`);
 check(images.has('default.png') && images.has('selected.png'), 'fallback icons (default/selected) exist');
+const neededIcons = new Set(['default.png', 'selected.png']);
+for (const sym of syms) { neededIcons.add(`${sym}.png`); neededIcons.add(`${sym}Selected.png`); }
+const unusedIcons = [...images].filter((n) => !n.startsWith('.') && !neededIcons.has(n));
+check(unusedIcons.length === 0,
+  `every file in markers/ is used (${unusedIcons.length} unused${unusedIcons.length ? ': ' + unusedIcons.join(', ') : ''})`);
 
 // ---------------------------------------------------------------------------
 section('4. escapeHTML neutralizes injection');
