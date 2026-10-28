@@ -98,4 +98,4 @@ tests/validate.mjs          Checks the data and code for problems
 
 ## Ownership
 
-© Glamis.com. All rights reserved. See [LICENSE](LICENSE). For questions about the map, contact Andy Eveland.
+© Glamis Guide. All rights reserved. See [LICENSE](LICENSE). For questions about the map, contact Andy Eveland.
