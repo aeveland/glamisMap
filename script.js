@@ -204,10 +204,10 @@ let cachedGeoJSON = null;
 // callback signature is (error, image). The image is registered under imageId.
 function loadImageWithFallback(file, fallbackFile, imageId) {
   return new Promise((resolve) => {
-    map.loadImage(`./markers/${file}.png`, (error, image) => {
+    map.loadImage(`./images/${file}.png`, (error, image) => {
       if (error || !image) {
         console.warn(`Could not load ${file}.png, using ${fallbackFile}.png`);
-        map.loadImage(`./markers/${fallbackFile}.png`, (fbError, fbImage) => {
+        map.loadImage(`./images/${fallbackFile}.png`, (fbError, fbImage) => {
           if (!fbError && fbImage && !map.hasImage(imageId)) {
             map.addImage(imageId, fbImage);
           }
@@ -852,9 +852,9 @@ function populateSheet(props, coords) {
   const sym = props.sym || 'default';
   iconImg.onerror = () => {
     iconImg.onerror = null;
-    iconImg.src = './markers/default.png';
+    iconImg.src = './images/default.png';
   };
-  iconImg.src = `./markers/${encodeURIComponent(sym)}.png`;
+  iconImg.src = `./images/${encodeURIComponent(sym)}.png`;
 
   // textContent is inherently injection-safe.
   document.getElementById('sheet-title').textContent = props.name || 'Location';
@@ -2067,9 +2067,9 @@ function makeResultRow(item, onSelect) {
   img.loading = 'lazy';
   img.onerror = () => {
     img.onerror = null;
-    img.src = './markers/default.png';
+    img.src = './images/default.png';
   };
-  img.src = `./markers/${encodeURIComponent(item.sym)}.png`;
+  img.src = `./images/${encodeURIComponent(item.sym)}.png`;
 
   const name = document.createElement('div');
   name.className = 'search-result-text';

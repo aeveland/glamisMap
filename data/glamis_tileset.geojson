@@ -39,7 +39,7 @@
         "cmt": "Point of Interest",
         "sym": "campaign",
         "type": "",
-        "images": "photos/banshee-point-1.jpeg",
+        "images": "",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -83,7 +83,7 @@
         "cmt": "Point of Interest",
         "sym": "south",
         "type": "",
-        "images": "photos/brawley-slide-1.jpeg",
+        "images": "popupImages/IMG_0227.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -171,7 +171,7 @@
         "cmt": "Ranger Station",
         "sym": "badge",
         "type": "Restrooms",
-        "images": "photos/cahuila-ranger-station-1.jpeg",
+        "images": "popupImages/rangers001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -281,7 +281,7 @@
         "cmt": "Point of Interest",
         "sym": "fort",
         "type": "",
-        "images": "photos/china-wall-1.jpeg",
+        "images": "popupImages/IMG_3058.jpeg, popupImages/IMG_5708.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -325,7 +325,7 @@
         "cmt": "Point of Interest",
         "sym": "trophy",
         "type": "",
-        "images": "photos/competition-hill-1.jpeg",
+        "images": "popupImages/comp1.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -391,7 +391,7 @@
         "cmt": "Point of Interest",
         "sym": "flag",
         "type": "",
-        "images": "photos/flagpole-1.jpeg",
+        "images": "popupImages/IMG_0024.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -413,7 +413,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "Restrooms",
-        "images": "photos/gecko-loop-1.jpeg, photos/gecko-loop-2.jpeg",
+        "images": "popupImages/Geckoloop-1.jpeg, popupImages/gecko001.jpeg, popupImages/geck001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -435,7 +435,7 @@
         "cmt": "Vendor",
         "sym": "storefront",
         "type": "",
-        "images": "photos/glamis-beach-store-1.jpeg, photos/glamis-beach-store-2.jpeg",
+        "images": "popupImages/beachstore001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -457,7 +457,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "Restrooms",
-        "images": "photos/glamis-flats-1.jpeg",
+        "images": "popupImages/flats001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -545,7 +545,7 @@
         "cmt": "Point of Interest",
         "sym": "two_wheeler",
         "type": "",
-        "images": "photos/honda-point-1.jpeg, photos/honda-point-2.jpeg",
+        "images": "",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -589,7 +589,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/keyhole-1.jpeg",
+        "images": "popupImages/keyhole001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -611,7 +611,7 @@
         "cmt": "Point of Interest",
         "sym": "pets",
         "type": "",
-        "images": "photos/lizard-hill-1.jpeg",
+        "images": "",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -721,7 +721,7 @@
         "cmt": "Point of Interest",
         "sym": "local_fire_department",
         "type": "",
-        "images": "photos/oldsmobile-hill-1.jpeg, photos/oldsmobile-hill-2.jpeg, photos/oldsmobile-hill-3.jpeg",
+        "images": "popupImages/IMG_1124.jpeg, popupImages/IMG_1903.jpeg, popupImages/IMG_7610.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -743,7 +743,7 @@
         "cmt": "Point of Interest",
         "sym": "camping",
         "type": "Restrooms",
-        "images": "photos/osborne-overlook-1.jpeg, photos/osborne-overlook-2.jpeg, photos/osborne-overlook-3.jpeg",
+        "images": "popupImages/osborn1.jpeg, popupImages/osborn001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -765,7 +765,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/pad-1-1.jpeg",
+        "images": "popupImages/geckopad1001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -787,7 +787,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/pad-2-1.jpeg",
+        "images": "popupImages/geckopad2001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -809,7 +809,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/pad-3-1.jpeg",
+        "images": "popupImages/geckopad4001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -831,7 +831,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/pad-4-1.jpeg, photos/pad-4-2.jpeg",
+        "images": "popupImages/IMG_1345.jpeg, popupImages/pad4-1.jpeg, popupImages/geckopad4001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -853,7 +853,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/pad-5-1.jpeg",
+        "images": "popupImages/geckopad5001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -919,7 +919,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "Restrooms",
-        "images": "photos/roadrunner-campground-1.jpeg, photos/roadrunner-campground-2.jpeg",
+        "images": "popupImages/IMG_3393.jpeg, popupImages/roadrunner001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -941,7 +941,7 @@
         "cmt": "Point of Interest",
         "sym": "bolt",
         "type": "",
-        "images": "photos/sand-drags-1.jpeg",
+        "images": "",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -963,7 +963,7 @@
         "cmt": "Vendor",
         "sym": "icecream",
         "type": "",
-        "images": "photos/sweet-maries-1.jpeg, photos/sweet-maries-2.jpeg",
+        "images": "popupImages/maries001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -985,7 +985,7 @@
         "cmt": "Point of Interest",
         "sym": "sports_volleyball",
         "type": "",
-        "images": "photos/swingset-1.jpeg",
+        "images": "popupImages/IMG_1121.jpeg, popupImages/IMG_6094.jpeg, popupImages/IMG_6110.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1095,7 +1095,7 @@
         "cmt": "Vendor",
         "sym": "store",
         "type": "Restrooms",
-        "images": "photos/vendors-row-1.jpeg, photos/vendors-row-2.jpeg",
+        "images": "popupImages/IMG_1122.jpeg, popupImages/IMG_6444.jpeg, popupImages/vendors.jpeg, popupImages/vendors001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1117,7 +1117,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-1-1.jpeg",
+        "images": "popupImages/pad1001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1139,7 +1139,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-10-1.jpeg",
+        "images": "popupImages/pad10001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1161,7 +1161,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-11-1.jpeg",
+        "images": "popupImages/pad11001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1183,7 +1183,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-12-1.jpeg, photos/wash-12-2.jpeg",
+        "images": "popupImages/pad12001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1205,7 +1205,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-13-1.jpeg",
+        "images": "popupImages/pad13001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1227,7 +1227,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-14-1.jpeg",
+        "images": "popupImages/pad14001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1249,7 +1249,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-15-1.jpeg",
+        "images": "popupImages/pad15001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1271,7 +1271,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-16-1.jpeg",
+        "images": "popupImages/pad16001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1293,7 +1293,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-17-1.jpeg",
+        "images": "popupImages/pad17001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1315,7 +1315,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-18-1.jpeg",
+        "images": "popupImages/pad18001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1359,7 +1359,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-2-1.jpeg",
+        "images": "popupImages/pad2001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1381,7 +1381,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-20-1.jpeg",
+        "images": "popupImages/pad20001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1403,7 +1403,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-21-1.jpeg",
+        "images": "popupImages/pad21001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1425,7 +1425,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-22-1.jpeg",
+        "images": "",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1447,7 +1447,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-23-1.jpeg",
+        "images": "",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1491,7 +1491,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-3-1.jpeg",
+        "images": "popupImages/pad3001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1513,7 +1513,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-4-1.jpeg",
+        "images": "popupImages/pad4001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1535,7 +1535,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-5-1.jpeg",
+        "images": "popupImages/pad5001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1557,7 +1557,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-6-1.jpeg",
+        "images": "popupImages/pad6001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1579,7 +1579,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-7-1.jpeg",
+        "images": "popupImages/pad7001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1601,7 +1601,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-8-1.jpeg",
+        "images": "popupImages/pad8001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1623,7 +1623,7 @@
         "cmt": "Camping",
         "sym": "camping",
         "type": "",
-        "images": "photos/wash-9-1.jpeg",
+        "images": "popupImages/pad9001.jpeg",
         "link1_href": "",
         "time": "2025-09-10T00:00:00Z",
         "image": ""
@@ -1631,7 +1631,7 @@
     },
     {
       "type": "Feature",
-      "id": "firemans-box",
+      "id": "Firemans Box",
       "geometry": {
         "type": "Point",
         "coordinates": [
@@ -1645,7 +1645,7 @@
         "cmt": "Point of Interest",
         "sym": "terrain",
         "type": "",
-        "images": "photos/firemans-box-1.jpeg",
+        "images": "popupImages/IMG_0224.jpeg",
         "link1_href": "",
         "time": "2025-12-10T00:00:00Z",
         "image": ""
@@ -1653,7 +1653,7 @@
     },
     {
       "type": "Feature",
-      "id": "trough",
+      "id": "Trough",
       "geometry": {
         "type": "Point",
         "coordinates": [
@@ -1667,7 +1667,7 @@
         "cmt": "Point of Interest",
         "sym": "terrain",
         "type": "",
-        "images": "photos/trough-1.jpeg",
+        "images": "popupImages/IMG_6593.jpeg",
         "link1_href": "",
         "time": "2025-12-10T00:00:00Z",
         "image": ""
@@ -1675,7 +1675,7 @@
     },
     {
       "type": "Feature",
-      "id": "carlas-bench",
+      "id": "Carla's Bench",
       "geometry": {
         "type": "Point",
         "coordinates": [
@@ -1689,7 +1689,7 @@
         "cmt": "Point of Interest",
         "sym": "terrain",
         "type": "",
-        "images": "photos/carlas-bench-1.jpeg",
+        "images": "popupImages/IMG_6576.jpeg",
         "link1_href": "",
         "time": "2025-12-10T00:00:00Z",
         "image": ""
@@ -1697,7 +1697,7 @@
     },
     {
       "type": "Feature",
-      "id": "the-windmill",
+      "id": "The Windmill",
       "geometry": {
         "type": "Point",
         "coordinates": [
@@ -1719,7 +1719,7 @@
     },
     {
       "type": "Feature",
-      "id": "satellite-bar",
+      "id": "Satellite Bar",
       "geometry": {
         "type": "Point",
         "coordinates": [
@@ -1733,7 +1733,7 @@
         "cmt": "Point of Interest",
         "sym": "terrain",
         "type": "",
-        "images": "photos/satellite-bar-1.jpeg",
+        "images": "popupImages/IMG_6589.jpeg",
         "link1_href": "",
         "time": "2025-12-10T00:00:00Z",
         "image": ""

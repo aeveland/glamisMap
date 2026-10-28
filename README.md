@@ -43,7 +43,7 @@ Copy these files and folders to a folder on the Glamis.com web server:
 ```text
 index.html  script.js  style.css  sw.js  manifest.webmanifest  privacy.html
 data/glamis_tileset.geojson
-markers/  photos/  icons/
+images/  icons/  popupImages/
 ```
 
 - The site must be served over **HTTPS**, or browsers will block the location features.
@@ -63,35 +63,16 @@ All locations live in one file: `data/glamis_tileset.geojson`. Each location is 
     "name": "America Canal OHV Bridge",
     "desc": "A key crossing point over the American Canal...",
     "sym": "flyover",
-    "images": "photos/america-canal-ohv-bridge-1.jpeg, photos/america-canal-ohv-bridge-2.jpeg"
+    "images": "popupImages/photo1.jpeg, popupImages/photo2.jpeg"
   }
 }
 ```
 
-- **id** is the location's short name, written in lowercase with dashes (for example `china-wall` or `wash-5`). Every location needs a different id.
 - **coordinates** are **longitude first, then latitude**, which is the reverse of how Google Maps shows them.
-- **sym** chooses the pin icon. It must match a pair of files in `markers/`: `<sym>.png` for the normal pin and `<sym>Selected.png` for the highlighted one.
-- **images** is an optional list of photos, separated by commas. They appear in the order listed.
+- **sym** chooses the icon. It must match a pair of files in `images/`: `<sym>.png` for the normal icon and `<sym>Selected.png` for the highlighted one.
+- **images** is an optional list of photos, separated by commas, stored in `popupImages/`.
 - Elevation is filled in automatically from terrain data.
-- To **remove** a location, delete its whole block, including the comma that separates it from its neighbour. Also delete its photos from `photos/`.
-
-### Photos and pin icons
-
-Each folder holds one kind of file and uses one naming rule:
-
-| Folder | What's in it | How files are named |
-| --- | --- | --- |
-| `photos/` | Location photos | `<id>-1.jpeg`, `<id>-2.jpeg`, … after the location's id. For example, `photos/china-wall-1.jpeg` belongs to `china-wall`. |
-| `markers/` | Pin icons | `<sym>.png` and `<sym>Selected.png`, plus `default.png` and `selected.png` as fallbacks |
-
-To **add a photo**:
-
-1. Save it as a `.jpeg` in `photos/`, named `<id>-<next number>.jpeg`.
-2. Add its path to that location's `images` list.
-
-Keep photos small, ideally under 1 MB each, so the map loads quickly on a phone.
-
-The check below fails if a photo or icon isn't used by any location, or if a photo doesn't follow the naming rule. That keeps the folders tidy.
+- To **remove** a location, delete its whole block, including the comma that separates it from its neighbour.
 
 To check the file for mistakes before publishing, run this from the project folder. It needs [Node.js](https://nodejs.org):
 
@@ -99,7 +80,7 @@ To check the file for mistakes before publishing, run this from the project fold
 node tests/validate.mjs
 ```
 
-It reports broken data, missing or unused photos and icons, and similar problems.
+It reports broken data, missing icons, and similar problems.
 
 ## Files
 
@@ -108,9 +89,9 @@ index.html                  The map page
 script.js                   Map behaviour (pins, search, panels, directions)
 style.css                   Look and layout
 data/glamis_tileset.geojson All locations
-markers/                    Pin icons (one pair per symbol)
-photos/                     Location photos (named after the location id)
-icons/                      App icon (home-screen icon)
+images/                     Location icons
+popupImages/                Location photos
+icons/                      App icon
 privacy.html                Privacy policy
 tests/validate.mjs          Checks the data and code for problems
 ```
