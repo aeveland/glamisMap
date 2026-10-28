@@ -1,158 +1,101 @@
 # Glamis Map
 
-An interactive map of Glamis, California, featuring notable points of interest like China Wall, Vendor Row, and more. Built with Mapbox and hosted on GitHub Pages.
+An interactive map of the Imperial Sand Dunes (Glamis, California) for Glamis.com. It shows 79 notable spots in the dunes, from China Wall and Vendor Row to campgrounds, landmarks, and points of interest, each with its own icon, photos, elevation, and a short description.
 
-## 🌍 Live Map
-**[View Live Map](https://aeveland.github.io/glamisMap/)**
+**Live map:** <https://aeveland.github.io/glamisMap/>
 
-## 🆕 What's New
-### May 29, 2026 — Major update
-A large round of new features, reliability fixes, and an automated test suite.
+## What visitors can do
 
-#### 📱 Mobile experience (Apple Maps-style)
-- New **persistent bottom panel** with the search field pinned at the top — loads at half height, expands to full height when the search field is tapped, and reduces to mid height when a location is selected.
-- **Location card** in the panel: symbol icon (matching the map marker), name, side-by-side **Directions** (labeled with live distance) and **Share** buttons, image carousel, and collapsible Lat/Lng (with copy), Elevation, and Description. Includes a close button.
+- **Browse and search locations.** Every location is listed by name. On a computer the list sits in a side panel that can be shown or hidden with the tab on its edge. On a phone it's a bottom panel that can be swiped up and down.
+- **Open a location.** Tapping a pin or a list item shows its photos, elevation, and description.
+- **See where they are.** The location button shows the visitor's position as a blue dot. A second tap turns on compass heading.
+- **Get directions.** The **Directions** button draws a straight line from the visitor to the location, with live distance and heading. It uses a straight line rather than roads, so it can reach spots out in the dunes.
+- **Share a location.** The **Share** button sends a map link to the spot.
 
-#### 🔎 Search
-- Search locations by name; each result shows its **icon, name, and distance** from your current location (nearest first, updating live as you move).
-- Selecting a result flies to the point and opens its card (mobile) or its popover on the map (desktop).
+The map uses satellite imagery and always stays flat (top-down). Visitors can zoom and rotate it but can't tilt it.
 
-#### 🖥️ Desktop
-- Persistent **left-hand search panel** that can't be closed or resized. Selecting a result opens that location's popover on the map.
+## Putting it on Glamis.com
 
-#### 🧭 Navigation & location
-- **"Blue dot"** live location (Mapbox GeolocateControl) driven by a custom glass button: tap to center & follow, tap again for device-heading/compass mode.
-- **Directions** to any point: a dashed straight-line route (no routing service required — reaches off-road dune points), an Apple-style banner with live distance + heading, a frame-then-follow camera with a Recenter button, and arrival detection.
+There are two ways to do this.
 
-#### 🗺️ Map
-- **Clustering** of nearby points — tap a cluster to zoom in and expand it.
-- **Collapsible map tools** — one button collapses the whole control stack to save screen space.
-- Basemap selector now opens to the side so it no longer overlaps the other controls.
+### Option A: Embed it (simplest)
 
-#### 🛠️ Reliability & fixes
-- Fixed custom pin symbols disappearing after switching basemaps (icons are reloaded on every style change).
-- Removed duplicate map event handlers that accumulated on each basemap switch.
-- Escaped all point text rendered in popups/cards (prevents broken layout and injection).
-- Defined the missing `--text-primary` color variable, added a clipboard fallback for non-secure contexts, and added `lang` + a meta description.
-- Added an automated static **test suite** (`tests/validate.mjs`, run with `node tests/validate.mjs`) covering data/asset integrity, HTML escaping, and the wiring for every feature above.
+Paste this into the Glamis.com page where the map should appear:
 
-### September 12, 2025
-- Created custom symbols for each location.
- 
-### September 11, 2025
-- Interactive Mapbox map with custom points
-- Satellite imagery by default
-- Custom pin markers for locations
-- Full keyboard navigation support
-- Screen reader accessibility
-- **Admin Interface**: Complete GeoJSON editor for managing map points
-
-## 🔧 Admin Interface
-**[Access Admin Panel](admin.html)**
-The admin interface provides a comprehensive tool for editing map data:
-- **Visual Editor**: Click-to-add points directly on the satellite map
-- **Form-Based Editing**: Edit point names, descriptions, and images
-- **Local File Support**: Load and edit your GeoJSON files locally
-- **Mapbox Integration**: Direct workflow for updating tilesets
-- **No Authentication**: Streamlined for GitHub Pages hosting
-
-
-### September 7, 2025
-- Implemented smooth popup animations with slide-up effects on mobile and fade transitions on desktop  
-- Added comprehensive dark mode toggle with persistent localStorage preferences  
-- Enhanced visual depth with improved shadows and glass-morphism styling throughout the interface  
-- Integrated Material Design Icons for better visual hierarchy (place, terrain, info icons)  
-- Added interactive copy-to-clipboard functionality for coordinates with visual feedback  
-- Streamlined UI by removing search functionality and moving dark mode toggle to map controls  
-- Fixed popup content styling consistency across all sections for uniform appearance  
-- Enhanced mobile responsiveness with improved touch interactions and popup positioning
-- Built complete admin interface with secure login, interactive map editor, crosshair point placement, coordinate input validation, and comprehensive point management tools  
-
-### August 6, 2025
-- Implemented Apple's liquid glass effect for a modern, blurred background UI feel  
-- Styled popups to display titles and descriptions more cleanly  
-- Confirmed GitHub-hosted images work for popup displays  
-- Replaced dummy elevation data with actual elevation values for all GPX points  
-- Added updated default location symbol  
-- Added map labels for each location  
-
-### August 4, 2025
-- Replaced old GPX data with updated descriptions  
-
-### August 3, 2025
-- Created custom popup cards using Shoelace UI  
-
-
-## 📁 Project Structure
-```
-glamisMap/
-├── index.html                  # Main interactive map
-├── admin.html                  # Admin interface for editing points
-├── script.js                   # Map, search, navigation & UI logic
-├── admin.js                    # Admin interface functionality
-├── style.css                   # Styles for the map and UI
-├── LICENSE                     # Legal restrictions and ownership info
-├── README.md                   # Project description and usage
-├── data/
-│   └── glamis_tileset.geojson  # Point data in GeoJSON format
-├── images/                     # Marker icons and other assets
-│   ├── default.png             # Default pin image
-│   ├── selected.png            # Selected pin image
-│   └── <sym>.png / <sym>Selected.png  # Per-symbol marker icons
-├── popupImages/                # Photos shown in location popups/cards
-├── tests/
-│   └── validate.mjs            # Static test suite (run: node tests/validate.mjs)
-└── js/
-    ├── map.js                  # (legacy/unused) earlier clustering helpers
-    └── ui.js                   # (legacy/unused) earlier UI helpers
+```html
+<iframe
+  src="https://aeveland.github.io/glamisMap/"
+  title="Glamis Map"
+  style="width:100%; height:80vh; border:0;"
+  allow="geolocation"
+  loading="lazy">
+</iframe>
 ```
 
-## Admin Workflow
-1. Visit [admin.html](admin.html) 
-2. Load your local `glamis_tileset.geojson` file
-3. Edit points using the map and forms
-4. Download the updated GeoJSON
-5. Replace the POI-8oc448 on [console.mapbox.com/studio/tilesets](https://console.mapbox.com/studio/tilesets)
+- `allow="geolocation"` is required. Without it, the location button and Directions won't work inside the embed.
+- Give the map plenty of height (80vh or more). Below 768px wide it switches to the phone layout.
+- Updates to this repository show up on Glamis.com automatically, so nothing needs to be re-embedded.
 
-## 📦 Tools Used
-- Mapbox GL JS (incl. GeolocateControl for live location)
-- [POI.gpx GPX file](data/POI.gpx)
-- Vanilla JavaScript
-- Node.js for the static test suite (`node tests/validate.mjs`)
-- Material Icons
+### Option B: Host the files on Glamis.com
 
-## ✅ To Do
-- Upload edited GeoJSON back to server or cloud storage
-- Keep the local GeoJSON photos in sync with the Mapbox tileset
+Copy these files and folders to a folder on the Glamis.com web server:
 
-## 🧪 Testing
-
-### Automated
-Run the static test suite (data/asset integrity, HTML escaping, and feature wiring):
+```text
+index.html  script.js  style.css  sw.js  manifest.webmanifest  privacy.html
+data/glamis_tileset.geojson
+images/  icons/  popupImages/
 ```
+
+- The site must be served over **HTTPS**, or browsers will block the location features.
+- The map tiles come from **Mapbox** using an access token near the top of `script.js`. That token belongs to Andy's Mapbox account. If the token is restricted to certain websites, glamis.com has to be added to its allowed URLs. Glamis.com can also create its own free Mapbox account and replace the token.
+- Future updates mean copying the changed files to the server again.
+
+## Updating locations
+
+All locations live in one file: `data/glamis_tileset.geojson`. Each location is a block like this:
+
+```json
+{
+  "type": "Feature",
+  "id": "america-canal-ohv-bridge",
+  "geometry": { "type": "Point", "coordinates": [-114.8694, 32.7499] },
+  "properties": {
+    "name": "America Canal OHV Bridge",
+    "desc": "A key crossing point over the American Canal...",
+    "sym": "flyover",
+    "images": "popupImages/photo1.jpeg, popupImages/photo2.jpeg"
+  }
+}
+```
+
+- **coordinates** are **longitude first, then latitude**, which is the reverse of how Google Maps shows them.
+- **sym** chooses the icon. It must match a pair of files in `images/`: `<sym>.png` for the normal icon and `<sym>Selected.png` for the highlighted one.
+- **images** is an optional list of photos, separated by commas, stored in `popupImages/`.
+- Elevation is filled in automatically from terrain data.
+- To **remove** a location, delete its whole block, including the comma that separates it from its neighbour.
+
+To check the file for mistakes before publishing, run this from the project folder. It needs [Node.js](https://nodejs.org):
+
+```text
 node tests/validate.mjs
 ```
 
-### Manual checklist
+It reports broken data, missing icons, and similar problems.
 
-### Core Features
-- [ ] **Point Display**: All location pins appear correctly on the map
-- [ ] **Point Interaction**: Clicking on points shows detailed popup information
-- [ ] **Popup Content**: Popups display name, coordinates, elevation, and description
-- [ ] **Copy Coordinates**: Copy-to-clipboard functionality works for coordinates
-- [ ] **Image Display**: Location images (if available) display correctly in popups
-- [ ] **Map Controls**: Compass, basemap switcher, and other controls function properly
-- [ ] **Mobile Responsive**: Map and panel work well on mobile devices
-- [ ] **Keyboard Navigation**: All interactive elements accessible via keyboard
-- [ ] **Screen Reader**: Proper ARIA labels and announcements for accessibility
+## Files
 
-### Today's Features
-- [ ] **Search**: Filtering by name shows icon, name, and live distance; tapping a result opens the location
-- [ ] **Persistent Panel**: Mobile panel half → full (search) → mid (location); desktop left panel always visible
-- [ ] **Clustering**: Nearby points cluster; tapping a cluster zooms in to expand
-- [ ] **Location**: Blue dot centers/follows; second tap enables compass heading
-- [ ] **Directions**: Route line + live distance/heading; Recenter; arrival
-- [ ] **Clustering survives basemap switch**: Pins/clusters reappear after changing basemaps
+```text
+index.html                  The map page
+script.js                   Map behaviour (pins, search, panels, directions)
+style.css                   Look and layout
+data/glamis_tileset.geojson All locations
+images/                     Location icons
+popupImages/                Location photos
+icons/                      App icon
+privacy.html                Privacy policy
+tests/validate.mjs          Checks the data and code for problems
+```
 
-## 🚀 Hosting
-This site is hosted via GitHub Pages. You can fork it and publish your own version easily.
+## Ownership
+
+© Glamis.com. All rights reserved. See [LICENSE](LICENSE). For questions about the map, contact Andy Eveland.

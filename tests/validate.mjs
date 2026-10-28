@@ -29,7 +29,7 @@ const section = (name) => console.log(`\n${name}`);
 
 // ---------------------------------------------------------------------------
 section('1. JavaScript syntax');
-for (const file of ['script.js', 'admin.js', 'js/map.js', 'js/ui.js', 'sw.js']) {
+for (const file of ['script.js', 'js/map.js', 'js/ui.js', 'sw.js']) {
   try {
     execFileSync('node', ['--check', join(root, file)], { stdio: 'pipe' });
     pass(`${file} parses`);
@@ -110,7 +110,6 @@ check(!/onclick="openImageModal/.test(scriptSrc), 'no inline onclick for image m
 section('5. Inline handlers reference defined functions');
 const pairs = [
   ['index.html', 'script.js'],
-  ['admin.html', 'admin.js'],
 ];
 for (const [htmlFile, jsFile] of pairs) {
   const html = readFileSync(join(root, htmlFile), 'utf8');
